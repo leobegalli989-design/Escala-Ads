@@ -71,29 +71,43 @@ export const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-black/95 border-b border-white/10 overflow-hidden"
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-[6000] md:hidden bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center p-8"
           >
-            <div className="flex flex-col gap-4 p-6">
-              {navLinks.map((link) => (
-                <a
+            <button
+              className="absolute top-8 right-8 text-white p-2 hover:bg-white/10 rounded-full transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <X size={32} />
+            </button>
+
+            <div className="flex flex-col gap-8 items-center w-full">
+              {navLinks.map((link, index) => (
+                <motion.a
                   key={link.name}
                   href={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 + 0.2 }}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg font-medium text-white/70 hover:text-primary transition-colors uppercase tracking-widest"
+                  className="text-3xl font-black text-white hover:text-primary transition-colors uppercase tracking-widest"
                 >
                   {link.name}
-                </a>
+                </motion.a>
               ))}
-              <a
+              <motion.a
                 href="#contact"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: navLinks.length * 0.1 + 0.3 }}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full py-4 bg-primary text-black font-bold rounded-xl text-center"
+                className="w-full max-w-xs py-5 bg-primary text-black font-black rounded-xl text-center uppercase tracking-widest shadow-[0_0_30px_rgba(20,163,229,0.3)]"
               >
                 Falar com Especialista
-              </a>
+              </motion.a>
             </div>
           </motion.div>
         )}

@@ -6,17 +6,23 @@ import { Particles } from './Particles';
 import { PerformanceDashboard } from './PerformanceDashboard';
 import { Magnetic } from './Magnetic';
 
-const StatItem = ({ value, label }: { value: string; label: string }) => (
-  <div className="flex flex-col">
-    <motion.span
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="text-3xl md:text-4xl font-montserrat text-primary"
-    >
-      {value}
-    </motion.span>
-    <span className="text-xs uppercase tracking-widest text-white/50">{label}</span>
+import { AnimatedCounter } from './AnimatedCounter';
+
+const StatItem = ({ value, numericValue, label, prefix = '', suffix = '' }: { value: string; numericValue: number; label: string; prefix?: string; suffix?: string }) => (
+  <div className="flex flex-col items-center sm:items-start group">
+    <div className="relative">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        className="text-3xl md:text-4xl font-montserrat text-primary font-black tracking-tighter"
+      >
+        <AnimatedCounter value={numericValue} prefix={prefix} suffix={suffix} decimals={numericValue % 1 !== 0 ? 1 : 0} />
+      </motion.div>
+      {/* Glow effect on hover */}
+      <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+    </div>
+    <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/40 font-bold mt-1">{label}</span>
   </div>
 );
 
@@ -45,7 +51,7 @@ export const Hero = () => {
             Performance Digital de Elite
           </motion.div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl mb-6 leading-[0.9] overflow-hidden">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-[0.9] overflow-hidden">
             <motion.span 
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
@@ -69,7 +75,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-gray-neutral text-lg md:text-xl max-w-xl mb-10 font-light leading-relaxed"
+            className="text-gray-neutral text-base sm:text-lg md:text-xl max-w-xl mb-10 font-light leading-relaxed text-center sm:text-left"
           >
             Não somos apenas uma agência. Somos o seu braço de inteligência e performance para escalar faturamentos de <span className="text-primary font-bold shadow-[0_0_15px_rgba(20,163,229,0.3)]">5 e 6</span> dígitos com previsibilidade absoluta.
           </motion.p>
@@ -100,10 +106,10 @@ export const Hero = () => {
             </button>
           </motion.div>
 
-          <div className="grid grid-cols-3 gap-8 border-t border-white/10 pt-8">
-            <StatItem value="+R$ 50M" label="Investidos" />
-            <StatItem value="+250" label="Clientes" />
-            <StatItem value="+1.2K" label="Campanhas" />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 border-t border-white/10 pt-8">
+            <StatItem numericValue={50} value="+R$ 50M" prefix="+R$ " suffix="M" label="Investidos" />
+            <StatItem numericValue={250} value="+250" prefix="+" label="Clientes" />
+            <StatItem numericValue={1.2} value="+1.2K" prefix="+" suffix="K" label="Campanhas" />
           </div>
         </motion.div>
 

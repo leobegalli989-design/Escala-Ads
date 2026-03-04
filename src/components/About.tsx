@@ -74,7 +74,7 @@ export const About = () => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 gap-4"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
           >
             <div className="space-y-4">
               <AboutCard
@@ -92,7 +92,7 @@ export const About = () => {
                 color="#10b981"
               />
             </div>
-            <div className="space-y-4 mt-8">
+            <div className="space-y-4 sm:mt-8">
               <AboutCard
                 icon={ShieldCheck}
                 title="Previsibilidade"

@@ -34,8 +34,39 @@ const pillars = [
 ];
 
 export const CorePillars = () => {
+  const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isMobile) return;
+    const { clientX, clientY, currentTarget } = e;
+    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+    const x = (clientX - left) / width;
+    const y = (clientY - top) / height;
+    setMousePos({ x, y });
+  };
+
   return (
-    <section className="py-24 bg-black relative overflow-hidden">
+    <section className="py-24 bg-black relative overflow-hidden" onMouseMove={handleMouseMove}>
+      {/* Dynamic Background Glow */}
+      {!isMobile && (
+        <motion.div 
+          animate={{
+            x: mousePos.x * 50,
+            y: mousePos.y * 50,
+          }}
+          transition={{ type: "spring", damping: 30, stiffness: 200 }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 blur-[150px] rounded-full pointer-events-none -z-10"
+        />
+      )}
+
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-20">
           <motion.div
@@ -61,52 +92,63 @@ export const CorePillars = () => {
           {pillars.map((pillar, index) => (
             <motion.div
               key={pillar.title}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: pillar.delay, duration: 0.8 }}
-              whileHover={{ y: -10 }}
-              className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/30 transition-all duration-500"
+              transition={{ delay: pillar.delay, duration: 0.5 }}
+              whileHover={{ y: -12, scale: 1.02 }}
+              className="group relative p-8 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-primary/40 transition-all duration-500 overflow-hidden will-change-transform"
             >
+              {/* Card Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              {/* Animated Border Glow */}
+              <div className="absolute -inset-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-500 -z-10" />
+
               <motion.div 
-                className="w-14 h-14 rounded-xl bg-black flex items-center justify-center mb-6 border border-white/10 group-hover:scale-110 transition-transform duration-500"
-                style={{ boxShadow: `0 0 20px ${pillar.color}20` }}
-                animate={typeof window !== 'undefined' && window.innerWidth >= 1024 ? { 
-                  y: [0, -5, 0],
+                className="w-16 h-16 rounded-2xl bg-black/50 backdrop-blur-xl flex items-center justify-center mb-8 border border-white/10 group-hover:border-primary/30 transition-all duration-500 relative z-10"
+                style={{ 
+                  boxShadow: `0 0 30px ${pillar.color}15`,
+                  willChange: 'transform'
+                }}
+                animate={!isMobile ? { 
+                  y: [0, -6, 0],
+                  rotate: [0, 2, 0, -2, 0]
                 } : {}}
                 transition={{ 
-                  duration: 4, 
+                  duration: 5, 
                   repeat: Infinity, 
                   ease: "easeInOut",
-                  delay: index * 0.5
+                  delay: index * 0.7
                 }}
               >
-                <pillar.icon style={{ color: pillar.color }} size={28} />
+                <pillar.icon style={{ color: pillar.color }} size={32} className="relative z-10" />
+                {/* Icon Glow */}
+                <div className="absolute inset-0 bg-primary/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </motion.div>
               
-              <motion.h3 
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: pillar.delay + 0.2 }}
-                className="text-xl font-bold mb-4 text-white group-hover:text-primary transition-colors"
-              >
-                {pillar.title}
-              </motion.h3>
-              
-              <motion.p 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: pillar.delay + 0.4 }}
-                className="text-gray-neutral text-sm leading-relaxed"
-              >
-                {pillar.description}
-              </motion.p>
+              <div className="relative z-10">
+                <h3 className="text-2xl font-black mb-4 text-white group-hover:text-primary transition-colors tracking-tight">
+                  {pillar.title}
+                </h3>
+                
+                <p className="text-gray-neutral text-sm leading-relaxed font-medium opacity-80 group-hover:opacity-100 transition-opacity">
+                  {pillar.description}
+                </p>
+              </div>
 
-              {/* Decorative line */}
-              <div 
-                className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent w-0 group-hover:w-full transition-all duration-700"
-                style={{ backgroundColor: pillar.color }}
-              />
+              {/* Sophisticated Decorative Line */}
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] overflow-hidden">
+                <motion.div 
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '100%' }}
+                  transition={{ duration: 1, ease: "easeInOut" }}
+                  className="w-full h-full bg-gradient-to-r from-transparent via-primary to-transparent"
+                />
+              </div>
+              
+              {/* Corner Accent */}
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </motion.div>
           ))}
         </div>

@@ -57,7 +57,7 @@ const MetricCard = ({ label, value, numericValue, prefix, suffix, decimals, colo
     animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
     transition={{ duration: 1.5, delay: delay * 0.5, ease: "easeOut" }}
     whileHover={{ scale: 1.05, zIndex: 10 }}
-    className="relative p-4 rounded-xl bg-white/5 border border-white/10 overflow-hidden group hover:border-primary/50 transition-all duration-500"
+    className="relative p-4 rounded-xl bg-white/5 border border-white/10 overflow-hidden group hover:border-primary/50 transition-all duration-500 will-change-transform"
   >
     {/* Card Glow Background */}
     <div className={cn("absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500", color)} />
@@ -90,6 +90,15 @@ const MetricCard = ({ label, value, numericValue, prefix, suffix, decimals, colo
 );
 
 export const PerformanceDashboard = () => {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <div className="w-full h-full p-6 flex flex-col gap-4">
       {/* Header */}
@@ -114,25 +123,27 @@ export const PerformanceDashboard = () => {
         className="relative p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-emerald-500/30 overflow-hidden group"
       >
         {/* Background Data Stream Effect */}
-        <div className="absolute inset-0 opacity-5 pointer-events-none overflow-hidden">
-          {Array.from({ length: 10 }).map((_, i) => (
-            <motion.div
-              key={i}
-              initial={{ y: -100 }}
-              animate={{ y: 400 }}
-              transition={{ 
-                duration: Math.random() * 5 + 5, 
-                repeat: Infinity, 
-                ease: "linear",
-                delay: Math.random() * 5
-              }}
-              className="absolute text-[8px] font-mono text-emerald-400 whitespace-nowrap"
-              style={{ left: `${i * 10}%` }}
-            >
-              {Array.from({ length: 20 }).map(() => Math.floor(Math.random() * 2)).join('')}
-            </motion.div>
-          ))}
-        </div>
+        {!isMobile && (
+          <div className="absolute inset-0 opacity-5 pointer-events-none overflow-hidden">
+            {Array.from({ length: 10 }).map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ y: -100 }}
+                animate={{ y: 400 }}
+                transition={{ 
+                  duration: Math.random() * 5 + 5, 
+                  repeat: Infinity, 
+                  ease: "linear",
+                  delay: Math.random() * 5
+                }}
+                className="absolute text-[8px] font-mono text-emerald-400 whitespace-nowrap"
+                style={{ left: `${i * 10}%` }}
+              >
+                {Array.from({ length: 20 }).map(() => Math.floor(Math.random() * 2)).join('')}
+              </motion.div>
+            ))}
+          </div>
+        )}
 
         <div className="flex items-center justify-between mb-4 relative z-10">
           <div className="flex items-center gap-2">
@@ -195,11 +206,13 @@ export const PerformanceDashboard = () => {
         </div>
 
         {/* Scanner Line for Main Card */}
-        <motion.div 
-          animate={{ left: ['-100%', '200%'] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          className="absolute top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-emerald-400/30 to-transparent skew-x-12 pointer-events-none"
-        />
+        {!isMobile && (
+          <motion.div 
+            animate={{ left: ['-100%', '200%'] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            className="absolute top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-emerald-400/30 to-transparent skew-x-12 pointer-events-none"
+          />
+        )}
       </motion.div>
 
       {/* Grid Metrics */}
@@ -234,18 +247,22 @@ export const PerformanceDashboard = () => {
       </div>
 
       {/* Scanner Effect Overlay */}
-      <motion.div
-        animate={{ top: ['-10%', '110%'] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-        className="absolute left-0 right-0 h-[2px] bg-primary/30 shadow-[0_0_20px_rgba(20,163,229,1)] z-50 pointer-events-none"
-      />
+      {!isMobile && (
+        <motion.div
+          animate={{ top: ['-10%', '110%'] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+          className="absolute left-0 right-0 h-[2px] bg-primary/30 shadow-[0_0_20px_rgba(20,163,229,1)] z-50 pointer-events-none"
+        />
+      )}
       
       {/* Random Glitch Overlay for the whole dashboard */}
-      <motion.div
-        animate={{ opacity: [0, 0.05, 0] }}
-        transition={{ duration: 0.1, repeat: Infinity, repeatDelay: 5 }}
-        className="absolute inset-0 bg-white pointer-events-none z-[60]"
-      />
+      {!isMobile && (
+        <motion.div
+          animate={{ opacity: [0, 0.05, 0] }}
+          transition={{ duration: 0.1, repeat: Infinity, repeatDelay: 5 }}
+          className="absolute inset-0 bg-white pointer-events-none z-[60]"
+        />
+      )}
     </div>
   );
 };

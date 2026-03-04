@@ -8,10 +8,10 @@ const cases = [
   {
     client: 'New York Chicken Crispy',
     result: '8.88x ROAS',
-    accentColor: '#f59e0b',
+    accentColor: '#FFCC00',
     description: 'Faturamento de R$ 78.923,75 com apenas R$ 8.886,88 de investimento em anúncios.',
     image: 'https://images.unsplash.com/photo-1606131731446-5568d87113aa?auto=format&fit=crop&q=80&w=800',
-    logo: 'https://api.dicebear.com/7.x/initials/svg?seed=NYCC&backgroundColor=f59e0b&textColor=000000',
+    logo: 'https://i.imgur.com/B5HdJ4K.png',
     fullDetails: {
       challenge: 'Lançamento de marca do zero em um mercado extremamente competitivo de delivery gastronômico.',
       strategy: 'Implementação de funil de vendas direto para WhatsApp e iFood, com foco em criativos cinematográficos de alto desejo e segmentação local ultra-precisa.',
@@ -336,12 +336,12 @@ export const Cases = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/50 to-transparent md:hidden" />
                 </div>
 
-                <div className="p-8 md:p-12 max-h-[80vh] overflow-y-auto">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
+                <div className="p-6 md:p-12 max-h-[80vh] overflow-y-auto">
+                  <div className="flex flex-col sm:flex-row items-center sm:items-center gap-6 mb-8 text-center sm:text-left">
                     {selectedCase.logo && (
                       <button 
                         onClick={() => setPreviewLogo(selectedCase.logo)}
-                        className="w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-white/5 border border-white/10 p-4 sm:p-6 flex items-center justify-center overflow-hidden hover:bg-white/10 transition-all group/modal-logo shadow-xl shrink-0"
+                        className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-white/5 border border-white/10 p-4 sm:p-6 flex items-center justify-center overflow-hidden hover:bg-white/10 transition-all group/modal-logo shadow-xl shrink-0"
                         style={{ borderColor: `${selectedCase.accentColor}30` }}
                         title="Clique para ampliar a logo"
                       >
@@ -356,14 +356,14 @@ export const Cases = () => {
                         />
                       </button>
                     )}
-                    <div>
+                    <div className="flex flex-col items-center sm:items-start">
                       <div 
-                        className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-1"
+                        className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-2"
                         style={{ color: selectedCase.accentColor }}
                       >
                         <TrendingUp size={16} /> {selectedCase.result}
                       </div>
-                      <h3 className="text-3xl md:text-4xl">{selectedCase.client}</h3>
+                      <h3 className="text-2xl md:text-4xl leading-tight">{selectedCase.client}</h3>
                     </div>
                   </div>
                   

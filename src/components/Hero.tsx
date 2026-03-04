@@ -27,14 +27,18 @@ const StatItem = ({ numericValue, label, prefix = '', suffix = '' }: { numericVa
 );
 
 export const Hero = () => {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(() => 
+    typeof window !== 'undefined' ? window.innerWidth >= 1024 : false
+  );
 
   useEffect(() => {
-    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
-    checkDesktop();
+    const checkDesktop = () => {
+      const desktop = window.innerWidth >= 1024;
+      if (desktop !== isDesktop) setIsDesktop(desktop);
+    };
     window.addEventListener('resize', checkDesktop);
     return () => window.removeEventListener('resize', checkDesktop);
-  }, []);
+  }, [isDesktop]);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden">

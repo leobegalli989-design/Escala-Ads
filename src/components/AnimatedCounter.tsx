@@ -12,6 +12,7 @@ interface CounterProps {
 
 export const AnimatedCounter = ({ value, duration = 2, prefix = '', suffix = '', decimals = 0, delay = 0 }: CounterProps) => {
   const [displayValue, setDisplayValue] = useState(0);
+  const initialized = React.useRef(false);
   
   const formatter = useMemo(() => new Intl.NumberFormat('pt-BR', { 
     minimumFractionDigits: decimals, 
@@ -19,6 +20,9 @@ export const AnimatedCounter = ({ value, duration = 2, prefix = '', suffix = '',
   }), [decimals]);
 
   useEffect(() => {
+    if (initialized.current) return;
+    initialized.current = true;
+    
     let controls: any;
     const timeout = setTimeout(() => {
       controls = animate(0, value, {

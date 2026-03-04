@@ -4,10 +4,9 @@ import { motion, AnimatePresence } from 'motion/react';
 export const Loader = () => {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
+    const isMobileDevice = window.innerWidth < 768;
     let timer: NodeJS.Timeout;
     let failsafe: NodeJS.Timeout;
 
@@ -15,20 +14,21 @@ export const Loader = () => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          timer = setTimeout(() => setLoading(false), 500);
+          timer = setTimeout(() => setLoading(false), isMobileDevice ? 200 : 400);
           return 100;
         }
-        const step = isMobile ? 25 : 15;
+        // Faster loading on mobile to avoid perceived stutter
+        const step = isMobileDevice ? 35 : 15;
         const next = prev + Math.random() * step;
         return next > 100 ? 100 : next;
       });
-    }, isMobile ? 50 : 80);
+    }, isMobileDevice ? 30 : 80);
 
-    // Failsafe: force loading to false after 5 seconds
+    // Failsafe: force loading to false after 3.5 seconds
     failsafe = setTimeout(() => {
       setLoading(false);
       clearInterval(interval);
-    }, 5000);
+    }, 3500);
 
     return () => {
       clearInterval(interval);
@@ -36,6 +36,8 @@ export const Loader = () => {
       if (failsafe) clearTimeout(failsafe);
     };
   }, []);
+
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
 
   return (
     <AnimatePresence>

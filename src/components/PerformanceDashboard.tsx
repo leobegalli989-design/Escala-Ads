@@ -5,9 +5,13 @@ import { cn } from '../lib/utils';
 
 const Counter = ({ value, duration = 2, prefix = '', suffix = '', decimals = 0, delay = 0 }: any) => {
   const [displayValue, setDisplayValue] = React.useState(`${prefix}${Number(0).toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}${suffix}`);
+  const initialized = React.useRef(false);
   const count = useMotionValue(0);
 
   useEffect(() => {
+    if (initialized.current) return;
+    initialized.current = true;
+
     const unsubscribe = count.on("change", (latest) => {
       const val = typeof latest === 'number' ? latest : 0;
       const formatted = val.toLocaleString('pt-BR', { 

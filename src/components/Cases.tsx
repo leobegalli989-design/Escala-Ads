@@ -8,9 +8,10 @@ const cases = [
   {
     client: 'New York Chicken Crispy',
     result: '8.88x ROAS',
+    accentColor: '#f59e0b',
     description: 'Faturamento de R$ 78.923,75 com apenas R$ 8.886,88 de investimento em anúncios.',
     image: 'https://images.unsplash.com/photo-1606131731446-5568d87113aa?auto=format&fit=crop&q=80&w=800',
-    logo: 'https://api.dicebear.com/7.x/shapes/svg?seed=NYCC&backgroundColor=14a3e5',
+    logo: 'https://api.dicebear.com/7.x/initials/svg?seed=NYCC&backgroundColor=f59e0b&textColor=000000',
     fullDetails: {
       challenge: 'Lançamento de marca do zero em um mercado extremamente competitivo de delivery gastronômico.',
       strategy: 'Implementação de funil de vendas direto para WhatsApp e iFood, com foco em criativos cinematográficos de alto desejo e segmentação local ultra-precisa.',
@@ -33,6 +34,7 @@ const cases = [
   {
     client: 'Espetinho na Brasa',
     result: '3.66x ROAS',
+    accentColor: '#f97316',
     description: 'Escalamos de R$ 4k para +R$ 25k/mês. Faturamento total com tráfego pago ultrapassando R$ 100.000.',
     image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800',
     logo: 'https://i.imgur.com/iorC73i.png',
@@ -58,9 +60,10 @@ const cases = [
   {
     client: 'Valle Fibra',
     result: '24.28x ROAS',
+    accentColor: '#10b981',
     description: 'Dominação de mercado regional com faturamento de R$ 98.182,89 e investimento estratégico de apenas R$ 4.043,13.',
     image: 'https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?auto=format&fit=crop&q=80&w=800',
-    logo: 'https://i.imgur.com/mK60Pep.png',
+    logo: 'https://i.imgur.com/3BRZHVb.png',
     fullDetails: {
       challenge: 'Custo de aquisição de clientes (CPA) elevado e dificuldade de escala em regiões com alta concorrência de grandes operadoras nacionais.',
       strategy: 'Implementação de campanhas de geofencing ultra-localizadas, landing pages otimizadas para conversão imediata e um funil de vendas direto para o time comercial via WhatsApp, focado em planos de alta velocidade.',
@@ -83,6 +86,7 @@ const cases = [
   {
     client: 'Móveis Camilo',
     result: '14.70x ROAS',
+    accentColor: '#8b5cf6',
     description: 'Transformação digital com faturamento de R$ 24.974,63 e investimento estratégico de R$ 1.698,66.',
     image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800',
     logo: 'https://api.dicebear.com/7.x/shapes/svg?seed=Camilo&backgroundColor=8b5cf6',
@@ -108,6 +112,7 @@ const cases = [
   {
     client: 'Iasmim Personal Chef',
     result: '12.25x ROAS',
+    accentColor: '#ec4899',
     description: 'Faturamento de R$ 10.043,78 com apenas R$ 820,13 de investimento em anúncios.',
     image: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=800',
     logo: 'https://api.dicebear.com/7.x/shapes/svg?seed=Iasmim&backgroundColor=f59e0b',
@@ -133,6 +138,7 @@ const cases = [
   {
     client: 'Nathan Filmes e Acessórios',
     result: '10.36x ROAS',
+    accentColor: '#ef4444',
     description: 'Faturamento de R$ 10.132,00 com investimento estratégico de R$ 977,58 no setor automotivo.',
     image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=800',
     logo: 'https://api.dicebear.com/7.x/shapes/svg?seed=Nathan&backgroundColor=ef4444',
@@ -205,13 +211,33 @@ export const Cases = () => {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-40 group-hover:opacity-60"
                   referrerPolicy="no-referrer"
                 />
+                
+                {/* ROAS Badge - Top Right */}
+                <motion.div 
+                  initial={{ x: 20, opacity: 0 }}
+                  whileInView={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                  className="absolute top-4 right-4 z-20 px-4 py-2 rounded-full backdrop-blur-xl border flex items-center gap-2 shadow-2xl"
+                  style={{ 
+                    backgroundColor: `${item.accentColor}20`,
+                    borderColor: `${item.accentColor}40`,
+                    color: item.accentColor
+                  }}
+                >
+                  <TrendingUp size={18} />
+                  <span className="text-lg font-black tracking-tighter">{item.result}</span>
+                </motion.div>
+
                 {item.logo && (
                   <button 
                     onClick={(e) => {
                       e.stopPropagation();
                       setPreviewLogo(item.logo);
                     }}
-                    className="absolute top-4 left-4 z-20 w-20 h-20 rounded-2xl bg-black/60 backdrop-blur-md border border-white/10 p-4 flex items-center justify-center overflow-hidden hover:border-primary hover:scale-110 transition-all cursor-pointer group/logo shadow-2xl"
+                    className="absolute top-4 left-4 z-20 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-black/60 backdrop-blur-md border border-white/10 p-2 md:p-3 flex items-center justify-center overflow-hidden hover:scale-110 transition-all cursor-pointer group/logo shadow-2xl"
+                    style={{ 
+                      borderColor: `${item.accentColor}30`
+                    }}
                     title="Clique para ampliar a logo"
                   >
                     <img 
@@ -223,7 +249,10 @@ export const Cases = () => {
                         (e.target as HTMLImageElement).style.display = 'none';
                       }}
                     />
-                    <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover/logo:opacity-100 flex items-center justify-center transition-opacity">
+                    <div 
+                      className="absolute inset-0 opacity-0 group-hover/logo:opacity-100 flex items-center justify-center transition-opacity"
+                      style={{ backgroundColor: `${item.accentColor}40` }}
+                    >
                       <Eye size={24} className="text-white drop-shadow-lg" />
                     </div>
                   </button>
@@ -231,23 +260,27 @@ export const Cases = () => {
               </div>
               
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent p-8 flex flex-col justify-end">
-                <motion.div 
-                  initial={{ x: -10, opacity: 0 }}
-                  whileInView={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.5 + index * 0.1 }}
-                  className="flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-widest mb-2"
+                <h3 
+                  className="text-2xl mb-2 transition-colors duration-300"
+                  style={{ color: 'white' }}
                 >
-                  <TrendingUp size={14} /> {item.result}
-                </motion.div>
-                <h3 className="text-2xl mb-2 group-hover:text-primary transition-colors duration-300">{item.client}</h3>
+                  {item.client}
+                </h3>
                 <p className="text-gray-neutral text-xs mb-6 line-clamp-2 opacity-80 group-hover:opacity-100 transition-opacity">
                   {item.description}
                 </p>
                 <button 
                   onClick={() => setSelectedCase(item)}
-                  className="w-full py-3 border border-white/10 group-hover:border-primary/50 group-hover:bg-primary group-hover:text-black transition-all duration-500 rounded-lg flex items-center justify-center gap-2 text-xs font-bold uppercase overflow-hidden relative"
+                  className="w-full py-3 border border-white/10 transition-all duration-500 rounded-lg flex items-center justify-center gap-2 text-xs font-bold uppercase overflow-hidden relative group/btn"
+                  style={{ 
+                    borderColor: `${item.accentColor}20`
+                  }}
                 >
-                  <span className="relative z-10 flex items-center gap-2">
+                  <div 
+                    className="absolute inset-0 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500"
+                    style={{ backgroundColor: item.accentColor }}
+                  />
+                  <span className="relative z-10 flex items-center gap-2 group-hover/btn:text-black transition-colors">
                     Ver Case Completo <ExternalLink size={14} />
                   </span>
                 </button>
@@ -255,7 +288,12 @@ export const Cases = () => {
               
               {/* Hover Glow Effect */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent" />
+                <div 
+                  className="absolute inset-0 bg-gradient-to-tr from-transparent to-transparent" 
+                  style={{ 
+                    background: `radial-gradient(circle at top right, ${item.accentColor}15, transparent 70%)`
+                  }}
+                />
               </div>
             </motion.div>
           ))}
@@ -299,11 +337,12 @@ export const Cases = () => {
                 </div>
 
                 <div className="p-8 md:p-12 max-h-[80vh] overflow-y-auto">
-                  <div className="flex items-center gap-4 mb-6">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
                     {selectedCase.logo && (
                       <button 
                         onClick={() => setPreviewLogo(selectedCase.logo)}
-                        className="w-32 h-32 rounded-3xl bg-white/5 border border-white/10 p-6 flex items-center justify-center overflow-hidden hover:border-primary/50 hover:bg-white/10 transition-all group/modal-logo shadow-xl"
+                        className="w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-white/5 border border-white/10 p-4 sm:p-6 flex items-center justify-center overflow-hidden hover:bg-white/10 transition-all group/modal-logo shadow-xl shrink-0"
+                        style={{ borderColor: `${selectedCase.accentColor}30` }}
                         title="Clique para ampliar a logo"
                       >
                         <img 
@@ -318,7 +357,10 @@ export const Cases = () => {
                       </button>
                     )}
                     <div>
-                      <div className="flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-widest mb-1">
+                      <div 
+                        className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-1"
+                        style={{ color: selectedCase.accentColor }}
+                      >
                         <TrendingUp size={16} /> {selectedCase.result}
                       </div>
                       <h3 className="text-3xl md:text-4xl">{selectedCase.client}</h3>
@@ -327,7 +369,10 @@ export const Cases = () => {
                   
                   <div className="space-y-8">
                     <div>
-                      <h4 className="text-primary text-xs uppercase tracking-widest mb-3 flex items-center gap-2">
+                      <h4 
+                        className="text-xs uppercase tracking-widest mb-3 flex items-center gap-2"
+                        style={{ color: selectedCase.accentColor }}
+                      >
                         <CheckCircle2 size={14} /> O Desafio
                       </h4>
                       <p className="text-gray-neutral text-sm leading-relaxed">
@@ -336,7 +381,10 @@ export const Cases = () => {
                     </div>
 
                     <div>
-                      <h4 className="text-primary text-xs uppercase tracking-widest mb-3 flex items-center gap-2">
+                      <h4 
+                        className="text-xs uppercase tracking-widest mb-3 flex items-center gap-2"
+                        style={{ color: selectedCase.accentColor }}
+                      >
                         <CheckCircle2 size={14} /> Estratégia de Elite
                       </h4>
                       <p className="text-gray-neutral text-sm leading-relaxed">
@@ -345,7 +393,10 @@ export const Cases = () => {
                     </div>
 
                     <div>
-                      <h4 className="text-primary text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
+                      <h4 
+                        className="text-xs uppercase tracking-widest mb-4 flex items-center gap-2"
+                        style={{ color: selectedCase.accentColor }}
+                      >
                         <CheckCircle2 size={14} /> Métricas de Escala
                       </h4>
                       <div className="grid grid-cols-2 gap-4">
@@ -374,9 +425,17 @@ export const Cases = () => {
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: 0.3 + (i * 0.05) }}
-                              className="bg-white/5 border border-white/5 p-4 rounded-xl group/metric hover:border-primary/30 transition-colors"
+                              className="bg-white/5 border border-white/5 p-4 rounded-xl group/metric transition-colors"
+                              style={{ 
+                                borderColor: i % 2 === 0 ? `${selectedCase.accentColor}10` : 'rgba(255,255,255,0.05)'
+                              }}
                             >
-                              <div className="text-[10px] text-gray-neutral uppercase tracking-widest mb-1 group-hover/metric:text-primary transition-colors">{metric.label}</div>
+                              <div 
+                                className="text-[10px] text-gray-neutral uppercase tracking-widest mb-1 group-hover/metric:text-primary transition-colors"
+                                style={{ color: 'rgba(255,255,255,0.4)' }}
+                              >
+                                {metric.label}
+                              </div>
                               <div className={cn("text-lg font-bold", metricColor)}>
                                 <AnimatedCounter 
                                   value={metric.value} 
@@ -395,7 +454,11 @@ export const Cases = () => {
 
                   <button 
                     onClick={() => setSelectedCase(null)}
-                    className="w-full mt-10 py-4 bg-primary text-black font-bold uppercase tracking-widest rounded-xl hover:scale-[1.02] transition-transform"
+                    className="w-full mt-10 py-4 font-bold uppercase tracking-widest rounded-xl hover:scale-[1.02] transition-transform"
+                    style={{ 
+                      backgroundColor: selectedCase.accentColor,
+                      color: 'black'
+                    }}
                   >
                     Fechar Case
                   </button>

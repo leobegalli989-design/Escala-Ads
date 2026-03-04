@@ -77,6 +77,78 @@ const cases = [
       ]
     }
   },
+  {
+    client: 'Móveis Camilo',
+    result: '14.70x ROAS',
+    description: 'Transformação digital com faturamento de R$ 24.974,63 e investimento estratégico de R$ 1.698,66.',
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800',
+    fullDetails: {
+      challenge: 'Dificuldade em escalar vendas online e alto custo de aquisição de clientes no setor de móveis de alto padrão.',
+      strategy: 'Implementação de campanhas de fundo de funil com criativos de alto impacto visual, segmentação por interesse em decoração de luxo e funil de vendas otimizado para fechamento via WhatsApp.',
+      metrics: [
+        { label: 'Faturamento', value: 24974.63, prefix: 'R$ ', decimals: 2 },
+        { label: 'Gasto Ads', value: 1698.66, prefix: 'R$ ', decimals: 2 },
+        { label: 'ROAS', value: 14.70, suffix: 'x', decimals: 2 },
+        { label: 'Ticket Médio', value: 1387.48, prefix: 'R$ ', decimals: 2 },
+        { label: 'CPA Médio', value: 94.37, prefix: 'R$ ', decimals: 2 },
+        { label: 'Conversões', value: 18, decimals: 0 },
+        { label: 'Taxa Conv.', value: 5.45, suffix: '%', decimals: 2 },
+        { label: 'Cliques', value: 330, decimals: 0 },
+        { label: 'CTR Médio', value: 0.19, suffix: '%', decimals: 2 },
+        { label: 'CPC Médio', value: 5.15, prefix: 'R$ ', decimals: 2 },
+        { label: 'Impressões', value: 174000, decimals: 0 },
+        { label: 'Alcance', value: 32200, decimals: 0 }
+      ]
+    }
+  },
+  {
+    client: 'Iasmim Personal Chef',
+    result: '12.25x ROAS',
+    description: 'Faturamento de R$ 10.043,78 com apenas R$ 820,13 de investimento em anúncios.',
+    image: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=800',
+    fullDetails: {
+      challenge: 'Dificuldade em atrair novos clientes para serviços de personal chef e baixa visibilidade online.',
+      strategy: 'Campanhas de tráfego pago focadas em público local de alto poder aquisitivo, utilizando criativos que demonstram a experiência gastronômica e funil direto para agendamento via WhatsApp.',
+      metrics: [
+        { label: 'Faturamento', value: 10043.78, prefix: 'R$ ', decimals: 2 },
+        { label: 'Gasto Ads', value: 820.13, prefix: 'R$ ', decimals: 2 },
+        { label: 'ROAS', value: 12.25, suffix: 'x', decimals: 2 },
+        { label: 'Ticket Médio', value: 143.48, prefix: 'R$ ', decimals: 2 },
+        { label: 'CPA Médio', value: 11.72, prefix: 'R$ ', decimals: 2 },
+        { label: 'Conversões', value: 70, decimals: 0 },
+        { label: 'Taxa Conv.', value: 12.59, suffix: '%', decimals: 2 },
+        { label: 'Cliques', value: 556, decimals: 0 },
+        { label: 'CTR Médio', value: 0.59, suffix: '%', decimals: 2 },
+        { label: 'CPC Médio', value: 1.48, prefix: 'R$ ', decimals: 2 },
+        { label: 'Impressões', value: 94800, decimals: 0 },
+        { label: 'Alcance', value: 63800, decimals: 0 }
+      ]
+    }
+  },
+  {
+    client: 'Nathan Filmes e Acessórios',
+    result: '10.36x ROAS',
+    description: 'Faturamento de R$ 10.132,00 com investimento estratégico de R$ 977,58 no setor automotivo.',
+    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=800',
+    fullDetails: {
+      challenge: 'Baixa conversão em vendas online e necessidade de escala para serviços de estética automotiva e acessórios.',
+      strategy: 'Campanhas focadas em desejo visual, demonstração de aplicação de películas e acessórios, com segmentação para entusiastas automotivos e conversão direta via WhatsApp.',
+      metrics: [
+        { label: 'Faturamento', value: 10132.00, prefix: 'R$ ', decimals: 2 },
+        { label: 'Gasto Ads', value: 977.58, prefix: 'R$ ', decimals: 2 },
+        { label: 'ROAS', value: 10.36, suffix: 'x', decimals: 2 },
+        { label: 'Ticket Médio', value: 1013.20, prefix: 'R$ ', decimals: 2 },
+        { label: 'CPA Médio', value: 97.76, prefix: 'R$ ', decimals: 2 },
+        { label: 'Conversões', value: 10, decimals: 0 },
+        { label: 'Taxa Conv.', value: 4.52, suffix: '%', decimals: 2 },
+        { label: 'Cliques', value: 221, decimals: 0 },
+        { label: 'CTR Médio', value: 0.16, suffix: '%', decimals: 2 },
+        { label: 'CPC Médio', value: 4.42, prefix: 'R$ ', decimals: 2 },
+        { label: 'Impressões', value: 141400, decimals: 0 },
+        { label: 'Alcance', value: 33400, decimals: 0 }
+      ]
+    }
+  },
 ];
 
 export const Cases = () => {

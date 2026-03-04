@@ -10,6 +10,10 @@ export const CustomCursor = () => {
   const cursorY = useSpring(0, springConfig);
 
   useEffect(() => {
+    // Check if device is touch-enabled
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
       cursorX.set(e.clientX - 16);

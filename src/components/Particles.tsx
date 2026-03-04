@@ -2,9 +2,20 @@ import React from 'react';
 import { motion } from 'motion/react';
 
 export const Particles = () => {
+  const [particleCount, setParticleCount] = React.useState(20);
+
+  React.useEffect(() => {
+    const updateCount = () => {
+      setParticleCount(window.innerWidth < 768 ? 8 : 20);
+    };
+    updateCount();
+    window.addEventListener('resize', updateCount);
+    return () => window.removeEventListener('resize', updateCount);
+  }, []);
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(20)].map((_, i) => (
+      {[...Array(particleCount)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute w-1 h-1 bg-primary/30 rounded-full"

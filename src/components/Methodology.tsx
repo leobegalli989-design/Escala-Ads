@@ -53,8 +53,8 @@ export const Methodology = () => {
             {steps.map((step, index) => (
               <motion.div
                 key={step.title}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`flex flex-col md:flex-row items-start md:items-center gap-8 ${
@@ -80,6 +80,7 @@ export const Methodology = () => {
                   className="relative z-10 flex items-center justify-center w-10 h-10 md:w-20 md:h-20 rounded-2xl bg-black border-2 transition-all duration-500 group overflow-hidden"
                   style={{ borderColor: step.color, boxShadow: `0 0 30px ${step.color}30` }}
                   whileHover={{ scale: 1.1, rotate: 5 }}
+                  viewport={{ once: true }}
                 >
                   {/* Scanning Line Effect */}
                   <motion.div 

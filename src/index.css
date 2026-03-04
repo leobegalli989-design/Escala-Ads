@@ -64,7 +64,18 @@
   }
 
   .glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+    @apply bg-white/5 border border-white/10;
+    backdrop-filter: blur(12px);
+  }
+
+  @media (max-width: 768px) {
+    .glass {
+      backdrop-filter: blur(4px);
+      @apply bg-white/10;
+    }
+    .noise {
+      display: none;
+    }
   }
 
   .neon-border {

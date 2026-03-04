@@ -34,13 +34,23 @@ export const FinalCTA = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-10 py-5 bg-primary text-black font-black uppercase tracking-tighter rounded-xl hover:shadow-[0_0_40px_rgba(20,163,229,0.7)] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 animate-pulse">
+            <a 
+              href="https://wa.me/5535998208622"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-10 py-5 bg-primary text-black font-black uppercase tracking-tighter rounded-xl hover:shadow-[0_0_40px_rgba(20,163,229,0.7)] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 animate-pulse"
+            >
               Agendar Diagnóstico Gratuito
               <ArrowRight size={20} />
-            </button>
-            <button className="px-10 py-5 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-3">
+            </a>
+            <a 
+              href="https://wa.me/5535998208622"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-10 py-5 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-3"
+            >
               Chamar no WhatsApp
-            </button>
+            </a>
           </div>
         </motion.div>
       </div>

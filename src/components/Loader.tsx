@@ -4,8 +4,10 @@ import { motion, AnimatePresence } from 'motion/react';
 export const Loader = () => {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
     let timer: NodeJS.Timeout;
     let failsafe: NodeJS.Timeout;
 
@@ -80,7 +82,7 @@ export const Loader = () => {
           {/* Background Grid/Particles for "Life" */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,242,0.05)_0%,transparent_70%)]" />
-            {[...Array(15)].map((_, i) => (
+            {[...Array(isMobile ? 6 : 15)].map((_, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: "100vh" }}

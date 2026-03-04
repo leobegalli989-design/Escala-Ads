@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, ChevronRight, Sparkles } from 'lucide-react';
 import { Particles } from './Particles';
@@ -19,21 +19,30 @@ const StatItem = ({ value, numericValue, label, prefix = '', suffix = '' }: { va
       >
         <AnimatedCounter value={numericValue} prefix={prefix} suffix={suffix} decimals={numericValue % 1 !== 0 ? 1 : 0} />
       </motion.div>
-      {/* Glow effect on hover */}
-      <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+      {/* Glow effect on hover - Only on desktop */}
+      <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 -z-10" />
     </div>
     <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/40 font-bold mt-1">{label}</span>
   </div>
 );
 
 export const Hero = () => {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
+
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
       <Particles />
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/20 blur-[80px] rounded-full animate-pulse" />
-      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary/10 blur-[80px] rounded-full" />
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/20 blur-[80px] rounded-full animate-pulse hidden md:block" />
+      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary/10 blur-[80px] rounded-full hidden md:block" />
 
       <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
         <motion.div
@@ -113,36 +122,38 @@ export const Hero = () => {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          whileHover={{ y: -10, rotateY: 5, rotateX: -5 }}
-          transition={{ 
-            duration: 1, 
-            delay: 0.3,
-            whileHover: { duration: 0.5, ease: "easeOut" }
-          }}
-          className="relative hidden lg:block perspective-1000"
-        >
-          <div className="relative z-10 w-full glass rounded-3xl overflow-hidden neon-border group min-h-[600px] transition-shadow duration-500 group-hover:shadow-[0_0_50px_rgba(20,163,229,0.3)]">
-            <PerformanceDashboard />
+        {isDesktop && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            whileHover={{ y: -10, rotateY: 5, rotateX: -5 }}
+            transition={{ 
+              duration: 1, 
+              delay: 0.3,
+              whileHover: { duration: 0.5, ease: "easeOut" }
+            }}
+            className="relative perspective-1000"
+          >
+            <div className="relative z-10 w-full glass rounded-3xl overflow-hidden neon-border group min-h-[600px] transition-shadow duration-500 group-hover:shadow-[0_0_50px_rgba(20,163,229,0.3)]">
+              <PerformanceDashboard />
+              
+              {/* Decorative Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            </div>
             
-            {/* Decorative Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-          </div>
-          
-          {/* Decorative Rings */}
-          <motion.div 
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-            className="absolute -top-10 -right-10 w-full h-full border border-primary/10 rounded-3xl -z-10" 
-          />
-          <motion.div 
-            animate={{ rotate: -360 }}
-            transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-            className="absolute -bottom-10 -left-10 w-full h-full border border-primary/5 rounded-3xl -z-20" 
-          />
-        </motion.div>
+            {/* Decorative Rings */}
+            <motion.div 
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              className="absolute -top-10 -right-10 w-full h-full border border-primary/10 rounded-3xl -z-10" 
+            />
+            <motion.div 
+              animate={{ rotate: -360 }}
+              transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+              className="absolute -bottom-10 -left-10 w-full h-full border border-primary/5 rounded-3xl -z-20" 
+            />
+          </motion.div>
+        )}
       </div>
     </section>
   );

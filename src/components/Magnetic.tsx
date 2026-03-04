@@ -17,6 +17,12 @@ export const Magnetic = ({ children }: { children: React.ReactNode }) => {
     setPosition({ x: 0, y: 0 });
   };
 
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
+  if (isTouchDevice) {
+    return <>{children}</>;
+  }
+
   const { x, y } = position;
 
   return (

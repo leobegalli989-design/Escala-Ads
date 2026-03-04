@@ -62,7 +62,7 @@ export const Footer = () => {
             <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-8">Contato</h4>
             <ul className="space-y-4 text-sm text-gray-neutral">
               <li>contato@escalaads.com.br</li>
-              <li>+55 (11) 99999-9999</li>
+              <li>+55 (35) 99820-8622</li>
               <li>Av. Paulista, 1000 - São Paulo, SP</li>
             </ul>
           </div>

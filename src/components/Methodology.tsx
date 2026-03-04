@@ -37,6 +37,15 @@ const steps = [
 ];
 
 export const Methodology = () => {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section id="methodology" className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
@@ -83,11 +92,13 @@ export const Methodology = () => {
                   viewport={{ once: true }}
                 >
                   {/* Scanning Line Effect */}
-                  <motion.div 
-                    className="absolute top-0 left-0 w-full h-[2px] bg-white/20 hidden md:block"
-                    animate={{ top: ['0%', '100%', '0%'] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  />
+                  {!isMobile && (
+                    <motion.div 
+                      className="absolute top-0 left-0 w-full h-[2px] bg-white/20"
+                      animate={{ top: ['0%', '100%', '0%'] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    />
+                  )}
                   
                   <step.icon style={{ color: step.color }} size={32} className="group-hover:scale-110 transition-transform relative z-10" />
                   <div className="absolute -top-2 -right-2 text-[10px] font-bold text-black px-2 py-0.5 rounded-bl-lg z-20" style={{ backgroundColor: step.color }}>0{index + 1}</div>

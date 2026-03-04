@@ -5,13 +5,9 @@ import { cn } from '../lib/utils';
 
 const Counter = ({ value, duration = 2, prefix = '', suffix = '', decimals = 0, delay = 0 }: any) => {
   const [displayValue, setDisplayValue] = React.useState(`${prefix}${Number(0).toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}${suffix}`);
-  const initialized = React.useRef(false);
   const count = useMotionValue(0);
 
   useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
-
     const unsubscribe = count.on("change", (latest) => {
       const val = typeof latest === 'number' ? latest : 0;
       const formatted = val.toLocaleString('pt-BR', { 
@@ -153,7 +149,7 @@ export const PerformanceDashboard = () => {
         </div>
 
         <div className="text-5xl md:text-6xl font-montserrat text-emerald-400 font-black text-glow mb-6 relative z-10">
-          <Counter value={256837.25} prefix="R$ " decimals={2} delay={0.2} />
+          <Counter value={322257.05} prefix="R$ " decimals={2} delay={0.2} />
         </div>
         
         {/* Animated Graph Line */}
@@ -208,17 +204,17 @@ export const PerformanceDashboard = () => {
 
       {/* Grid Metrics */}
       <div className="grid grid-cols-2 gap-3">
-        <MetricCard label="Gasto Ads" numericValue={24048.17} prefix="R$ " decimals={2} color="bg-rose-500" icon={Zap} delay={0.4} />
-        <MetricCard label="ROAS" numericValue={10.68} suffix="x" decimals={2} color="bg-amber-400" icon={TrendingUp} delay={0.8} />
-        <MetricCard label="Ticket Médio" numericValue={157.67} prefix="R$ " decimals={2} color="bg-emerald-400" delay={1.2} />
-        <MetricCard label="CPA Médio" numericValue={14.76} prefix="R$ " decimals={2} color="bg-blue-400" delay={1.6} />
-        <MetricCard label="Conversões" numericValue={1.6} suffix="k" decimals={1} color="bg-cyan-400" icon={Target} delay={2.0} />
-        <MetricCard label="Taxa Conv." numericValue={16.63} suffix="%" decimals={2} color="bg-fuchsia-400" delay={2.4} />
-        <MetricCard label="Cliques" numericValue={9.8} suffix="k" decimals={1} color="bg-orange-400" icon={MousePointer2} delay={2.8} />
+        <MetricCard label="Gasto Ads" numericValue={20986.83} prefix="R$ " decimals={2} color="bg-rose-500" icon={Zap} delay={0.4} />
+        <MetricCard label="ROAS" numericValue={15.36} suffix="x" decimals={2} color="bg-amber-400" icon={TrendingUp} delay={0.8} />
+        <MetricCard label="Ticket Médio" numericValue={211.87} prefix="R$ " decimals={2} color="bg-emerald-400" delay={1.2} />
+        <MetricCard label="CPA Médio" numericValue={13.79} prefix="R$ " decimals={2} color="bg-blue-400" delay={1.6} />
+        <MetricCard label="Conversões" numericValue={1.5} suffix="k" decimals={1} color="bg-cyan-400" icon={Target} delay={2.0} />
+        <MetricCard label="Taxa Conv." numericValue={16.56} suffix="%" decimals={2} color="bg-fuchsia-400" delay={2.4} />
+        <MetricCard label="Cliques" numericValue={9.2} suffix="k" decimals={1} color="bg-orange-400" icon={MousePointer2} delay={2.8} />
         <MetricCard label="CTR Médio" numericValue={0.34} suffix="%" decimals={2} color="bg-violet-400" delay={3.2} />
-        <MetricCard label="CPC Médio" numericValue={2.45} prefix="R$ " decimals={2} color="bg-sky-400" delay={3.6} />
-        <MetricCard label="Impressões" numericValue={2.9} suffix="M" decimals={1} color="bg-blue-500" icon={Eye} delay={4.0} />
-        <MetricCard label="Alcance" numericValue={1.6} suffix="M" decimals={1} color="bg-indigo-500" icon={Users} delay={4.4} />
+        <MetricCard label="CPC Médio" numericValue={2.28} prefix="R$ " decimals={2} color="bg-sky-400" delay={3.6} />
+        <MetricCard label="Impressões" numericValue={2.7} suffix="M" decimals={1} color="bg-blue-500" icon={Eye} delay={4.0} />
+        <MetricCard label="Alcance" numericValue={1.5} suffix="M" decimals={1} color="bg-indigo-500" icon={Users} delay={4.4} />
         
         {/* Growth Indicator */}
         <motion.div

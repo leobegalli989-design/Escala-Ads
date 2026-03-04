@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { animate } from 'motion/react';
 
 interface CounterProps {
@@ -12,7 +12,7 @@ interface CounterProps {
 
 export const AnimatedCounter = ({ value, duration = 2, prefix = '', suffix = '', decimals = 0, delay = 0 }: CounterProps) => {
   const [displayValue, setDisplayValue] = useState(0);
-  const initialized = React.useRef(false);
+  const initialized = useRef(false);
   
   const formatter = useMemo(() => new Intl.NumberFormat('pt-BR', { 
     minimumFractionDigits: decimals, 
@@ -20,13 +20,14 @@ export const AnimatedCounter = ({ value, duration = 2, prefix = '', suffix = '',
   }), [decimals]);
 
   useEffect(() => {
-    if (initialized.current) return;
+    // Prevent double animation in StrictMode or rapid remounts
+    if (initialized.current && window.innerWidth < 768) return;
     initialized.current = true;
-    
+
     let controls: any;
     const timeout = setTimeout(() => {
       controls = animate(0, value, {
-        duration,
+        duration: window.innerWidth < 768 ? duration * 0.6 : duration, // Faster on mobile
         ease: "easeOut",
         onUpdate: (latest) => setDisplayValue(latest)
       });

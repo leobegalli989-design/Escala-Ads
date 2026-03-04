@@ -100,7 +100,12 @@ export const Hero = () => {
             className="flex flex-col sm:flex-row gap-4 mb-16"
           >
             <Magnetic disabled={!isDesktop}>
-              <button className="group relative px-8 py-4 bg-primary text-black font-black uppercase tracking-tighter rounded-sm overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,163,229,0.5)]">
+              <a 
+                href="https://wa.me/5535998208622"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative px-8 py-4 bg-primary text-black font-black uppercase tracking-tighter rounded-sm overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,163,229,0.5)] flex items-center justify-center"
+              >
                 <span className="relative z-10 flex items-center gap-2">
                   Agendar Diagnóstico Estratégico
                   <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
@@ -108,15 +113,18 @@ export const Hero = () => {
                 <motion.div
                   className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"
                 />
-              </button>
+              </a>
             </Magnetic>
-            <button className="px-8 py-4 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-white font-bold uppercase tracking-tighter rounded-sm flex items-center gap-2 relative overflow-hidden group">
+            <a 
+              href="#cases"
+              className="px-8 py-4 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-white font-bold uppercase tracking-tighter rounded-sm flex items-center justify-center gap-2 relative overflow-hidden group"
+            >
               <span className="relative z-10 flex items-center gap-2">
                 Ver Cases de Sucesso
                 <ChevronRight size={20} />
               </span>
               <div className="absolute inset-0 bg-primary/10 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300" />
-            </button>
+            </a>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 border-t border-white/10 pt-8">

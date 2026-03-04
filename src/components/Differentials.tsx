@@ -13,6 +13,15 @@ const differentials = [
 ];
 
 export const Differentials = () => {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section className="py-24 relative bg-black overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
@@ -35,11 +44,11 @@ export const Differentials = () => {
             <span className="text-primary relative inline-block">
               SOMOS ELITE?
               <motion.span 
-                animate={{ 
+                animate={!isMobile ? { 
                   opacity: [0, 1, 0],
                   x: [-2, 2, -2],
                   scaleY: [1, 1.1, 1]
-                }}
+                } : { opacity: 0 }}
                 transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 3 }}
                 className="absolute inset-0 text-white/20 blur-[1px] pointer-events-none"
               >
@@ -69,11 +78,13 @@ export const Differentials = () => {
               >
                 <div className="relative">
                   <CheckCircle2 className="text-primary shrink-0 group-hover:scale-125 transition-transform duration-300" size={20} />
-                  <motion.div 
-                    animate={{ scale: [1, 1.5, 1], opacity: [0, 0.5, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: index * 0.5 }}
-                    className="absolute inset-0 bg-primary/40 rounded-full blur-md"
-                  />
+                  {!isMobile && (
+                    <motion.div 
+                      animate={{ scale: [1, 1.5, 1], opacity: [0, 0.5, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: index * 0.5 }}
+                      className="absolute inset-0 bg-primary/40 rounded-full blur-md"
+                    />
+                  )}
                 </div>
                 <span className="text-sm text-white/80 group-hover:text-white group-hover:font-bold transition-all duration-300">{item}</span>
               </motion.div>
@@ -91,11 +102,13 @@ export const Differentials = () => {
           {/* Performance Card */}
           <div className="glass p-8 rounded-3xl border-primary/20 relative z-10 overflow-hidden group">
             {/* Scanner Line */}
-            <motion.div 
-              animate={{ top: ['-10%', '110%'] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent z-20 pointer-events-none"
-            />
+            {!isMobile && (
+              <motion.div 
+                animate={{ top: ['-10%', '110%'] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent z-20 pointer-events-none"
+              />
+            )}
 
             <div className="flex items-center justify-between mb-8">
               <div className="text-xs uppercase tracking-widest text-primary font-bold flex items-center gap-2">
@@ -219,22 +232,24 @@ export const Differentials = () => {
             />
 
             {/* Subtle Data Stream Animation */}
-            <div className="absolute inset-0 pointer-events-none opacity-10 overflow-hidden">
-              {[...Array(5)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ top: '-10%', left: `${20 * i}%` }}
-                  animate={{ top: '110%' }}
-                  transition={{ 
-                    duration: 5 + Math.random() * 5, 
-                    repeat: Infinity, 
-                    ease: "linear",
-                    delay: Math.random() * 5
-                  }}
-                  className="absolute w-px h-20 bg-gradient-to-b from-transparent via-primary to-transparent"
-                />
-              ))}
-            </div>
+            {!isMobile && (
+              <div className="absolute inset-0 pointer-events-none opacity-10 overflow-hidden">
+                {[...Array(5)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ top: '-10%', left: `${20 * i}%` }}
+                    animate={{ top: '110%' }}
+                    transition={{ 
+                      duration: 5 + Math.random() * 5, 
+                      repeat: Infinity, 
+                      ease: "linear",
+                      delay: Math.random() * 5
+                    }}
+                    className="absolute w-px h-20 bg-gradient-to-b from-transparent via-primary to-transparent"
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Floating Stats */}

@@ -1,0 +1,61 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React from 'react';
+import { motion } from 'motion/react';
+import { Navbar } from './components/Navbar';
+import { Hero } from './components/Hero';
+import { About } from './components/About';
+import { Services } from './components/Services';
+import { Methodology } from './components/Methodology';
+import { CorePillars } from './components/CorePillars';
+import { Cases } from './components/Cases';
+import { Testimonials } from './components/Testimonials';
+import { Differentials } from './components/Differentials';
+import { FinalCTA } from './components/FinalCTA';
+import { Footer } from './components/Footer';
+import { CustomCursor } from './components/CustomCursor';
+import { ScrollIndicator } from './components/ScrollIndicator';
+import { Loader } from './components/Loader';
+import { WhatsAppButton } from './components/WhatsAppButton';
+
+export default function App() {
+  return (
+    <div className="relative min-h-screen bg-black selection:bg-primary selection:text-black">
+      <Loader />
+      <CustomCursor />
+      <ScrollIndicator />
+      
+      <Navbar />
+      
+      {/* Noise Overlay */}
+      <div className="fixed inset-0 noise pointer-events-none z-[9999]" />
+      
+      <main>
+        <Hero />
+        
+        <div>
+          <About />
+          <Services />
+          <CorePillars />
+          <Methodology />
+          <Cases />
+          <Testimonials />
+          <Differentials />
+          <FinalCTA />
+        </div>
+      </main>
+      
+      <Footer />
+      <WhatsAppButton />
+
+      {/* Global Glow Effects */}
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full" />
+      </div>
+    </div>
+  );
+}

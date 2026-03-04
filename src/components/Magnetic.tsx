@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'motion/react';
 
-export const Magnetic = ({ children }: { children: React.ReactNode }) => {
+export const Magnetic = ({ children, disabled = false }: { children: React.ReactNode; disabled?: boolean }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouse = (e: React.MouseEvent) => {
+    if (disabled) return;
     const { clientX, clientY } = e;
     const { height, width, left, top } = ref.current!.getBoundingClientRect();
     const middleX = clientX - (left + width / 2);
@@ -19,7 +20,7 @@ export const Magnetic = ({ children }: { children: React.ReactNode }) => {
 
   const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
-  if (isTouchDevice) {
+  if (isTouchDevice || disabled) {
     return <>{children}</>;
   }
 

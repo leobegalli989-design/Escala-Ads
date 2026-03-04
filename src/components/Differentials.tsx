@@ -86,8 +86,9 @@ export const Differentials = () => {
           whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1.5, type: "spring" }}
-          className="relative perspective-1000"
+          className="relative perspective-1000 space-y-6"
         >
+          {/* Performance Card */}
           <div className="glass p-8 rounded-3xl border-primary/20 relative z-10 overflow-hidden group">
             {/* Scanner Line */}
             <motion.div 
@@ -114,40 +115,164 @@ export const Differentials = () => {
             
             <div className="space-y-6">
               {[
-                { label: 'ROAS Médio', value: 85, color: 'bg-emerald-500', text: 'text-emerald-500', shadow: 'shadow-emerald-500/50' },
-                { label: 'Conversão', value: 92, color: 'bg-blue-500', text: 'text-blue-500', shadow: 'shadow-blue-500/50' },
-                { label: 'Escalabilidade', value: 78, color: 'bg-violet-500', text: 'text-violet-500', shadow: 'shadow-violet-500/50' }
+                { label: 'ROAS Médio', value: 85, color: 'bg-emerald-500', text: 'text-emerald-500' },
+                { label: 'Taxa de Conversão', value: 92, color: 'bg-blue-500', text: 'text-blue-500' },
+                { label: 'Escalabilidade', value: 78, color: 'bg-violet-500', text: 'text-violet-500' },
+                { label: 'Eficiência de Gasto', value: 96, color: 'bg-amber-500', text: 'text-amber-500' }
               ].map((metric, i) => (
                 <div key={i} className="space-y-2">
                   <div className="flex justify-between text-[10px] uppercase tracking-widest text-white/50">
                     <span>{metric.label}</span>
-                    <motion.span 
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      className={cn("font-bold", metric.text)}
-                    >
-                      {metric.value}%
-                    </motion.span>
+                    <div className="flex items-center gap-2">
+                      <motion.span 
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        className={cn("font-bold", metric.text)}
+                      >
+                        {metric.value}%
+                      </motion.span>
+                      <motion.div
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                        className={cn("w-1 h-1 rounded-full", metric.color)}
+                      />
+                    </div>
                   </div>
-                  <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                  <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${metric.value}%` }}
                       viewport={{ once: true }}
-                      transition={{ duration: 2, delay: 0.5, ease: "circOut" }}
+                      transition={{ duration: 2, delay: 0.5 + (i * 0.1), ease: "circOut" }}
                       className={cn("h-full relative", metric.color)}
                     >
-                      <div className={cn("absolute inset-0 blur-sm opacity-50", metric.color)} />
+                      <motion.div 
+                        animate={{ x: ['-100%', '100%'] }}
+                        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                      />
                     </motion.div>
                   </div>
                 </div>
               ))}
             </div>
 
+            {/* Live Feed Simulation */}
+            <div className="mt-8 pt-6 border-t border-white/5">
+              <div className="text-[10px] uppercase tracking-[0.2em] text-white/30 mb-4 flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>Atividade do Time de Elite</span>
+                </div>
+                <span className="text-primary font-mono text-[8px] opacity-50">UPLINK: ACTIVE</span>
+              </div>
+              <div className="space-y-2 font-mono">
+                {[
+                  { user: 'Sócio Gestor', action: 'Otimizando ROAS', target: 'Valle Fibra', time: 'Agora', status: 'SUCCESS' },
+                  { user: 'Analista Sênior', action: 'Escalando Budget', target: 'NYCC', time: '2min', status: 'PROCESSING' },
+                  { user: 'Estrategista', action: 'Novo Funil Ativo', target: 'Móveis Camilo', time: '5min', status: 'STABLE' }
+                ].map((item, i) => (
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 1 + (i * 0.2) }}
+                    className="flex items-center justify-between text-[8px] bg-white/5 p-2 rounded border border-white/5 hover:border-primary/20 transition-colors group/item"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className={cn(
+                        "text-[7px] px-1 rounded border",
+                        item.status === 'SUCCESS' ? 'border-emerald-500/50 text-emerald-500' :
+                        item.status === 'PROCESSING' ? 'border-blue-500/50 text-blue-500 animate-pulse' :
+                        'border-white/20 text-white/40'
+                      )}>
+                        {item.status}
+                      </span>
+                      <span className="text-white/70 font-bold">{item.user}</span>
+                      <span className="text-white/40">{item.action}</span>
+                      <span className="text-primary/80">[{item.target}]</span>
+                    </div>
+                    <span className="text-white/20 italic">{item.time}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* System Status Bar */}
+            <div className="mt-6 flex items-center justify-between text-[7px] font-mono text-white/20 uppercase tracking-widest">
+              <div className="flex gap-4">
+                <span>CPU: 12%</span>
+                <span>MEM: 4.2GB</span>
+                <span>LATENCY: 14MS</span>
+              </div>
+              <motion.span 
+                animate={{ opacity: [0.2, 1, 0.2] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                Secure Connection Established
+              </motion.span>
+            </div>
+
             {/* Background Grid Pattern */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
               style={{ backgroundImage: 'radial-gradient(circle, #14a3e5 1px, transparent 1px)', backgroundSize: '20px 20px' }} 
             />
+
+            {/* Subtle Data Stream Animation */}
+            <div className="absolute inset-0 pointer-events-none opacity-10 overflow-hidden">
+              {[...Array(5)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ top: '-10%', left: `${20 * i}%` }}
+                  animate={{ top: '110%' }}
+                  transition={{ 
+                    duration: 5 + Math.random() * 5, 
+                    repeat: Infinity, 
+                    ease: "linear",
+                    delay: Math.random() * 5
+                  }}
+                  className="absolute w-px h-20 bg-gradient-to-b from-transparent via-primary to-transparent"
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Floating Stats */}
+          <div className="grid grid-cols-2 gap-4 relative z-20">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="glass p-4 rounded-2xl border-emerald-500/20 flex flex-col items-center justify-center text-center group"
+            >
+              <div className="text-[10px] uppercase tracking-widest text-emerald-500 mb-1 group-hover:scale-110 transition-transform">ROI Global</div>
+              <div className="text-2xl font-black text-white">+R$ 2.4M</div>
+              <div className="text-[8px] text-white/30 uppercase mt-1">Gerenciados/Mês</div>
+              <div className="w-full h-1 bg-emerald-500/10 rounded-full mt-2 overflow-hidden">
+                <motion.div 
+                  animate={{ x: ['-100%', '100%'] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="w-1/2 h-full bg-emerald-500"
+                />
+              </div>
+            </motion.div>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1 }}
+              className="glass p-4 rounded-2xl border-primary/20 flex flex-col items-center justify-center text-center group"
+            >
+              <div className="text-[10px] uppercase tracking-widest text-primary mb-1 group-hover:scale-110 transition-transform">Retenção</div>
+              <div className="text-2xl font-black text-white">98.4%</div>
+              <div className="text-[8px] text-white/30 uppercase mt-1">Satisfação Elite</div>
+              <div className="w-full h-1 bg-primary/10 rounded-full mt-2 overflow-hidden">
+                <motion.div 
+                  animate={{ x: ['-100%', '100%'] }}
+                  transition={{ duration: 2.5, repeat: Infinity }}
+                  className="w-1/2 h-full bg-primary"
+                />
+              </div>
+            </motion.div>
           </div>
           
           {/* Decorative Elements */}

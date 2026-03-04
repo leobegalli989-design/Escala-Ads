@@ -18,10 +18,11 @@ export const Loader = () => {
           timer = setTimeout(() => setLoading(false), 500);
           return 100;
         }
-        const next = prev + Math.random() * 15;
+        const step = isMobile ? 25 : 15;
+        const next = prev + Math.random() * step;
         return next > 100 ? 100 : next;
       });
-    }, 80);
+    }, isMobile ? 50 : 80);
 
     // Failsafe: force loading to false after 5 seconds
     failsafe = setTimeout(() => {

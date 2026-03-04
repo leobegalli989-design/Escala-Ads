@@ -71,9 +71,9 @@ export const CorePillars = () => {
               <motion.div 
                 className="w-14 h-14 rounded-xl bg-black flex items-center justify-center mb-6 border border-white/10 group-hover:scale-110 transition-transform duration-500"
                 style={{ boxShadow: `0 0 20px ${pillar.color}20` }}
-                animate={{ 
+                animate={typeof window !== 'undefined' && window.innerWidth >= 1024 ? { 
                   y: [0, -5, 0],
-                }}
+                } : {}}
                 transition={{ 
                   duration: 4, 
                   repeat: Infinity, 

@@ -84,7 +84,7 @@ export const Methodology = () => {
                 >
                   {/* Scanning Line Effect */}
                   <motion.div 
-                    className="absolute top-0 left-0 w-full h-[2px] bg-white/20"
+                    className="absolute top-0 left-0 w-full h-[2px] bg-white/20 hidden md:block"
                     animate={{ top: ['0%', '100%', '0%'] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                   />

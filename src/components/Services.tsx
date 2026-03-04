@@ -55,6 +55,8 @@ const services = [
 ];
 
 export const Services = () => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+
   return (
     <section id="services" className="py-24 bg-black relative">
       <div className="absolute inset-0 bg-primary/5 blur-[120px] rounded-full -z-10 translate-y-1/2" />
@@ -88,24 +90,26 @@ export const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              whileHover={{ 
+              whileHover={!isMobile ? { 
                 y: -15, 
                 scale: 1.05,
                 rotateX: 5,
                 rotateY: -5,
                 transition: { type: "spring", stiffness: 300, damping: 20 }
-              }}
+              } : {}}
               className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-500 overflow-hidden perspective-1000 cursor-pointer"
             >
               {/* Background Accent Gradient */}
               <div className={`absolute inset-0 bg-gradient-to-br ${service.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
               
               {/* Animated Scanning Line */}
-              <motion.div 
-                className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 group-hover:opacity-100 z-20"
-                animate={{ top: ['0%', '100%', '0%'] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-              />
+              {!isMobile && (
+                <motion.div 
+                  className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 group-hover:opacity-100 z-20"
+                  animate={{ top: ['0%', '100%', '0%'] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                />
+              )}
 
               <div className="relative z-10">
                 <div 
@@ -134,24 +138,26 @@ export const Services = () => {
               </div>
 
               {/* Floating Particles for each card */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                {[...Array(3)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-1 h-1 rounded-full opacity-0 group-hover:opacity-20"
-                    style={{ backgroundColor: service.color }}
-                    animate={{
-                      x: [Math.random() * 300, Math.random() * 300],
-                      y: [Math.random() * 300, Math.random() * 300],
-                    }}
-                    transition={{
-                      duration: 2 + Math.random() * 2,
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                    }}
-                  />
-                ))}
-              </div>
+              {!isMobile && (
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                  {[...Array(3)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1 h-1 rounded-full opacity-0 group-hover:opacity-20"
+                      style={{ backgroundColor: service.color }}
+                      animate={{
+                        x: [Math.random() * 300, Math.random() * 300],
+                        y: [Math.random() * 300, Math.random() * 300],
+                      }}
+                      transition={{
+                        duration: 2 + Math.random() * 2,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
 
               {/* Colorful Glow */}
               <div 

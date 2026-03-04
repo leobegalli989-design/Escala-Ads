@@ -24,6 +24,8 @@ const testimonials = [
 ];
 
 export const Testimonials = () => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+
   return (
     <section className="py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -40,7 +42,7 @@ export const Testimonials = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
+              whileHover={!isMobile ? { y: -10 } : {}}
               className="glass p-10 rounded-3xl relative group border-white/5 hover:border-white/20 transition-all overflow-hidden"
             >
               <div 

@@ -8,13 +8,13 @@ import { Magnetic } from './Magnetic';
 
 import { AnimatedCounter } from './AnimatedCounter';
 
-const StatItem = ({ value, numericValue, label, prefix = '', suffix = '' }: { value: string; numericValue: number; label: string; prefix?: string; suffix?: string }) => (
+const StatItem = ({ numericValue, label, prefix = '', suffix = '' }: { numericValue: number; label: string; prefix?: string; suffix?: string }) => (
   <div className="flex flex-col items-center sm:items-start group">
     <div className="relative">
       <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
         className="text-3xl md:text-4xl font-montserrat text-primary font-black tracking-tighter"
       >
         <AnimatedCounter value={numericValue} prefix={prefix} suffix={suffix} decimals={numericValue % 1 !== 0 ? 1 : 0} />
@@ -40,14 +40,14 @@ export const Hero = () => {
     <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
-      <Particles />
+      {isDesktop && <Particles />}
       <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/20 blur-[80px] rounded-full animate-pulse hidden md:block" />
       <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary/10 blur-[80px] rounded-full hidden md:block" />
 
       <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, x: isDesktop ? -50 : 0, y: isDesktop ? 0 : 20 }}
+          animate={{ opacity: 1, x: 0, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
           <motion.div
@@ -95,7 +95,7 @@ export const Hero = () => {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 mb-16"
           >
-            <Magnetic>
+            <Magnetic disabled={!isDesktop}>
               <button className="group relative px-8 py-4 bg-primary text-black font-black uppercase tracking-tighter rounded-sm overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,163,229,0.5)]">
                 <span className="relative z-10 flex items-center gap-2">
                   Agendar Diagnóstico Estratégico
@@ -116,9 +116,9 @@ export const Hero = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 border-t border-white/10 pt-8">
-            <StatItem numericValue={50} value="+R$ 50M" prefix="+R$ " suffix="M" label="Investidos" />
-            <StatItem numericValue={250} value="+250" prefix="+" label="Clientes" />
-            <StatItem numericValue={1.2} value="+1.2K" prefix="+" suffix="K" label="Campanhas" />
+            <StatItem numericValue={50} prefix="+R$ " suffix="M" label="Investidos" />
+            <StatItem numericValue={250} prefix="+" label="Clientes" />
+            <StatItem numericValue={1.2} prefix="+" suffix="K" label="Campanhas" />
           </div>
         </motion.div>
 

@@ -2,25 +2,28 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Target, TrendingUp, ShieldCheck, Zap } from 'lucide-react';
 
-const AboutCard = ({ icon: Icon, title, description, delay, color }: any) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    whileHover={{ 
-      scale: 1.02, 
-      y: -5,
-      boxShadow: `0 20px 40px -20px ${color}40`,
-      borderColor: `${color}40`
-    }}
-    viewport={{ once: true }}
-    transition={{ 
-      delay,
-      type: "spring",
-      stiffness: 400,
-      damping: 25
-    }}
-    className="glass p-8 rounded-2xl border-white/5 transition-all group relative overflow-hidden"
-  >
+const AboutCard = ({ icon: Icon, title, description, delay, color }: any) => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={!isMobile ? { 
+        scale: 1.02, 
+        y: -5,
+        boxShadow: `0 20px 40px -20px ${color}40`,
+        borderColor: `${color}40`
+      } : {}}
+      viewport={{ once: true }}
+      transition={{ 
+        delay,
+        type: "spring",
+        stiffness: 400,
+        damping: 25
+      }}
+      className="glass p-8 rounded-2xl border-white/5 transition-all group relative overflow-hidden"
+    >
     <div 
       className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110"
       style={{ backgroundColor: `${color}15`, color: color }}
@@ -35,8 +38,9 @@ const AboutCard = ({ icon: Icon, title, description, delay, color }: any) => (
       className="absolute -bottom-10 -right-10 w-32 h-32 blur-3xl rounded-full opacity-0 group-hover:opacity-30 transition-all duration-500"
       style={{ backgroundColor: color }}
     />
-  </motion.div>
-);
+    </motion.div>
+  );
+};
 
 export const About = () => {
   return (

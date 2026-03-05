@@ -60,10 +60,11 @@ export const Navbar = () => {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-white"
+          className="md:hidden text-white p-2 hover:bg-white/10 rounded-full transition-colors relative z-[7000]"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
         >
-          {isMobileMenuOpen ? <X /> : <Menu />}
+          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
@@ -71,43 +72,62 @@ export const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[6000] md:hidden bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center p-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[6000] md:hidden bg-black/98 backdrop-blur-2xl"
           >
-            <button
-              className="absolute top-8 right-8 text-white p-2 hover:bg-white/10 rounded-full transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <X size={32} />
-            </button>
-
-            <div className="flex flex-col gap-8 items-center w-full">
-              {navLinks.map((link, index) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
+            <div className="flex flex-col h-full pt-32 pb-12 px-8 overflow-y-auto">
+              <div className="flex flex-col gap-6 items-center w-full">
+                {navLinks.map((link, index) => (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                      delay: index * 0.08 + 0.1,
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30
+                    }}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-4xl font-black text-white hover:text-primary transition-all uppercase tracking-tighter active:scale-95"
+                  >
+                    {link.name}
+                  </motion.a>
+                ))}
+                
+                <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 + 0.2 }}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-3xl font-black text-white hover:text-primary transition-colors uppercase tracking-widest"
+                  transition={{ delay: navLinks.length * 0.08 + 0.2 }}
+                  className="w-full pt-8 mt-4 border-t border-white/10"
                 >
-                  {link.name}
-                </motion.a>
-              ))}
-              <motion.a
-                href="#contact"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: navLinks.length * 0.1 + 0.3 }}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full max-w-xs py-5 bg-primary text-black font-black rounded-xl text-center uppercase tracking-widest shadow-[0_0_30px_rgba(20,163,229,0.3)]"
-              >
-                Falar com Especialista
-              </motion.a>
+                  <a
+                    href="#contact"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="w-full flex items-center justify-center py-6 bg-primary text-black font-black rounded-2xl text-xl uppercase tracking-widest shadow-[0_0_40px_rgba(20,163,229,0.4)] active:scale-95 transition-transform"
+                  >
+                    Falar com Especialista
+                  </a>
+                </motion.div>
+
+                {/* Mobile Menu Footer Info */}
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.8 }}
+                  className="mt-auto pt-12 text-center"
+                >
+                  <p className="text-white/40 text-[10px] uppercase tracking-[0.3em] mb-2">Performance Digital de Elite</p>
+                  <div className="flex gap-4 justify-center">
+                    <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60">
+                      <Logo className="w-4 h-4" />
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </motion.div>
         )}

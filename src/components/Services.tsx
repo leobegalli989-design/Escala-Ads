@@ -55,14 +55,21 @@ const services = [
 ];
 
 export const Services = () => {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <section id="services" className="py-24 bg-black relative">
       <div className="absolute inset-0 bg-primary/5 blur-[120px] rounded-full -z-10 translate-y-1/2" />
       
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20">
+        <div className="text-center mb-16 sm:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -76,13 +83,13 @@ export const Services = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl"
+            className="text-3xl sm:text-4xl md:text-6xl"
           >
             ARSENAL DE <span className="text-primary">DOMINAÇÃO</span>
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -97,7 +104,7 @@ export const Services = () => {
                 rotateY: -5,
                 transition: { type: "spring", stiffness: 300, damping: 20 }
               } : {}}
-              className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-500 overflow-hidden perspective-1000 cursor-pointer"
+              className="group relative p-6 sm:p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-500 overflow-hidden perspective-1000 cursor-pointer will-change-transform transform-gpu"
             >
               {/* Background Accent Gradient */}
               <div className={`absolute inset-0 bg-gradient-to-br ${service.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />

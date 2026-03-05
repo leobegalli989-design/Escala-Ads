@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useSpring } from 'motion/react';
+import { motion, useSpring, useMotionValue } from 'motion/react';
 
 export const CustomCursor = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
   const [isHovering, setIsHovering] = useState(false);
 
   const springConfig = { damping: 25, stiffness: 150 };
@@ -15,7 +16,8 @@ export const CustomCursor = () => {
     if (isTouchDevice) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      mouseX.set(e.clientX - 3);
+      mouseY.set(e.clientY - 3);
       cursorX.set(e.clientX - 16);
       cursorY.set(e.clientY - 16);
     };
@@ -47,7 +49,7 @@ export const CustomCursor = () => {
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 border border-primary rounded-full pointer-events-none z-[9999] hidden md:block"
+        className="fixed top-0 left-0 w-8 h-8 border border-primary rounded-full pointer-events-none z-[9999] hidden md:block will-change-transform"
         style={{
           x: cursorX,
           y: cursorY,
@@ -56,12 +58,11 @@ export const CustomCursor = () => {
         }}
       />
       <motion.div
-        className="fixed top-0 left-0 w-1.5 h-1.5 bg-primary rounded-full pointer-events-none z-[9999] hidden md:block"
-        animate={{
-          x: mousePosition.x - 3,
-          y: mousePosition.y - 3,
+        className="fixed top-0 left-0 w-1.5 h-1.5 bg-primary rounded-full pointer-events-none z-[9999] hidden md:block will-change-transform"
+        style={{
+          x: mouseX,
+          y: mouseY,
         }}
-        transition={{ type: 'spring', damping: 30, stiffness: 250, mass: 0.5 }}
       />
     </>
   );

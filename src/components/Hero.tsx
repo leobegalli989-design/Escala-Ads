@@ -64,21 +64,21 @@ export const Hero = () => {
             Performance Digital de Elite
           </motion.div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-[0.9] overflow-hidden">
+          <h1 className="text-[2.5rem] sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-[1] sm:leading-[0.9] overflow-hidden will-change-transform text-center sm:text-left">
             <motion.span 
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-block"
+              className="inline-block transform-gpu"
             >
               DOMÍNIO DE <span className="text-shimmer glow-pulse bg-gradient-to-r from-primary via-blue-400 to-emerald-400 bg-clip-text text-transparent">MERCADO</span>
             </motion.span>
-            <br />
+            <br className="hidden sm:block" />
             <motion.span 
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-block"
+              className="inline-block transform-gpu"
             >
               COM <span className="text-shimmer glow-pulse bg-gradient-to-r from-primary via-blue-400 to-emerald-400 bg-clip-text text-transparent">ESCALA.</span>
             </motion.span>
@@ -88,7 +88,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-gray-neutral text-base sm:text-lg md:text-xl max-w-xl mb-10 font-light leading-relaxed text-center sm:text-left"
+            className="text-gray-neutral text-sm sm:text-lg md:text-xl max-w-xl mb-10 font-light leading-relaxed text-center sm:text-left px-4 sm:px-0"
           >
             Não somos apenas uma agência. Somos o seu braço de inteligência e performance para escalar faturamentos de <span className="text-primary font-bold shadow-[0_0_15px_rgba(20,163,229,0.3)]">5 e 6</span> dígitos com previsibilidade absoluta.
           </motion.p>
@@ -97,17 +97,17 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 mb-16"
+            className="flex flex-col sm:flex-row gap-4 mb-16 px-4 sm:px-0"
           >
             <Magnetic disabled={!isDesktop}>
               <a 
                 href="https://wa.me/5535998208622"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative px-8 py-4 bg-primary text-black font-black uppercase tracking-tighter rounded-sm overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,163,229,0.5)] flex items-center justify-center"
+                className="group relative px-6 py-5 sm:px-8 sm:py-4 bg-primary text-black font-black uppercase tracking-tighter rounded-xl sm:rounded-sm overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,163,229,0.5)] flex items-center justify-center text-sm sm:text-base"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  Agendar Diagnóstico Estratégico
+                  Agendar Diagnóstico
                   <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </span>
                 <motion.div
@@ -117,7 +117,7 @@ export const Hero = () => {
             </Magnetic>
             <a 
               href="#cases"
-              className="px-8 py-4 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-white font-bold uppercase tracking-tighter rounded-sm flex items-center justify-center gap-2 relative overflow-hidden group"
+              className="px-6 py-5 sm:px-8 sm:py-4 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-white font-bold uppercase tracking-tighter rounded-xl sm:rounded-sm flex items-center justify-center gap-2 relative overflow-hidden group text-sm sm:text-base"
             >
               <span className="relative z-10 flex items-center gap-2">
                 Ver Cases de Sucesso
@@ -127,7 +127,7 @@ export const Hero = () => {
             </a>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 border-t border-white/10 pt-8">
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-white/10 pt-8 px-4 sm:px-0">
             <StatItem numericValue={50} prefix="+R$ " suffix="M" label="Investidos" />
             <StatItem numericValue={250} prefix="+" label="Clientes" />
             <StatItem numericValue={1.2} prefix="+" suffix="K" label="Campanhas" />

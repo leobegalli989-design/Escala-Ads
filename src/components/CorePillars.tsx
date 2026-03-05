@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion, useMotionValue, useSpring } from 'motion/react';
 import { Target, TrendingUp, Zap, BarChart } from 'lucide-react';
 
 const pillars = [
@@ -34,7 +34,12 @@ const pillars = [
 ];
 
 export const CorePillars = () => {
-  const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+  
+  const springX = useSpring(mouseX, { damping: 30, stiffness: 200 });
+  const springY = useSpring(mouseY, { damping: 30, stiffness: 200 });
+
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -48,9 +53,8 @@ export const CorePillars = () => {
     if (isMobile) return;
     const { clientX, clientY, currentTarget } = e;
     const { left, top, width, height } = currentTarget.getBoundingClientRect();
-    const x = (clientX - left) / width;
-    const y = (clientY - top) / height;
-    setMousePos({ x, y });
+    mouseX.set((clientX - left) / width);
+    mouseY.set((clientY - top) / height);
   };
 
   return (
@@ -58,17 +62,18 @@ export const CorePillars = () => {
       {/* Dynamic Background Glow */}
       {!isMobile && (
         <motion.div 
-          animate={{
-            x: mousePos.x * 50,
-            y: mousePos.y * 50,
+          style={{
+            x: springX,
+            y: springY,
+            translateX: '-50%',
+            translateY: '-50%',
           }}
-          transition={{ type: "spring", damping: 30, stiffness: 200 }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 blur-[150px] rounded-full pointer-events-none -z-10"
+          className="absolute top-1/2 left-1/2 w-[800px] h-[800px] bg-primary/5 blur-[150px] rounded-full pointer-events-none -z-10 will-change-transform"
         />
       )}
 
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20">
+        <div className="text-center mb-16 sm:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -82,13 +87,13 @@ export const CorePillars = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-black"
+            className="text-3xl sm:text-4xl md:text-6xl font-black"
           >
             FUNDAMENTOS DA <span className="text-primary">ELITE</span>
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
           {pillars.map((pillar, index) => (
             <motion.div
               key={pillar.title}
@@ -96,8 +101,8 @@ export const CorePillars = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: pillar.delay, duration: 0.5 }}
-              whileHover={{ y: -12, scale: 1.02 }}
-              className="group relative p-8 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-primary/40 transition-all duration-500 overflow-hidden will-change-transform"
+              whileHover={!isMobile ? { y: -12, scale: 1.02 } : {}}
+              className="group relative p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-primary/40 transition-all duration-500 overflow-hidden will-change-transform transform-gpu"
             >
               {/* Card Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -106,10 +111,9 @@ export const CorePillars = () => {
               <div className="absolute -inset-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-500 -z-10" />
 
               <motion.div 
-                className="w-16 h-16 rounded-2xl bg-black/50 backdrop-blur-xl flex items-center justify-center mb-8 border border-white/10 group-hover:border-primary/30 transition-all duration-500 relative z-10"
+                className="w-16 h-16 rounded-2xl bg-black/50 backdrop-blur-xl flex items-center justify-center mb-8 border border-white/10 group-hover:border-primary/30 transition-all duration-500 relative z-10 will-change-transform transform-gpu"
                 style={{ 
                   boxShadow: `0 0 30px ${pillar.color}15`,
-                  willChange: 'transform'
                 }}
                 animate={!isMobile ? { 
                   y: [0, -6, 0],
@@ -143,7 +147,7 @@ export const CorePillars = () => {
                   initial={{ x: '-100%' }}
                   whileHover={{ x: '100%' }}
                   transition={{ duration: 1, ease: "easeInOut" }}
-                  className="w-full h-full bg-gradient-to-r from-transparent via-primary to-transparent"
+                  className="w-full h-full bg-gradient-to-r from-transparent via-primary to-transparent will-change-transform transform-gpu"
                 />
               </div>
               

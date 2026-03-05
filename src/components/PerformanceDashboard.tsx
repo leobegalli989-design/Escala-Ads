@@ -57,7 +57,7 @@ const MetricCard = ({ label, value, numericValue, prefix, suffix, decimals, colo
     animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
     transition={{ duration: 1.5, delay: delay * 0.5, ease: "easeOut" }}
     whileHover={{ scale: 1.05, zIndex: 10 }}
-    className="relative p-4 rounded-xl bg-white/5 border border-white/10 overflow-hidden group hover:border-primary/50 transition-all duration-500 will-change-transform"
+    className="relative p-4 rounded-xl bg-white/5 border border-white/10 overflow-hidden group hover:border-primary/50 transition-all duration-500 will-change-transform transform-gpu"
   >
     {/* Card Glow Background */}
     <div className={cn("absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500", color)} />
@@ -120,7 +120,7 @@ export const PerformanceDashboard = () => {
         initial={{ opacity: 0, y: 30, scale: 0.9 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="relative p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-emerald-500/30 overflow-hidden group"
+        className="relative p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-emerald-500/30 overflow-hidden group will-change-transform transform-gpu"
       >
         {/* Background Data Stream Effect */}
         {!isMobile && (

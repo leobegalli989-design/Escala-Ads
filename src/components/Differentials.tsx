@@ -26,11 +26,12 @@ export const Differentials = () => {
     <section className="py-24 relative bg-black overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
       
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
+          className="text-center lg:text-left"
         >
           <div className="text-primary text-xs tracking-[0.5em] uppercase mb-4">Diferenciais</div>
           <motion.h2 
@@ -38,9 +39,9 @@ export const Differentials = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="text-4xl md:text-6xl mb-8 font-black tracking-tighter"
+            className="text-3xl sm:text-4xl md:text-6xl mb-8 font-black tracking-tighter"
           >
-            POR QUE <br />
+            POR QUE <br className="hidden sm:block" />
             <span className="text-primary relative inline-block">
               SOMOS ELITE?
               <motion.span 
@@ -56,11 +57,11 @@ export const Differentials = () => {
               </motion.span>
             </span>
           </motion.h2>
-          <p className="text-gray-neutral text-lg mb-10">
+          <p className="text-gray-neutral text-base sm:text-lg mb-10 mx-auto lg:mx-0 max-w-xl">
             Enquanto outros focam em curtidas e impressões, nós focamos na única métrica que importa: o dinheiro no seu bolso e a escala do seu negócio.
           </p>
           
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 text-left">
             {differentials.map((item, index) => (
               <motion.div
                 key={item}
@@ -73,8 +74,8 @@ export const Differentials = () => {
                   type: "spring",
                   stiffness: 100
                 }}
-                whileHover={{ x: 10, scale: 1.02 }}
-                className="flex items-center gap-3 group cursor-default"
+                whileHover={!isMobile ? { x: 10, scale: 1.02 } : {}}
+                className="flex items-center gap-3 group cursor-default will-change-transform transform-gpu p-2 rounded-lg hover:bg-white/5 transition-colors"
               >
                 <div className="relative">
                   <CheckCircle2 className="text-primary shrink-0 group-hover:scale-125 transition-transform duration-300" size={20} />
@@ -100,7 +101,7 @@ export const Differentials = () => {
           className="relative perspective-1000 space-y-6"
         >
           {/* Performance Card */}
-          <div className="glass p-8 rounded-3xl border-primary/20 relative z-10 overflow-hidden group">
+          <div className="glass p-8 rounded-3xl border-primary/20 relative z-10 overflow-hidden group will-change-transform transform-gpu">
             {/* Scanner Line */}
             {!isMobile && (
               <motion.div 

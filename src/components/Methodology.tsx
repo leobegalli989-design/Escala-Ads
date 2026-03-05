@@ -49,14 +49,14 @@ export const Methodology = () => {
   return (
     <section id="methodology" className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20">
+        <div className="text-center mb-16 sm:mb-20">
           <div className="text-primary text-xs tracking-[0.5em] uppercase mb-4">O Processo</div>
-          <h2 className="text-4xl md:text-6xl">METODOLOGIA <span className="text-primary">ESCALA</span></h2>
+          <h2 className="text-3xl sm:text-4xl md:text-6xl">METODOLOGIA <span className="text-primary">ESCALA</span></h2>
         </div>
 
         <div className="relative">
           {/* Vertical Line for Mobile */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-primary/10 to-transparent md:-translate-x-1/2" />
+          <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-primary/10 to-transparent md:-translate-x-1/2" />
 
           <div className="space-y-12 md:space-y-0">
             {steps.map((step, index) => (
@@ -66,7 +66,7 @@ export const Methodology = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`flex flex-col md:flex-row items-start md:items-center gap-8 ${
+                className={`flex flex-row items-start md:items-center gap-6 sm:gap-8 ${
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                 }`}
               >
@@ -75,20 +75,16 @@ export const Methodology = () => {
                     <div className="pr-12">
                       <h3 className="text-2xl mb-2 font-bold" style={{ color: step.color }}>{step.title}</h3>
                       <p className="text-gray-neutral text-sm">
-                        {step.desc.split(' ').map((word, i) => (
-                          <span key={i} className={i % 5 === 0 ? 'text-white font-medium' : ''}>
-                            {word}{' '}
-                          </span>
-                        ))}
+                        {step.desc}
                       </p>
                     </div>
                   )}
                 </div>
 
                 <motion.div 
-                  className="relative z-10 flex items-center justify-center w-10 h-10 md:w-20 md:h-20 rounded-2xl bg-black border-2 transition-all duration-500 group overflow-hidden"
+                  className="relative z-10 flex items-center justify-center w-10 h-10 md:w-20 md:h-20 rounded-xl md:rounded-2xl bg-black border-2 transition-all duration-500 group overflow-hidden shrink-0 will-change-transform transform-gpu"
                   style={{ borderColor: step.color, boxShadow: `0 0 30px ${step.color}30` }}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileHover={!isMobile ? { scale: 1.1, rotate: 5 } : {}}
                   viewport={{ once: true }}
                 >
                   {/* Scanning Line Effect */}
@@ -100,37 +96,29 @@ export const Methodology = () => {
                     />
                   )}
                   
-                  <step.icon style={{ color: step.color }} size={32} className="group-hover:scale-110 transition-transform relative z-10" />
-                  <div className="absolute -top-2 -right-2 text-[10px] font-bold text-black px-2 py-0.5 rounded-bl-lg z-20" style={{ backgroundColor: step.color }}>0{index + 1}</div>
+                  <step.icon style={{ color: step.color }} size={isMobile ? 20 : 32} className="group-hover:scale-110 transition-transform relative z-10" />
+                  <div className="absolute -top-2 -right-2 text-[8px] md:text-[10px] font-bold text-black px-1.5 md:px-2 py-0.5 rounded-bl-lg z-20" style={{ backgroundColor: step.color }}>0{index + 1}</div>
                   
                   {/* Inner Glow */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
                 </motion.div>
 
-                <div className="flex-1 md:text-left">
+                <div className="flex-1 text-left">
                   <div className={cn(
                     "md:pl-12",
                     index % 2 === 0 ? "hidden md:block opacity-0" : "block"
                   )}>
-                    <h3 className="text-2xl mb-2 font-bold" style={{ color: step.color }}>{step.title}</h3>
-                    <p className="text-gray-neutral text-sm">
-                      {step.desc.split(' ').map((word, i) => (
-                        <span key={i} className={i % 5 === 0 ? 'text-white font-medium' : ''}>
-                          {word}{' '}
-                        </span>
-                      ))}
+                    <h3 className="text-xl sm:text-2xl mb-2 font-bold" style={{ color: step.color }}>{step.title}</h3>
+                    <p className="text-gray-neutral text-xs sm:text-sm leading-relaxed">
+                      {step.desc}
                     </p>
                   </div>
                   {/* Mobile version for even steps */}
                   {index % 2 === 0 && (
                     <div className="md:hidden">
-                      <h3 className="text-2xl mb-2 font-bold" style={{ color: step.color }}>{step.title}</h3>
-                      <p className="text-gray-neutral text-sm">
-                        {step.desc.split(' ').map((word, i) => (
-                          <span key={i} className={i % 5 === 0 ? 'text-white font-medium' : ''}>
-                            {word}{' '}
-                          </span>
-                        ))}
+                      <h3 className="text-xl sm:text-2xl mb-2 font-bold" style={{ color: step.color }}>{step.title}</h3>
+                      <p className="text-gray-neutral text-xs sm:text-sm leading-relaxed">
+                        {step.desc}
                       </p>
                     </div>
                   )}

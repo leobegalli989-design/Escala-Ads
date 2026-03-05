@@ -10,8 +10,8 @@ export const Footer = () => {
   return (
     <footer className="bg-black border-t border-white/10 pt-20 pb-10 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-          <div className="space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-20 text-center sm:text-left">
+          <div className="space-y-6 flex flex-col items-center sm:items-start">
             <div className="flex items-center gap-2">
               <div className="w-10 h-10 flex items-center justify-center">
                 <Logo className="w-full h-full" />
@@ -20,7 +20,7 @@ export const Footer = () => {
                 ESCALA<span className="text-primary">ADS</span>
               </span>
             </div>
-            <p className="text-gray-neutral text-sm leading-relaxed">
+            <p className="text-gray-neutral text-sm leading-relaxed max-w-xs">
               A agência de marketing digital que une inteligência de dados e performance agressiva para escalar negócios de alto nível.
             </p>
             <div className="flex gap-4">
@@ -32,7 +32,7 @@ export const Footer = () => {
             </div>
           </div>
 
-          <div>
+          <div className="hidden sm:block">
             <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-8">Links Rápidos</h4>
             <ul className="space-y-4">
               {['Início', 'Agência', 'Serviços', 'Metodologia', 'Cases'].map((link) => (
@@ -45,7 +45,7 @@ export const Footer = () => {
             </ul>
           </div>
 
-          <div>
+          <div className="hidden sm:block">
             <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-8">Serviços</h4>
             <ul className="space-y-4">
               {['Tráfego Pago', 'Funis de Vendas', 'Social Media', 'Copywriting', 'Branding'].map((link) => (
@@ -58,7 +58,7 @@ export const Footer = () => {
             </ul>
           </div>
 
-          <div>
+          <div className="space-y-4">
             <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-8">Contato</h4>
             <ul className="space-y-4 text-sm text-gray-neutral">
               <li>contato@escalaads.com.br</li>
@@ -69,12 +69,12 @@ export const Footer = () => {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-white/5 gap-6">
-          <div className="text-gray-neutral text-xs">
+          <div className="text-gray-neutral text-[10px] sm:text-xs text-center">
             © 2024 Escala Ads. Todos os direitos reservados.
           </div>
-          <div className="flex gap-8 text-xs text-gray-neutral">
-            <a href="#" className="hover:text-primary transition-colors">Política de Privacidade</a>
-            <a href="#" className="hover:text-primary transition-colors">Termos de Uso</a>
+          <div className="flex gap-6 sm:gap-8 text-[10px] sm:text-xs text-gray-neutral">
+            <a href="#" className="hover:text-primary transition-colors">Privacidade</a>
+            <a href="#" className="hover:text-primary transition-colors">Termos</a>
           </div>
           <button 
             onClick={scrollToTop}

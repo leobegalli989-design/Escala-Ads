@@ -24,17 +24,24 @@ const testimonials = [
 ];
 
 export const Testimonials = () => {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <section className="py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20">
+        <div className="text-center mb-16 sm:mb-20">
           <div className="text-primary text-xs tracking-[0.5em] uppercase mb-4">Depoimentos</div>
-          <h2 className="text-4xl md:text-5xl">QUEM <span className="text-primary">ESCALOU</span> CONOSCO</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl uppercase font-black">QUEM <span className="text-primary">ESCALOU</span> CONOSCO</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {testimonials.map((item, index) => (
             <motion.div
               key={item.name}
@@ -43,7 +50,7 @@ export const Testimonials = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={!isMobile ? { y: -10 } : {}}
-              className="glass p-10 rounded-3xl relative group border-white/5 hover:border-white/20 transition-all overflow-hidden"
+              className="glass p-8 sm:p-10 rounded-3xl relative group border-white/5 hover:border-white/20 transition-all overflow-hidden will-change-transform transform-gpu"
             >
               <div 
                 className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500"

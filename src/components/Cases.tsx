@@ -170,18 +170,18 @@ export const Cases = () => {
   return (
     <section id="cases" className="py-24 bg-black relative">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-          <div>
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 text-center md:text-left">
+          <div className="w-full">
             <div className="text-primary text-xs tracking-[0.5em] uppercase mb-4">Portfólio</div>
-            <h2 className="text-4xl md:text-6xl">CASES DE <span className="text-primary">SUCESSO</span></h2>
+            <h2 className="text-3xl sm:text-4xl md:text-6xl">CASES DE <span className="text-primary">SUCESSO</span></h2>
           </div>
-          <p className="text-gray-neutral max-w-md text-sm">
+          <p className="text-gray-neutral max-w-md text-sm sm:text-base mx-auto md:mx-0">
             Resultados reais para empresas que decidiram parar de tentar e começaram a escalar com estratégia de elite.
           </p>
         </div>
 
         <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
           variants={{
             hidden: { opacity: 0 },
             show: {
@@ -202,7 +202,7 @@ export const Cases = () => {
                 hidden: { opacity: 0, y: 30 },
                 show: { opacity: 1, y: 0 }
               }}
-              className="group relative rounded-2xl overflow-hidden neon-border bg-zinc-900/50"
+              className="group relative rounded-2xl overflow-hidden neon-border bg-zinc-900/50 will-change-transform transform-gpu"
             >
               <div className="aspect-[4/3] overflow-hidden relative">
                 <img
@@ -316,7 +316,7 @@ export const Cases = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-4xl bg-zinc-950 border border-white/10 rounded-2xl overflow-hidden shadow-2xl"
+              className="relative w-full max-w-4xl bg-zinc-950 border border-white/10 rounded-2xl overflow-hidden shadow-2xl will-change-transform transform-gpu"
             >
               <button 
                 onClick={() => setSelectedCase(null)}

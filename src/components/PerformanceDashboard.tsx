@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
-import { motion, useMotionValue, animate } from 'motion/react';
+import { motion, useMotionValue, animate, useInView } from 'motion/react';
 import { BarChart3, TrendingUp, Users, Target, MousePointer2, Eye, Zap, ArrowUpRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const Counter = ({ value, duration = 2, prefix = '', suffix = '', decimals = 0, delay = 0 }: any) => {
   const [displayValue, setDisplayValue] = React.useState(`${prefix}${Number(0).toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}${suffix}`);
   const count = useMotionValue(0);
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-20px" });
+  const isAnimating = React.useRef(false);
 
   useEffect(() => {
     const unsubscribe = count.on("change", (latest) => {
@@ -17,21 +20,26 @@ const Counter = ({ value, duration = 2, prefix = '', suffix = '', decimals = 0, 
       setDisplayValue(`${prefix}${formatted}${suffix}`);
     });
 
-    const timeout = setTimeout(() => {
-      animate(count, value, { 
-        duration, 
-        ease: [0.16, 1, 0.3, 1],
-      });
-    }, delay * 1000);
+    if (isInView && !isAnimating.current) {
+      isAnimating.current = true;
+      const timeout = setTimeout(() => {
+        animate(count, value, { 
+          duration, 
+          ease: [0.16, 1, 0.3, 1],
+        });
+      }, delay * 1000);
 
-    return () => {
-      unsubscribe();
-      clearTimeout(timeout);
-    };
-  }, [value, duration, delay, count, decimals, prefix, suffix]);
+      return () => {
+        unsubscribe();
+        clearTimeout(timeout);
+      };
+    }
+
+    return () => unsubscribe();
+  }, [value, duration, delay, count, decimals, prefix, suffix, isInView]);
 
   return (
-    <span className="relative inline-block transform-gpu">
+    <span ref={ref} className="relative inline-block transform-gpu">
       {displayValue}
       <motion.span
         animate={{ 
@@ -53,9 +61,10 @@ const Counter = ({ value, duration = 2, prefix = '', suffix = '', decimals = 0, 
 
 const MetricCard = ({ label, value, numericValue, prefix, suffix, decimals, color, icon: Icon, delay }: any) => (
   <motion.div
-    initial={{ opacity: 0, x: -20, filter: 'blur(10px)' }}
-    animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-    transition={{ duration: 1.5, delay: delay * 0.5, ease: "easeOut" }}
+    initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+    viewport={{ once: true, margin: "-20px" }}
+    transition={{ duration: 0.8, delay: delay * 0.2, ease: "easeOut" }}
     whileHover={{ scale: 1.05, zIndex: 10 }}
     className="relative p-4 rounded-xl bg-white/5 border border-white/10 overflow-hidden group hover:border-primary/50 transition-all duration-500 will-change-transform transform-gpu"
   >
@@ -117,9 +126,10 @@ export const PerformanceDashboard = () => {
 
       {/* Main Metric: Faturamento */}
       <motion.div
-        initial={{ opacity: 0, y: 30, scale: 0.9 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
+        initial={{ opacity: 0, y: 30, scale: 0.95 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: "easeOut" }}
         className="relative p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-emerald-500/30 overflow-hidden group will-change-transform transform-gpu"
       >
         {/* Background Data Stream Effect */}

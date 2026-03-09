@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { animate, motion } from 'motion/react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
+import { animate, motion, useInView } from 'motion/react';
 
 interface CounterProps {
   value: number;
@@ -12,6 +12,8 @@ interface CounterProps {
 
 export const AnimatedCounter = ({ value, duration = 1.5, prefix = '', suffix = '', decimals = 0, delay = 0 }: CounterProps) => {
   const [displayValue, setDisplayValue] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   
   const formatter = useMemo(() => new Intl.NumberFormat('pt-BR', { 
     minimumFractionDigits: decimals, 
@@ -19,6 +21,8 @@ export const AnimatedCounter = ({ value, duration = 1.5, prefix = '', suffix = '
   }), [decimals]);
 
   useEffect(() => {
+    if (!isInView) return;
+
     let controls: any;
     const timeout = setTimeout(() => {
       controls = animate(0, value, {
@@ -32,14 +36,15 @@ export const AnimatedCounter = ({ value, duration = 1.5, prefix = '', suffix = '
       timeout && clearTimeout(timeout);
       controls && controls.stop();
     };
-  }, [value, duration, delay]);
+  }, [value, duration, delay, isInView]);
 
   const formatted = formatter.format(displayValue);
 
   return (
     <motion.span
+      ref={ref}
       initial={{ opacity: 0, filter: 'blur(4px)' }}
-      animate={{ opacity: 1, filter: 'blur(0px)' }}
+      animate={isInView ? { opacity: 1, filter: 'blur(0px)' } : {}}
       transition={{ duration: 0.5, delay: delay }}
     >
       {prefix}{formatted}{suffix}

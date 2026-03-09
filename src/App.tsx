@@ -15,6 +15,7 @@ import { CorePillars } from './components/CorePillars';
 import { Cases } from './components/Cases';
 import { Testimonials } from './components/Testimonials';
 import { Differentials } from './components/Differentials';
+import { ROIProjector } from './components/ROIProjector';
 import { FinalCTA } from './components/FinalCTA';
 import { Footer } from './components/Footer';
 import { CustomCursor } from './components/CustomCursor';
@@ -69,6 +70,7 @@ export default function App() {
           <Services />
           <CorePillars />
           <Methodology />
+          <ROIProjector />
           <Cases />
           <Testimonials />
           <Differentials />

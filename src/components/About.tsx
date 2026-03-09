@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Target, TrendingUp, ShieldCheck, Zap } from 'lucide-react';
 
+import { AnimatedCounter } from './AnimatedCounter';
+
 const AboutCard = ({ icon: Icon, title, description, delay, color }: any) => {
   return (
     <motion.div
@@ -63,12 +65,16 @@ export const About = () => {
             </p>
             <div className="flex gap-8 justify-center lg:justify-start">
               <div>
-                <div className="text-2xl sm:text-3xl font-montserrat text-white mb-1">98%</div>
+                <div className="text-2xl sm:text-3xl font-montserrat text-white mb-1">
+                  <AnimatedCounter value={98} suffix="%" />
+                </div>
                 <div className="text-[10px] text-primary uppercase tracking-widest">Retenção</div>
               </div>
               <div className="w-px h-12 bg-white/10" />
               <div>
-                <div className="text-2xl sm:text-3xl font-montserrat text-white mb-1">10X</div>
+                <div className="text-2xl sm:text-3xl font-montserrat text-white mb-1">
+                  <AnimatedCounter value={10} suffix="X" />
+                </div>
                 <div className="text-[10px] text-primary uppercase tracking-widest">ROI Médio</div>
               </div>
             </div>

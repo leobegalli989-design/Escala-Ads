@@ -122,6 +122,16 @@
     will-change: transform;
   }
 
+  /* Custom Range Input */
+  input[type="range"]::-webkit-slider-thumb {
+    @apply w-6 h-6 bg-primary rounded-full border-4 border-black cursor-pointer shadow-[0_0_15px_rgba(20,163,229,0.5)] transition-transform hover:scale-110 active:scale-95;
+    -webkit-appearance: none;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    @apply w-6 h-6 bg-primary rounded-full border-4 border-black cursor-pointer shadow-[0_0_15px_rgba(20,163,229,0.5)] transition-transform hover:scale-110 active:scale-95;
+  }
+
   .will-change-opacity {
     will-change: opacity;
   }

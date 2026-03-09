@@ -19,6 +19,7 @@ export const Navbar = () => {
     { name: 'Agência', href: '#about' },
     { name: 'Serviços', href: '#services' },
     { name: 'Metodologia', href: '#methodology' },
+    { name: 'Calculadora', href: '#calculator' },
     { name: 'Cases', href: '#cases' },
     { name: 'Depoimentos', href: '#depoimentos' },
   ];

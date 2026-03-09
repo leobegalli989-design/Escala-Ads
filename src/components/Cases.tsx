@@ -222,29 +222,15 @@ export const Cases = () => {
           </p>
         </div>
 
-        <div className="md:max-h-[700px] md:overflow-y-auto custom-scrollbar pr-2 -mr-2">
-          <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-            variants={{
-              hidden: { opacity: 0 },
-              show: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.2
-                }
-              }
-            }}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-          >
+        <div className="md:max-h-[800px] md:overflow-y-auto custom-scrollbar pr-2 -mr-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {cases.map((item, index) => (
             <motion.div
               key={item.client}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                show: { opacity: 1, y: 0 }
-              }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group relative rounded-2xl overflow-hidden neon-border bg-zinc-900/50 will-change-transform transform-gpu"
             >
               <div className="aspect-[4/3] overflow-hidden relative">
@@ -254,10 +240,18 @@ export const Cases = () => {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60 md:opacity-40 group-hover:opacity-100 md:group-hover:opacity-60"
                   referrerPolicy="no-referrer"
                   loading="lazy"
+                  onLoad={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.classList.add('opacity-100');
+                  }}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = `https://picsum.photos/seed/${item.client}/800/600`;
+                  }}
                 />
                 
-                {/* Fallback background for loading */}
-                <div className="absolute inset-0 bg-zinc-900 -z-10" />
+                {/* Fallback background / Skeleton */}
+                <div className="absolute inset-0 bg-zinc-900 animate-pulse -z-10" />
                 
                 {/* ROAS Badge - Top Right */}
                 <motion.div 
@@ -294,7 +288,8 @@ export const Cases = () => {
                       referrerPolicy="no-referrer"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.style.opacity = '0.2';
+                        target.src = 'https://i.imgur.com/B5HdJ4K.png'; // Fallback to a default logo or clear
+                        target.style.opacity = '0.5';
                       }}
                     />
                     <div 
@@ -345,9 +340,9 @@ export const Cases = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+          </div>
+        </div>
       </div>
-    </div>
 
       {/* Modal */}
       <AnimatePresence>
@@ -388,7 +383,12 @@ export const Cases = () => {
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
                     loading="eager"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = `https://picsum.photos/seed/${selectedCase.client}/1200/800`;
+                    }}
                   />
+                  <div className="absolute inset-0 bg-zinc-900 animate-pulse -z-10" />
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent md:hidden" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-zinc-950/20 to-zinc-950 hidden md:block" />
                   
@@ -424,7 +424,8 @@ export const Cases = () => {
                           loading="eager"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
-                            target.style.opacity = '0.3';
+                            target.src = 'https://i.imgur.com/B5HdJ4K.png';
+                            target.style.opacity = '0.5';
                           }}
                         />
                       </button>

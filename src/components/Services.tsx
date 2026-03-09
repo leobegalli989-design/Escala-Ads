@@ -104,19 +104,18 @@ export const Services = () => {
                 rotateY: -5,
                 transition: { type: "spring", stiffness: 300, damping: 20 }
               } : {}}
+              whileTap={{ scale: 0.95 }}
               className="group relative p-6 sm:p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-500 overflow-hidden perspective-1000 cursor-pointer will-change-transform transform-gpu"
             >
               {/* Background Accent Gradient */}
               <div className={`absolute inset-0 bg-gradient-to-br ${service.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
               
               {/* Animated Scanning Line */}
-              {!isMobile && (
-                <motion.div 
-                  className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 group-hover:opacity-100 z-20"
-                  animate={{ top: ['0%', '100%', '0%'] }}
-                  transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-                />
-              )}
+              <motion.div 
+                className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 group-hover:opacity-100 z-20"
+                animate={{ top: ['0%', '100%', '0%'] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+              />
 
               <div className="relative z-10">
                 <div 
@@ -145,26 +144,24 @@ export const Services = () => {
               </div>
 
               {/* Floating Particles for each card */}
-              {!isMobile && (
-                <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                  {[...Array(3)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute w-1 h-1 rounded-full opacity-0 group-hover:opacity-20"
-                      style={{ backgroundColor: service.color }}
-                      animate={{
-                        x: [Math.random() * 300, Math.random() * 300],
-                        y: [Math.random() * 300, Math.random() * 300],
-                      }}
-                      transition={{
-                        duration: 2 + Math.random() * 2,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                      }}
-                    />
-                  ))}
-                </div>
-              )}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                {[...Array(isMobile ? 2 : 3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1 h-1 rounded-full opacity-0 group-hover:opacity-20"
+                    style={{ backgroundColor: service.color }}
+                    animate={{
+                      x: [Math.random() * 300, Math.random() * 300],
+                      y: [Math.random() * 300, Math.random() * 300],
+                    }}
+                    transition={{
+                      duration: 2 + Math.random() * 2,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                    }}
+                  />
+                ))}
+              </div>
 
               {/* Colorful Glow */}
               <div 

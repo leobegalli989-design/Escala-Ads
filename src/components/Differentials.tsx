@@ -75,6 +75,7 @@ export const Differentials = () => {
                   stiffness: 100
                 }}
                 whileHover={!isMobile ? { x: 10, scale: 1.02 } : {}}
+                whileTap={{ scale: 0.98 }}
                 className="flex items-center gap-3 group cursor-default will-change-transform transform-gpu p-2 rounded-lg hover:bg-white/5 transition-colors"
               >
                 <div className="relative">
@@ -103,13 +104,11 @@ export const Differentials = () => {
           {/* Performance Card */}
           <div className="glass p-8 rounded-3xl border-primary/20 relative z-10 overflow-hidden group will-change-transform transform-gpu">
             {/* Scanner Line */}
-            {!isMobile && (
-              <motion.div 
-                animate={{ top: ['-10%', '110%'] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent z-20 pointer-events-none"
-              />
-            )}
+            <motion.div 
+              animate={{ top: ['-10%', '110%'] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent z-20 pointer-events-none"
+            />
 
             <div className="flex items-center justify-between mb-8">
               <div className="text-xs uppercase tracking-widest text-primary font-bold flex items-center gap-2">
@@ -233,24 +232,22 @@ export const Differentials = () => {
             />
 
             {/* Subtle Data Stream Animation */}
-            {!isMobile && (
-              <div className="absolute inset-0 pointer-events-none opacity-10 overflow-hidden">
-                {[...Array(5)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ top: '-10%', left: `${20 * i}%` }}
-                    animate={{ top: '110%' }}
-                    transition={{ 
-                      duration: 5 + Math.random() * 5, 
-                      repeat: Infinity, 
-                      ease: "linear",
-                      delay: Math.random() * 5
-                    }}
-                    className="absolute w-px h-20 bg-gradient-to-b from-transparent via-primary to-transparent"
-                  />
-                ))}
-              </div>
-            )}
+            <div className="absolute inset-0 pointer-events-none opacity-10 overflow-hidden">
+              {[...Array(isMobile ? 3 : 5)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ top: '-10%', left: `${isMobile ? 33 * i : 20 * i}%` }}
+                  animate={{ top: '110%' }}
+                  transition={{ 
+                    duration: 5 + Math.random() * 5, 
+                    repeat: Infinity, 
+                    ease: "linear",
+                    delay: Math.random() * 5
+                  }}
+                  className="absolute w-px h-20 bg-gradient-to-b from-transparent via-primary to-transparent"
+                />
+              ))}
+            </div>
           </div>
 
           {/* Floating Stats */}

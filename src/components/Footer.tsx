@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { Instagram, Linkedin, Twitter, Youtube, ArrowUp } from 'lucide-react';
 import { Logo } from './Logo';
 
@@ -25,9 +26,15 @@ export const Footer = () => {
             </p>
             <div className="flex gap-4">
               {[Instagram, Linkedin, Twitter, Youtube].map((Icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-primary hover:border-primary transition-all">
+                <motion.a 
+                  key={i} 
+                  href="#" 
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-primary hover:border-primary transition-all"
+                >
                   <Icon size={18} />
-                </a>
+                </motion.a>
               ))}
             </div>
           </div>
@@ -76,12 +83,14 @@ export const Footer = () => {
             <a href="#" className="hover:text-primary transition-colors">Privacidade</a>
             <a href="#" className="hover:text-primary transition-colors">Termos</a>
           </div>
-          <button 
+          <motion.button 
             onClick={scrollToTop}
+            whileHover={{ scale: 1.1, y: -5 }}
+            whileTap={{ scale: 0.9 }}
             className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary hover:text-black transition-all group"
           >
             <ArrowUp size={18} className="group-hover:-translate-y-1 transition-transform" />
-          </button>
+          </motion.button>
         </div>
       </div>
     </footer>

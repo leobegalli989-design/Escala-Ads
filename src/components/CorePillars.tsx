@@ -102,6 +102,7 @@ export const CorePillars = () => {
               viewport={{ once: true }}
               transition={{ delay: pillar.delay, duration: 0.5 }}
               whileHover={!isMobile ? { y: -12, scale: 1.02 } : {}}
+              whileTap={{ scale: 0.98 }}
               className="group relative p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-primary/40 transition-all duration-500 overflow-hidden will-change-transform transform-gpu"
             >
               {/* Card Gradient Overlay */}

@@ -22,6 +22,7 @@ const AboutCard = ({ icon: Icon, title, description, delay, color }: any) => {
         boxShadow: `0 20px 40px -20px ${color}40`,
         borderColor: `${color}40`
       } : {}}
+      whileTap={{ scale: 0.98 }}
       viewport={{ once: true }}
       transition={{ 
         delay,

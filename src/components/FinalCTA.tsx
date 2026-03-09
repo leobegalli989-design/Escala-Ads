@@ -11,6 +11,7 @@ export const FinalCTA = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
+          whileTap={{ scale: 0.98 }}
           viewport={{ once: true }}
           className="glass p-8 sm:p-12 md:p-20 rounded-[2rem] sm:rounded-[3rem] border-primary/30 text-center relative overflow-hidden group will-change-transform transform-gpu"
         >

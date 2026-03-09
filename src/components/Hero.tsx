@@ -134,38 +134,36 @@ export const Hero = () => {
           </div>
         </motion.div>
 
-        {isDesktop && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            whileHover={{ y: -10, rotateY: 5, rotateX: -5 }}
-            transition={{ 
-              duration: 1, 
-              delay: 0.3,
-              whileHover: { duration: 0.5, ease: "easeOut" }
-            }}
-            className="relative perspective-1000"
-          >
-            <div className="relative z-10 w-full glass rounded-3xl overflow-hidden neon-border group min-h-[600px] transition-shadow duration-500 group-hover:shadow-[0_0_50px_rgba(20,163,229,0.3)]">
-              <PerformanceDashboard />
-              
-              {/* Decorative Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-            </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          whileHover={isDesktop ? { y: -10, rotateY: 5, rotateX: -5 } : {}}
+          transition={{ 
+            duration: 1, 
+            delay: 0.3,
+            whileHover: { duration: 0.5, ease: "easeOut" }
+          }}
+          className="relative perspective-1000 mt-12 lg:mt-0"
+        >
+          <div className="relative z-10 w-full glass rounded-3xl overflow-hidden neon-border group min-h-[400px] lg:min-h-[600px] transition-shadow duration-500 group-hover:shadow-[0_0_50px_rgba(20,163,229,0.3)]">
+            <PerformanceDashboard />
             
-            {/* Decorative Rings */}
-            <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              className="absolute -top-10 -right-10 w-full h-full border border-primary/10 rounded-3xl -z-10" 
-            />
-            <motion.div 
-              animate={{ rotate: -360 }}
-              transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-              className="absolute -bottom-10 -left-10 w-full h-full border border-primary/5 rounded-3xl -z-20" 
-            />
-          </motion.div>
-        )}
+            {/* Decorative Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+          </div>
+          
+          {/* Decorative Rings */}
+          <motion.div 
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+            className="absolute -top-10 -right-10 w-full h-full border border-primary/10 rounded-3xl -z-10 hidden lg:block" 
+          />
+          <motion.div 
+            animate={{ rotate: -360 }}
+            transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+            className="absolute -bottom-10 -left-10 w-full h-full border border-primary/5 rounded-3xl -z-20 hidden lg:block" 
+          />
+        </motion.div>
       </div>
     </section>
   );

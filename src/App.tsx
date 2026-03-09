@@ -24,17 +24,16 @@ import { WhatsAppButton } from './components/WhatsAppButton';
 
 export default function App() {
   useEffect(() => {
-    // Disable Lenis on mobile for better performance
-    if (window.innerWidth < 1024) return;
-
+    const isMobile = window.innerWidth < 1024;
+    
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: isMobile ? 0.8 : 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 2,
+      touchMultiplier: isMobile ? 1.5 : 2,
       infinite: false,
     });
 

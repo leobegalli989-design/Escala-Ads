@@ -85,16 +85,15 @@ export const Methodology = () => {
                   className="relative z-10 flex items-center justify-center w-10 h-10 md:w-20 md:h-20 rounded-xl md:rounded-2xl bg-black border-2 transition-all duration-500 group overflow-hidden shrink-0 will-change-transform transform-gpu"
                   style={{ borderColor: step.color, boxShadow: `0 0 30px ${step.color}30` }}
                   whileHover={!isMobile ? { scale: 1.1, rotate: 5 } : {}}
+                  whileTap={{ scale: 0.9 }}
                   viewport={{ once: true }}
                 >
                   {/* Scanning Line Effect */}
-                  {!isMobile && (
-                    <motion.div 
-                      className="absolute top-0 left-0 w-full h-[2px] bg-white/20"
-                      animate={{ top: ['0%', '100%', '0%'] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                    />
-                  )}
+                  <motion.div 
+                    className="absolute top-0 left-0 w-full h-[2px] bg-white/20"
+                    animate={{ top: ['0%', '100%', '0%'] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  />
                   
                   <step.icon style={{ color: step.color }} size={isMobile ? 20 : 32} className="group-hover:scale-110 transition-transform relative z-10" />
                   <div className="absolute -top-2 -right-2 text-[8px] md:text-[10px] font-bold text-black px-1.5 md:px-2 py-0.5 rounded-bl-lg z-20" style={{ backgroundColor: step.color }}>0{index + 1}</div>

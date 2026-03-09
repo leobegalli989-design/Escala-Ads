@@ -251,7 +251,7 @@ export const Cases = () => {
                 <img
                   src={item.image}
                   alt={item.client}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60 md:opacity-40 group-hover:opacity-80 md:group-hover:opacity-60"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-100 md:opacity-40 group-hover:opacity-80 md:group-hover:opacity-60"
                   referrerPolicy="no-referrer"
                 />
                 
@@ -277,7 +277,7 @@ export const Cases = () => {
                       e.stopPropagation();
                       setPreviewLogo(item.logo);
                     }}
-                    className="absolute top-4 left-4 z-20 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-2 md:p-3 flex items-center justify-center overflow-hidden hover:scale-110 transition-all cursor-pointer group/logo shadow-2xl"
+                    className="absolute top-4 left-4 z-20 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/20 md:bg-white/10 backdrop-blur-md border border-white/30 md:border-white/20 p-2 md:p-3 flex items-center justify-center overflow-hidden hover:scale-110 transition-all cursor-pointer group/logo shadow-2xl"
                     style={{ 
                       borderColor: `${item.accentColor}30`
                     }}

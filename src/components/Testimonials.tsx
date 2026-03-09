@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Quote } from 'lucide-react';
+import { Quote, Star } from 'lucide-react';
 
 const testimonials = [
   {
@@ -88,7 +88,8 @@ export const Testimonials = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white/5 border border-white/10 p-8 rounded-2xl relative group hover:bg-white/10 transition-all duration-500"
+              whileHover={{ y: -10 }}
+              className="bg-white/5 border border-white/10 p-8 rounded-2xl relative group hover:bg-white/10 transition-all duration-500 flex flex-col h-full"
             >
               <div 
                 className="absolute top-0 left-0 w-1 h-0 group-hover:h-full transition-all duration-500 rounded-l-2xl"
@@ -131,16 +132,30 @@ export const Testimonials = () => {
                 </div>
               </div>
 
-              <p className="text-gray-neutral text-sm leading-relaxed mb-8 italic">
+              <p className="text-gray-neutral text-sm leading-relaxed mb-6 italic">
                 "{t.content}"
               </p>
+
+              <div className="flex gap-1 mb-8">
+                {[...Array(5)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 + (i * 0.1) }}
+                  >
+                    <Star size={14} className="fill-primary text-primary" />
+                  </motion.div>
+                ))}
+              </div>
 
               <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
                 <div className="h-8 flex items-center">
                   <img 
                     src={t.logo} 
                     alt="Company Logo" 
-                    className="h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-500 opacity-50 group-hover:opacity-100"
+                    className="h-full object-contain grayscale md:grayscale group-hover:grayscale-0 transition-all duration-500 opacity-100 md:opacity-50 group-hover:opacity-100"
                     referrerPolicy="no-referrer"
                   />
                 </div>

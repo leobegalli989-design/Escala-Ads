@@ -222,7 +222,7 @@ export const Cases = () => {
           </p>
         </div>
 
-        <div className="max-h-[700px] overflow-y-auto custom-scrollbar pr-2 -mr-2">
+        <div className="md:max-h-[700px] md:overflow-y-auto custom-scrollbar pr-2 -mr-2">
           <motion.div 
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
             variants={{
@@ -251,9 +251,7 @@ export const Cases = () => {
                 <img
                   src={item.image}
                   alt={item.client}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-40 group-hover:opacity-60"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60 md:opacity-40 group-hover:opacity-80 md:group-hover:opacity-60"
                   referrerPolicy="no-referrer"
                 />
                 
@@ -279,7 +277,7 @@ export const Cases = () => {
                       e.stopPropagation();
                       setPreviewLogo(item.logo);
                     }}
-                    className="absolute top-4 left-4 z-20 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-black/60 backdrop-blur-md border border-white/10 p-2 md:p-3 flex items-center justify-center overflow-hidden hover:scale-110 transition-all cursor-pointer group/logo shadow-2xl"
+                    className="absolute top-4 left-4 z-20 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-2 md:p-3 flex items-center justify-center overflow-hidden hover:scale-110 transition-all cursor-pointer group/logo shadow-2xl"
                     style={{ 
                       borderColor: `${item.accentColor}30`
                     }}
@@ -288,12 +286,11 @@ export const Cases = () => {
                     <img 
                       src={item.logo} 
                       alt={`${item.client} logo`}
-                      loading="lazy"
-                      decoding="async"
                       className="max-w-full max-h-full object-contain group-hover/logo:scale-110 transition-transform"
                       referrerPolicy="no-referrer"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = 'none';
+                        const target = e.target as HTMLImageElement;
+                        target.style.opacity = '0.2';
                       }}
                     />
                     <div 
@@ -378,7 +375,6 @@ export const Cases = () => {
                   <img 
                     src={selectedCase.image} 
                     alt={selectedCase.client}
-                    decoding="async"
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
                   />
@@ -412,11 +408,11 @@ export const Cases = () => {
                         <img 
                           src={selectedCase.logo} 
                           alt={`${selectedCase.client} logo`}
-                          decoding="async"
                           className="max-w-full max-h-full object-contain group-hover/modal-logo:scale-110 transition-transform"
                           referrerPolicy="no-referrer"
                           onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none';
+                            const target = e.target as HTMLImageElement;
+                            target.style.opacity = '0.2';
                           }}
                         />
                       </button>
@@ -598,7 +594,6 @@ export const Cases = () => {
                 <img 
                   src={previewLogo} 
                   alt="Logo Preview" 
-                  decoding="async"
                   className="max-w-full max-h-full object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]"
                   referrerPolicy="no-referrer"
                 />

@@ -23,6 +23,25 @@ export const Navbar = () => {
     { name: 'Depoimentos', href: '#depoimentos' },
   ];
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    
+    if (element) {
+      const offset = 80; // Height of the fixed navbar
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   return (
     <nav
       className={cn(
@@ -31,7 +50,11 @@ export const Navbar = () => {
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <a href="#home" className="flex items-center gap-2 group">
+        <a 
+          href="#home" 
+          onClick={(e) => scrollToSection(e, '#home')}
+          className="flex items-center gap-2 group"
+        >
           <div className="w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform">
             <Logo className="w-full h-full" />
           </div>
@@ -46,6 +69,7 @@ export const Navbar = () => {
             <a
               key={link.name}
               href={link.href}
+              onClick={(e) => scrollToSection(e, link.href)}
               className="text-sm font-medium text-white/70 hover:text-primary transition-colors uppercase tracking-widest"
             >
               {link.name}
@@ -94,7 +118,7 @@ export const Navbar = () => {
                       stiffness: 300,
                       damping: 30
                     }}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => scrollToSection(e, link.href)}
                     className="text-4xl font-black text-white hover:text-primary transition-all uppercase tracking-tighter active:scale-95"
                   >
                     {link.name}

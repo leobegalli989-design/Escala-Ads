@@ -306,14 +306,14 @@ export const Cases = () => {
                 )}
               </div>
               
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent p-8 flex flex-col justify-end">
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent p-8 flex flex-col justify-end opacity-80 group-hover:opacity-100 transition-opacity duration-300">
                 <h3 
                   className="text-2xl mb-2 transition-colors duration-300"
                   style={{ color: 'white' }}
                 >
                   {item.client}
                 </h3>
-                <p className="text-gray-neutral text-xs mb-6 line-clamp-2 opacity-80 group-hover:opacity-100 transition-opacity">
+                <p className="text-gray-neutral text-xs mb-6 line-clamp-2">
                   {item.description}
                 </p>
                 <button 

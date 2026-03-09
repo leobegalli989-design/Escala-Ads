@@ -76,14 +76,15 @@ export const Loader = () => {
               >
                 Protocolo de Escala Ativo
               </motion.div>
-              <div className="text-white/20 text-[10px] font-mono tracking-widest">
+              <div className="text-white/20 text-[10px] font-mono tracking-widest flex items-center gap-2">
+                <span className="w-2 h-2 bg-primary/40 rounded-full animate-ping" />
                 SISTEMA_CARREGANDO: {Math.round(progress)}%
               </div>
             </div>
           </div>
           
           {/* Background Grid/Particles for "Life" */}
-          <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,242,0.05)_0%,transparent_70%)]" />
             {[...Array(isMobile ? 6 : 15)].map((_, i) => (
               <motion.div
@@ -96,7 +97,7 @@ export const Loader = () => {
                   delay: Math.random() * 2,
                   ease: "linear"
                 }}
-                className="absolute w-[1px] h-32 bg-gradient-to-t from-transparent via-primary/30 to-transparent"
+                className="absolute w-[1px] h-32 bg-gradient-to-t from-transparent via-primary/30 to-transparent will-change-transform transform-gpu"
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,

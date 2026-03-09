@@ -18,7 +18,7 @@ export const Particles = () => {
       {[...Array(particleCount)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-primary/30 rounded-full"
+          className="absolute w-1 h-1 bg-primary/30 rounded-full will-change-transform"
           initial={{
             x: Math.random() * 100 + '%',
             y: Math.random() * 100 + '%',

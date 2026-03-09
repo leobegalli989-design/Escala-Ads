@@ -358,9 +358,15 @@ export const Cases = () => {
             />
             
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ opacity: 0, scale: 0.95, y: 40, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, scale: 0.95, y: 40, filter: 'blur(10px)' }}
+              transition={{ 
+                type: "spring",
+                damping: 25,
+                stiffness: 200,
+                mass: 0.8
+              }}
               className="relative w-full max-w-5xl h-[90vh] bg-zinc-950 border border-white/10 rounded-2xl shadow-2xl will-change-transform transform-gpu z-10 overflow-hidden flex flex-col md:flex-row"
             >
                 <button 
@@ -504,13 +510,12 @@ export const Cases = () => {
                           return (
                             <motion.div 
                               key={i} 
-                              initial={{ opacity: 0, x: -20, filter: 'blur(10px)' }}
-                              whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                              viewport={{ once: true }}
+                              initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+                              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                               transition={{ 
                                 duration: 0.8, 
-                                delay: 0.1 + (i * 0.05),
-                                ease: [0.16, 1, 0.3, 1]
+                                delay: 0.2 + (i * 0.04),
+                                ease: [0.22, 1, 0.36, 1]
                               }}
                               className="bg-white/5 border border-white/5 p-3 sm:p-4 rounded-xl group/metric transition-all hover:bg-white/10 hover:border-primary/30"
                               style={{ 

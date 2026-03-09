@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { MessageSquare, ArrowRight } from 'lucide-react';
+import { ArrowRight, MessageCircle } from 'lucide-react';
 
 export const FinalCTA = () => {
   return (
@@ -22,7 +22,7 @@ export const FinalCTA = () => {
             transition={{ duration: 4, repeat: Infinity }}
             className="w-16 h-16 sm:w-20 sm:h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-8 border border-primary/30"
           >
-            <MessageSquare className="text-primary" size={28} />
+            <MessageCircle className="text-primary" size={28} />
           </motion.div>
 
           <h2 className="text-3xl sm:text-4xl md:text-6xl mb-6 sm:mb-8 leading-tight font-black">
@@ -48,8 +48,9 @@ export const FinalCTA = () => {
               href="https://wa.me/5535998208622?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Escala%20Ads."
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-5 sm:px-10 sm:py-5 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-3 text-sm sm:text-base"
+              className="px-8 py-5 sm:px-10 sm:py-5 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-3 text-sm sm:text-base group/ws"
             >
+              <MessageCircle size={20} className="text-emerald-400 group-hover/ws:scale-110 transition-transform" />
               Chamar no WhatsApp
             </a>
           </div>

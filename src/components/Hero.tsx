@@ -64,24 +64,27 @@ export const Hero = () => {
             Performance Digital de Elite
           </motion.div>
 
-          <h1 className="text-[2.5rem] sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-[1] sm:leading-[0.9] overflow-hidden will-change-transform text-center sm:text-left">
-            <motion.span 
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-block transform-gpu"
-            >
-              DOMÍNIO DE <span className="text-shimmer glow-pulse bg-gradient-to-r from-primary via-blue-400 to-emerald-400 bg-clip-text text-transparent">MERCADO</span>
-            </motion.span>
-            <br className="hidden sm:block" />
-            <motion.span 
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-block transform-gpu"
-            >
-              COM <span className="text-shimmer glow-pulse bg-gradient-to-r from-primary via-blue-400 to-emerald-400 bg-clip-text text-transparent">ESCALA.</span>
-            </motion.span>
+          <h1 className="text-[2.5rem] sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-[1.1] sm:leading-[1] will-change-transform text-center sm:text-left">
+            <div className="overflow-hidden py-2">
+              <motion.span 
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="inline-block transform-gpu"
+              >
+                DOMÍNIO DE <span className="text-shimmer glow-pulse">MERCADO</span>
+              </motion.span>
+            </div>
+            <div className="overflow-hidden py-2">
+              <motion.span 
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="inline-block transform-gpu"
+              >
+                COM <span className="text-shimmer glow-pulse">ESCALA.</span>
+              </motion.span>
+            </div>
           </h1>
 
           <motion.p 

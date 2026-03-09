@@ -84,7 +84,7 @@ export const Methodology = () => {
                 <motion.div 
                   className="relative z-10 flex items-center justify-center w-10 h-10 md:w-20 md:h-20 rounded-xl md:rounded-2xl bg-black border-2 transition-all duration-500 group overflow-hidden shrink-0 will-change-transform transform-gpu"
                   style={{ borderColor: step.color, boxShadow: `0 0 30px ${step.color}30` }}
-                  whileHover={!isMobile ? { scale: 1.1, rotate: 5 } : {}}
+                  whileHover={{ scale: 1.1, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   viewport={{ once: true }}
                 >

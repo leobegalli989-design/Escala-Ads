@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Quote, Star } from 'lucide-react';
+import { Quote, Star, MessageCircle } from 'lucide-react';
 
 const testimonials = [
   {
@@ -84,12 +84,20 @@ export const Testimonials = () => {
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="bg-white/5 border border-white/10 p-8 rounded-2xl relative group hover:bg-white/10 transition-all duration-500 flex flex-col h-full"
+              initial={{ opacity: 0, y: 50, scale: 0.9, filter: 'blur(10px)' }}
+              whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 0.8, 
+                delay: i * 0.15,
+                ease: [0.22, 1, 0.36, 1]
+              }}
+              whileHover={{ 
+                y: -10,
+                boxShadow: `0 20px 40px -20px ${t.accentColor}40`,
+                borderColor: `${t.accentColor}40`
+              }}
+              className="bg-white/5 border border-white/10 p-8 rounded-2xl relative group hover:bg-white/10 transition-all duration-500 flex flex-col h-full will-change-transform transform-gpu"
             >
               <div 
                 className="absolute top-0 left-0 w-1 h-0 group-hover:h-full transition-all duration-500 rounded-l-2xl"
@@ -140,10 +148,15 @@ export const Testimonials = () => {
                 {[...Array(5)].map((_, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, scale: 0, rotate: -45 }}
+                    whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.3 + (i * 0.1) }}
+                    transition={{ 
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 15,
+                      delay: 0.4 + (i * 0.1) 
+                    }}
                   >
                     <Star size={14} className="fill-primary text-primary" />
                   </motion.div>

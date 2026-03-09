@@ -124,21 +124,21 @@ export const PerformanceDashboard = () => {
       >
         {/* Background Data Stream Effect */}
         <div className="absolute inset-0 opacity-5 pointer-events-none overflow-hidden">
-          {Array.from({ length: isMobile ? 5 : 10 }).map((_, i) => (
+          {Array.from({ length: isMobile ? 3 : 10 }).map((_, i) => (
             <motion.div
               key={i}
               initial={{ y: -100 }}
               animate={{ y: 400 }}
               transition={{ 
-                duration: Math.random() * 5 + 5, 
+                duration: isMobile ? 10 : Math.random() * 5 + 5, 
                 repeat: Infinity, 
                 ease: "linear",
                 delay: Math.random() * 5
               }}
               className="absolute text-[8px] font-mono text-emerald-400 whitespace-nowrap"
-              style={{ left: `${i * (isMobile ? 20 : 10)}%` }}
+              style={{ left: `${i * (isMobile ? 33 : 10)}%` }}
             >
-              {Array.from({ length: 20 }).map(() => Math.floor(Math.random() * 2)).join('')}
+              {Array.from({ length: isMobile ? 10 : 20 }).map(() => Math.floor(Math.random() * 2)).join('')}
             </motion.div>
           ))}
         </div>
@@ -162,10 +162,10 @@ export const PerformanceDashboard = () => {
         </div>
         
         {/* Animated Graph Line */}
-        <div className="h-20 w-full relative mt-4 z-10">
-          <svg className="w-full h-full" viewBox="0 0 400 60" preserveAspectRatio="none">
+        <div className="h-24 w-full relative mt-4 z-10">
+          <svg className="w-full h-full" viewBox="0 -5 400 70" preserveAspectRatio="none">
             <motion.path
-              d="M0 50 Q 50 45, 80 30 T 150 35 T 220 15 T 300 25 T 400 5"
+              d="M0 55 Q 50 50, 80 35 T 150 40 T 220 20 T 300 30 T 400 10"
               fill="none"
               stroke="currentColor"
               strokeWidth="3"
@@ -175,7 +175,7 @@ export const PerformanceDashboard = () => {
               transition={{ duration: 3, ease: "easeInOut", delay: 0.5 }}
             />
             <motion.path
-              d="M0 50 Q 50 45, 80 30 T 150 35 T 220 15 T 300 25 T 400 5 V 60 H 0 Z"
+              d="M0 55 Q 50 50, 80 35 T 150 40 T 220 20 T 300 30 T 400 10 V 65 H 0 Z"
               fill="url(#emerald-gradient)"
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.2 }}
@@ -199,7 +199,7 @@ export const PerformanceDashboard = () => {
               repeat: Infinity, 
               ease: "linear",
             }}
-            className="absolute top-1/2 right-0 w-2 h-2 bg-white rounded-full shadow-[0_0_10px_#fff] z-20"
+            className="absolute top-[21%] right-0 w-2 h-2 bg-white rounded-full shadow-[0_0_10px_#fff] z-20"
           />
         </div>
 
@@ -242,12 +242,14 @@ export const PerformanceDashboard = () => {
         </motion.div>
       </div>
 
-      {/* Scanner Effect Overlay */}
-      <motion.div
-        animate={{ top: ['-10%', '110%'] }}
-        transition={{ duration: isMobile ? 12 : 8, repeat: Infinity, ease: 'linear' }}
-        className="absolute left-0 right-0 h-[2px] bg-primary/30 shadow-[0_0_20px_rgba(20,163,229,1)] z-50 pointer-events-none"
-      />
+        {/* Scanner Effect Overlay */}
+        {!isMobile && (
+          <motion.div
+            animate={{ top: ['-10%', '110%'] }}
+            transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+            className="absolute left-0 right-0 h-[2px] bg-primary/30 shadow-[0_0_20px_rgba(20,163,229,1)] z-50 pointer-events-none"
+          />
+        )}
       
       {/* Random Glitch Overlay for the whole dashboard */}
       <motion.div

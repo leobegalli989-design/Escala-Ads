@@ -25,9 +25,10 @@ import { WhatsAppButton } from './components/WhatsAppButton';
 export default function App() {
   useEffect(() => {
     const isMobile = window.innerWidth < 1024;
+    if (isMobile) return;
     
     const lenis = new Lenis({
-      duration: isMobile ? 0.8 : 1.2,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',

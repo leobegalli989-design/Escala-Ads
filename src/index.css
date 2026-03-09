@@ -36,12 +36,14 @@
     background: linear-gradient(
       90deg,
       #14a3e5 0%,
-      #ffffff 50%,
+      #34d399 50%,
       #14a3e5 100%
     );
     background-size: 200% auto;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
     animation: shimmer 4s linear infinite;
   }
 
@@ -66,20 +68,40 @@
   .glass {
     @apply bg-white/5 border border-white/10;
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   @media (max-width: 768px) {
     .glass {
-      backdrop-filter: blur(4px);
-      @apply bg-white/10;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      @apply bg-zinc-900/90;
     }
     .noise {
       display: none;
     }
+    
+    /* Disable heavy animations on mobile if needed, but user wants them transmitted */
+    /* Instead, we optimize the rendering */
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
+
+  .safari-blur {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .neon-border {
     @apply border border-primary/30 shadow-[0_0_15px_rgba(20,163,229,0.2)];
+  }
+
+  /* Optimize for mobile scrolling and rendering */
+  section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 500px;
+    render-batch: auto;
   }
 
   .bg-grid {

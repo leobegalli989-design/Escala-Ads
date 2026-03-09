@@ -46,7 +46,7 @@ export const Navbar = () => {
     <nav
       className={cn(
         'fixed top-0 left-0 right-0 z-[5000] transition-all duration-500 px-6 py-4',
-        isScrolled ? 'bg-black/80 backdrop-blur-md border-b border-white/10 py-3' : 'bg-transparent'
+        isScrolled ? 'bg-black/80 safari-blur border-b border-white/10 py-3' : 'bg-transparent'
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">

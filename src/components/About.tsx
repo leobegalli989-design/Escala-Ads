@@ -3,25 +3,16 @@ import { motion } from 'motion/react';
 import { Target, TrendingUp, ShieldCheck, Zap } from 'lucide-react';
 
 const AboutCard = ({ icon: Icon, title, description, delay, color }: any) => {
-  const [isMobile, setIsMobile] = React.useState(false);
-
-  React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={!isMobile ? { 
+      whileHover={{ 
         scale: 1.02, 
         y: -5,
         boxShadow: `0 20px 40px -20px ${color}40`,
         borderColor: `${color}40`
-      } : {}}
+      }}
       whileTap={{ scale: 0.98 }}
       viewport={{ once: true }}
       transition={{ 

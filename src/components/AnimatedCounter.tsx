@@ -22,8 +22,8 @@ export const AnimatedCounter = ({ value, duration = 1.5, prefix = '', suffix = '
     let controls: any;
     const timeout = setTimeout(() => {
       controls = animate(0, value, {
-        duration: window.innerWidth < 768 ? duration * 0.8 : duration,
-        ease: [0.16, 1, 0.3, 1], // Custom "progressive" cubic-bezier
+        duration: duration,
+        ease: [0.22, 1, 0.36, 1], // Quint Out easing for a very smooth progressive feel
         onUpdate: (latest) => setDisplayValue(latest)
       });
     }, delay * 1000);

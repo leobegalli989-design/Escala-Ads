@@ -97,13 +97,13 @@ export const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              whileHover={!isMobile ? { 
+              whileHover={{ 
                 y: -15, 
                 scale: 1.05,
                 rotateX: 5,
                 rotateY: -5,
                 transition: { type: "spring", stiffness: 300, damping: 20 }
-              } : {}}
+              }}
               whileTap={{ scale: 0.95 }}
               className="group relative p-6 sm:p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-500 overflow-hidden perspective-1000 cursor-pointer will-change-transform transform-gpu"
             >

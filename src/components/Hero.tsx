@@ -101,7 +101,7 @@ export const Hero = () => {
           >
             <Magnetic disabled={!isDesktop}>
               <a 
-                href="https://wa.me/5535998208622"
+                href="https://wa.me/5535998208622?text=Olá!%20Gostaria%20de%20agendar%20um%20diagnóstico%20estratégico%20para%20o%20meu%20negócio."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative px-6 py-5 sm:px-8 sm:py-4 bg-primary text-black font-black uppercase tracking-tighter rounded-xl sm:rounded-sm overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,163,229,0.5)] flex items-center justify-center text-sm sm:text-base"

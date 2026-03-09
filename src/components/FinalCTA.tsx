@@ -35,7 +35,7 @@ export const FinalCTA = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
-              href="https://wa.me/5535998208622"
+              href="https://wa.me/5535998208622?text=Olá!%20Gostaria%20de%20agendar%20um%20diagnóstico%20estratégico%20para%20o%20meu%20negócio."
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-5 sm:px-10 sm:py-5 bg-primary text-black font-black uppercase tracking-tighter rounded-xl hover:shadow-[0_0_40px_rgba(20,163,229,0.7)] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 text-sm sm:text-base"
@@ -44,7 +44,7 @@ export const FinalCTA = () => {
               <ArrowRight size={20} />
             </a>
             <a 
-              href="https://wa.me/5535998208622"
+              href="https://wa.me/5535998208622?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Escala%20Ads."
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-5 sm:px-10 sm:py-5 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-3 text-sm sm:text-base"

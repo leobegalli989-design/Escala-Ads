@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useMemo, useRef } from 'react';
-import { animate } from 'motion/react';
+import React, { useEffect, useState, useMemo } from 'react';
+import { animate, motion } from 'motion/react';
 
 interface CounterProps {
   value: number;
@@ -10,9 +10,8 @@ interface CounterProps {
   delay?: number;
 }
 
-export const AnimatedCounter = ({ value, duration = 2, prefix = '', suffix = '', decimals = 0, delay = 0 }: CounterProps) => {
+export const AnimatedCounter = ({ value, duration = 1.5, prefix = '', suffix = '', decimals = 0, delay = 0 }: CounterProps) => {
   const [displayValue, setDisplayValue] = useState(0);
-  const initialized = useRef(false);
   
   const formatter = useMemo(() => new Intl.NumberFormat('pt-BR', { 
     minimumFractionDigits: decimals, 
@@ -20,15 +19,11 @@ export const AnimatedCounter = ({ value, duration = 2, prefix = '', suffix = '',
   }), [decimals]);
 
   useEffect(() => {
-    // Prevent double animation in StrictMode or rapid remounts
-    if (initialized.current && window.innerWidth < 768) return;
-    initialized.current = true;
-
     let controls: any;
     const timeout = setTimeout(() => {
       controls = animate(0, value, {
-        duration: window.innerWidth < 768 ? duration * 0.6 : duration, // Faster on mobile
-        ease: "easeOut",
+        duration: window.innerWidth < 768 ? duration * 0.8 : duration,
+        ease: [0.16, 1, 0.3, 1], // Custom "progressive" cubic-bezier
         onUpdate: (latest) => setDisplayValue(latest)
       });
     }, delay * 1000);
@@ -41,5 +36,13 @@ export const AnimatedCounter = ({ value, duration = 2, prefix = '', suffix = '',
 
   const formatted = formatter.format(displayValue);
 
-  return <span>{prefix}{formatted}{suffix}</span>;
+  return (
+    <motion.span
+      initial={{ opacity: 0, filter: 'blur(4px)' }}
+      animate={{ opacity: 1, filter: 'blur(0px)' }}
+      transition={{ duration: 0.5, delay: delay }}
+    >
+      {prefix}{formatted}{suffix}
+    </motion.span>
+  );
 };

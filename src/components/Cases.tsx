@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ExternalLink, TrendingUp, X, CheckCircle2, Eye } from 'lucide-react';
 import { AnimatedCounter } from './AnimatedCounter';
@@ -10,11 +10,16 @@ const cases = [
     result: '8.88x ROAS',
     accentColor: '#FFCC00',
     description: 'Faturamento de R$ 78.923,75 com apenas R$ 8.886,88 de investimento em anúncios.',
-    image: 'https://images.unsplash.com/photo-1606131731446-5568d87113aa?auto=format&fit=crop&q=80&w=800',
+    image: 'https://i.imgur.com/pjfivwX.png',
     logo: 'https://i.imgur.com/B5HdJ4K.png',
     fullDetails: {
       challenge: 'Lançamento de marca do zero em um mercado extremamente competitivo de delivery gastronômico.',
       strategy: 'Implementação de funil de vendas direto para WhatsApp e iFood, com foco em criativos cinematográficos de alto desejo e segmentação local ultra-precisa.',
+      testimonial: {
+        text: 'A Nathan Filmes transformou nosso lançamento. O ROAS de 8.88x superou todas as nossas expectativas para uma marca nova em um mercado tão saturado.',
+        author: 'Allan',
+        role: 'CEO New York Chicken'
+      },
       metrics: [
         { label: 'Faturamento Período', value: 78923.75, prefix: 'R$ ', decimals: 2 },
         { label: 'Investimento Ads', value: 8886.88, prefix: 'R$ ', decimals: 2 },
@@ -41,6 +46,11 @@ const cases = [
     fullDetails: {
       challenge: 'Baixa previsibilidade de vendas, dependência de tráfego orgânico e faturamento estagnado em R$ 4.000 mensais.',
       strategy: 'Campanhas de geração de leads focadas em pedidos diretos no WhatsApp, otimização de criativos para delivery e remarketing agressivo para base de clientes.',
+      testimonial: {
+        text: 'Saímos de um faturamento estagnado para mais de R$ 25k mensais. O tráfego pago foi o divisor de águas para o crescimento exponencial do nosso delivery.',
+        author: 'Cristiano',
+        role: 'Proprietário'
+      },
       metrics: [
         { label: 'Faturamento Mensal Inicial', value: 4000, prefix: 'R$ ', decimals: 0 },
         { label: 'Faturamento Mensal Atual', value: 25000, prefix: '+R$ ', decimals: 0 },
@@ -67,6 +77,11 @@ const cases = [
     fullDetails: {
       challenge: 'Custo de aquisição de clientes (CPA) elevado e dificuldade de escala em regiões com alta concorrência de grandes operadoras nacionais.',
       strategy: 'Implementação de campanhas de geofencing ultra-localizadas, landing pages otimizadas para conversão imediata e um funil de vendas direto para o time comercial via WhatsApp, focado em planos de alta velocidade.',
+      testimonial: {
+        text: 'Dominamos nossa região. O custo por aquisição caiu drasticamente e hoje somos a principal referência em internet fibra na nossa área de atuação.',
+        author: 'William',
+        role: 'Gerente de Marketing'
+      },
       metrics: [
         { label: 'Faturamento', value: 98182.89, prefix: 'R$ ', decimals: 2 },
         { label: 'Gasto Ads', value: 4043.13, prefix: 'R$ ', decimals: 2 },
@@ -86,13 +101,18 @@ const cases = [
   {
     client: 'Móveis Camilo',
     result: '14.70x ROAS',
-    accentColor: '#8b5cf6',
+    accentColor: '#c2a353',
     description: 'Transformação digital com faturamento de R$ 24.974,63 e investimento estratégico de R$ 1.698,66.',
-    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800',
-    logo: 'https://api.dicebear.com/7.x/shapes/svg?seed=Camilo&backgroundColor=8b5cf6',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800',
+    logo: 'https://i.imgur.com/xwDv0Ow.png',
     fullDetails: {
       challenge: 'Dificuldade em escalar vendas online e alto custo de aquisição de clientes no setor de móveis de alto padrão.',
       strategy: 'Implementação de campanhas de fundo de funil com criativos de alto impacto visual, segmentação por interesse em decoração de luxo e funil de vendas otimizado para fechamento via WhatsApp.',
+      testimonial: {
+        text: 'O retorno sobre o investimento foi impressionante. Nossas peças de alto padrão agora chegam ao público certo, com uma eficiência que nunca tivemos antes.',
+        author: 'Aline',
+        role: 'Diretora Executiva'
+      },
       metrics: [
         { label: 'Faturamento', value: 24974.63, prefix: 'R$ ', decimals: 2 },
         { label: 'Gasto Ads', value: 1698.66, prefix: 'R$ ', decimals: 2 },
@@ -114,11 +134,16 @@ const cases = [
     result: '12.25x ROAS',
     accentColor: '#ec4899',
     description: 'Faturamento de R$ 10.043,78 com apenas R$ 820,13 de investimento em anúncios.',
-    image: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=800',
-    logo: 'https://api.dicebear.com/7.x/shapes/svg?seed=Iasmim&backgroundColor=f59e0b',
+    image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&q=80&w=800',
+    logo: 'https://i.imgur.com/QU9x4nP.png',
     fullDetails: {
       challenge: 'Dificuldade em atrair novos clientes para serviços de personal chef e baixa visibilidade online.',
       strategy: 'Campanhas de tráfego pago focadas em público local de alto poder aquisitivo, utilizando criativos que demonstram a experiência gastronômica e funil direto para agendamento via WhatsApp.',
+      testimonial: {
+        text: 'Minha agenda nunca esteve tão cheia. O foco em clientes de alto padrão trouxe exatamente o público que eu sempre quis atender.',
+        author: 'Iasmim',
+        role: 'Personal Chef'
+      },
       metrics: [
         { label: 'Faturamento', value: 10043.78, prefix: 'R$ ', decimals: 2 },
         { label: 'Gasto Ads', value: 820.13, prefix: 'R$ ', decimals: 2 },
@@ -141,10 +166,15 @@ const cases = [
     accentColor: '#ef4444',
     description: 'Faturamento de R$ 10.132,00 com investimento estratégico de R$ 977,58 no setor automotivo.',
     image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=800',
-    logo: 'https://api.dicebear.com/7.x/shapes/svg?seed=Nathan&backgroundColor=ef4444',
+    logo: 'https://i.imgur.com/QOElzLc.png',
     fullDetails: {
       challenge: 'Baixa conversão em vendas online e necessidade de escala para serviços de estética automotiva e acessórios.',
       strategy: 'Campanhas focadas em desejo visual, demonstração de aplicação de películas e acessórios, com segmentação para entusiastas automotivos e conversão direta via WhatsApp.',
+      testimonial: {
+        text: 'Nossas vendas de acessórios e serviços de estética automotiva explodiram. A estratégia de tráfego visual foi perfeita para o nosso nicho.',
+        author: 'Nathan',
+        role: 'Fundador'
+      },
       metrics: [
         { label: 'Faturamento', value: 10132.00, prefix: 'R$ ', decimals: 2 },
         { label: 'Gasto Ads', value: 977.58, prefix: 'R$ ', decimals: 2 },
@@ -167,6 +197,18 @@ export const Cases = () => {
   const [selectedCase, setSelectedCase] = useState<typeof cases[0] | null>(null);
   const [previewLogo, setPreviewLogo] = useState<string | null>(null);
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (selectedCase || previewLogo) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedCase, previewLogo]);
+
   return (
     <section id="cases" className="py-24 bg-black relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -180,21 +222,22 @@ export const Cases = () => {
           </p>
         </div>
 
-        <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-          variants={{
-            hidden: { opacity: 0 },
-            show: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.2
+        <div className="max-h-[700px] overflow-y-auto custom-scrollbar pr-2 -mr-2">
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.2
+                }
               }
-            }
-          }}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-        >
+            }}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+          >
           {cases.map((item, index) => (
             <motion.div
               key={item.client}
@@ -303,6 +346,7 @@ export const Cases = () => {
           ))}
         </motion.div>
       </div>
+    </div>
 
       {/* Modal */}
       <AnimatePresence>
@@ -320,28 +364,28 @@ export const Cases = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-4xl bg-zinc-950 border border-white/10 rounded-2xl overflow-hidden shadow-2xl will-change-transform transform-gpu"
+              className="relative w-full max-w-4xl max-h-[90vh] bg-zinc-950 border border-white/10 rounded-2xl shadow-2xl will-change-transform transform-gpu z-10 overflow-y-auto custom-scrollbar"
             >
-              <button 
-                onClick={() => setSelectedCase(null)}
-                className="absolute top-4 right-4 z-10 p-2 bg-black/50 rounded-full text-white hover:text-primary transition-colors"
-              >
-                <X size={24} />
-              </button>
+                <button 
+                  onClick={() => setSelectedCase(null)}
+                  className="absolute top-4 right-4 z-20 p-2 bg-black/50 rounded-full text-white hover:text-primary transition-colors"
+                >
+                  <X size={24} />
+                </button>
 
-              <div className="grid md:grid-cols-2">
-                <div className="h-64 md:h-full relative">
-                  <img 
-                    src={selectedCase.image} 
-                    alt={selectedCase.client}
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/50 to-transparent md:hidden" />
-                </div>
+                <div className="grid md:grid-cols-2">
+                  <div className="h-64 md:h-auto min-h-[400px] relative overflow-hidden rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none">
+                    <img 
+                      src={selectedCase.image} 
+                      alt={selectedCase.client}
+                      decoding="async"
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/50 to-transparent md:hidden" />
+                  </div>
 
-                <div className="p-6 md:p-12 max-h-[80vh] overflow-y-auto">
+                  <div className="p-6 md:p-12">
                   <div className="flex flex-col sm:flex-row items-center sm:items-center gap-6 mb-8 text-center sm:text-left">
                     {selectedCase.logo && (
                       <button 
@@ -398,6 +442,27 @@ export const Cases = () => {
                       </p>
                     </div>
 
+                    {selectedCase.fullDetails.testimonial && (
+                      <div className="bg-white/5 border-l-2 p-6 rounded-r-xl italic relative group/quote">
+                        <div 
+                          className="absolute -top-3 -left-3 w-8 h-8 rounded-full flex items-center justify-center text-black"
+                          style={{ backgroundColor: selectedCase.accentColor }}
+                        >
+                          <span className="text-xl font-serif">"</span>
+                        </div>
+                        <p className="text-gray-neutral text-sm mb-4">
+                          {selectedCase.fullDetails.testimonial.text}
+                        </p>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-px bg-white/20" />
+                          <div>
+                            <div className="text-xs font-bold text-white">{selectedCase.fullDetails.testimonial.author}</div>
+                            <div className="text-[10px] text-gray-neutral uppercase tracking-wider">{selectedCase.fullDetails.testimonial.role}</div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
                     <div>
                       <h4 
                         className="text-xs uppercase tracking-widest mb-4 flex items-center gap-2"
@@ -405,7 +470,7 @@ export const Cases = () => {
                       >
                         <CheckCircle2 size={14} /> Métricas de Escala
                       </h4>
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         {selectedCase.fullDetails.metrics.map((metric, i) => {
                           const getMetricColor = (label: string) => {
                             const l = label.toLowerCase();
@@ -428,10 +493,15 @@ export const Cases = () => {
                           return (
                             <motion.div 
                               key={i} 
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.3 + (i * 0.05) }}
-                              className="bg-white/5 border border-white/5 p-4 rounded-xl group/metric transition-colors"
+                              initial={{ opacity: 0, x: -20, filter: 'blur(10px)' }}
+                              whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                              viewport={{ once: true }}
+                              transition={{ 
+                                duration: 0.8, 
+                                delay: 0.1 + (i * 0.05),
+                                ease: [0.16, 1, 0.3, 1]
+                              }}
+                              className="bg-white/5 border border-white/5 p-3 sm:p-4 rounded-xl group/metric transition-all hover:bg-white/10 hover:border-primary/30"
                               style={{ 
                                 borderColor: i % 2 === 0 ? `${selectedCase.accentColor}10` : 'rgba(255,255,255,0.05)'
                               }}
@@ -442,13 +512,13 @@ export const Cases = () => {
                               >
                                 {metric.label}
                               </div>
-                              <div className={cn("text-lg font-bold", metricColor)}>
+                              <div className={cn("text-lg font-black tracking-tight", metricColor)}>
                                 <AnimatedCounter 
                                   value={metric.value} 
                                   prefix={metric.prefix} 
                                   suffix={metric.suffix} 
                                   decimals={metric.decimals} 
-                                  delay={0.5 + (i * 0.1)} 
+                                  delay={0.4 + (i * 0.08)} 
                                 />
                               </div>
                             </motion.div>

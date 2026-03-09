@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 
 export const WhatsAppButton = () => {
-  const whatsappUrl = "https://wa.me/5535998208622";
+  const whatsappUrl = "https://wa.me/5535998208622?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Escala%20Ads.";
 
   return (
       <motion.a

@@ -20,6 +20,7 @@ export const Navbar = () => {
     { name: 'Serviços', href: '#services' },
     { name: 'Metodologia', href: '#methodology' },
     { name: 'Cases', href: '#cases' },
+    { name: 'Depoimentos', href: '#depoimentos' },
   ];
 
   return (
@@ -51,7 +52,9 @@ export const Navbar = () => {
             </a>
           ))}
           <a
-            href="#contact"
+            href="https://wa.me/5535998208622?text=Olá!%20Gostaria%20de%20falar%20com%20um%20especialista%20da%20Escala%20Ads."
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-6 py-2 bg-primary text-black font-bold rounded-full hover:shadow-[0_0_20px_rgba(20,163,229,0.6)] transition-all hover:scale-105 active:scale-95"
           >
             Falar com Especialista
@@ -105,7 +108,9 @@ export const Navbar = () => {
                   className="w-full pt-8 mt-4 border-t border-white/10"
                 >
                   <a
-                    href="#contact"
+                    href="https://wa.me/5535998208622?text=Olá!%20Gostaria%20de%20falar%20com%20um%20especialista%20da%20Escala%20Ads."
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="w-full flex items-center justify-center py-6 bg-primary text-black font-black rounded-2xl text-xl uppercase tracking-widest shadow-[0_0_40px_rgba(20,163,229,0.4)] active:scale-95 transition-transform"
                   >

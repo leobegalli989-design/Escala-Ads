@@ -15,7 +15,7 @@ export const FinalCTA = () => {
           viewport={{ once: true }}
           className="glass p-8 sm:p-12 md:p-20 rounded-[2rem] sm:rounded-[3rem] border-primary/30 text-center relative overflow-hidden group will-change-transform transform-gpu"
         >
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
           
           <motion.div
             animate={{ scale: [1, 1.1, 1] }}

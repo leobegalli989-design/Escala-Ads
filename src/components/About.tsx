@@ -34,7 +34,7 @@ const AboutCard = ({ icon: Icon, title, description, delay, color }: any) => {
     
     {/* Colorful Corner Glow */}
     <div 
-      className="absolute -bottom-10 -right-10 w-32 h-32 blur-3xl rounded-full opacity-0 group-hover:opacity-30 transition-all duration-500"
+      className="absolute -bottom-10 -right-10 w-32 h-32 blur-3xl rounded-full opacity-0 group-hover:opacity-30 transition-all duration-500 pointer-events-none"
       style={{ backgroundColor: color }}
     />
     </motion.div>

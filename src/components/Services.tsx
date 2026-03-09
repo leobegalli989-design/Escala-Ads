@@ -108,11 +108,11 @@ export const Services = () => {
               className="group relative p-6 sm:p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-500 overflow-hidden perspective-1000 cursor-pointer will-change-transform transform-gpu"
             >
               {/* Background Accent Gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${service.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+              <div className={`absolute inset-0 bg-gradient-to-br ${service.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
               
               {/* Animated Scanning Line */}
               <motion.div 
-                className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 group-hover:opacity-100 z-20"
+                className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 group-hover:opacity-100 z-20 pointer-events-none"
                 animate={{ top: ['0%', '100%', '0%'] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
               />
@@ -165,7 +165,7 @@ export const Services = () => {
 
               {/* Colorful Glow */}
               <div 
-                className="absolute -bottom-10 -right-10 w-32 h-32 blur-[60px] rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-700"
+                className="absolute -bottom-10 -right-10 w-32 h-32 blur-[60px] rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"
                 style={{ backgroundColor: service.color }}
               />
             </motion.div>

@@ -251,9 +251,13 @@ export const Cases = () => {
                 <img
                   src={item.image}
                   alt={item.client}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-100 md:opacity-40 group-hover:opacity-80 md:group-hover:opacity-60"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60 md:opacity-40 group-hover:opacity-100 md:group-hover:opacity-60"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
                 />
+                
+                {/* Fallback background for loading */}
+                <div className="absolute inset-0 bg-zinc-900 -z-10" />
                 
                 {/* ROAS Badge - Top Right */}
                 <motion.div 
@@ -277,7 +281,7 @@ export const Cases = () => {
                       e.stopPropagation();
                       setPreviewLogo(item.logo);
                     }}
-                    className="absolute top-4 left-4 z-20 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/20 md:bg-white/10 backdrop-blur-md border border-white/30 md:border-white/20 p-2 md:p-3 flex items-center justify-center overflow-hidden hover:scale-110 transition-all cursor-pointer group/logo shadow-2xl"
+                    className="absolute top-4 left-4 z-20 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/30 md:bg-white/10 backdrop-blur-md border border-white/40 md:border-white/20 p-2 md:p-3 flex items-center justify-center overflow-hidden hover:scale-110 transition-all cursor-pointer group/logo shadow-2xl"
                     style={{ 
                       borderColor: `${item.accentColor}30`
                     }}
@@ -303,7 +307,7 @@ export const Cases = () => {
                 )}
               </div>
               
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent p-8 flex flex-col justify-end opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent p-8 flex flex-col justify-end opacity-90 group-hover:opacity-100 transition-opacity duration-300">
                 <h3 
                   className="text-2xl mb-2 transition-colors duration-300"
                   style={{ color: 'white' }}
@@ -377,12 +381,13 @@ export const Cases = () => {
                 </button>
 
                 {/* Fixed Image Section */}
-                <div className="w-full md:w-1/2 h-48 sm:h-64 md:h-full relative shrink-0 overflow-hidden">
+                <div className="w-full md:w-1/2 h-56 sm:h-64 md:h-full relative shrink-0 overflow-hidden bg-zinc-900">
                   <img 
                     src={selectedCase.image} 
                     alt={selectedCase.client}
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
+                    loading="eager"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent md:hidden" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-zinc-950/20 to-zinc-950 hidden md:block" />
@@ -402,13 +407,13 @@ export const Cases = () => {
                 </div>
 
                 {/* Scrollable Content Section */}
-                <div className="flex-1 overflow-y-auto custom-scrollbar p-6 md:p-12 bg-zinc-950">
+                <div className="flex-1 overflow-y-auto custom-scrollbar p-6 sm:p-8 md:p-12 bg-zinc-950">
                   <div className="flex flex-col sm:flex-row items-center sm:items-center gap-6 mb-8 text-center sm:text-left">
                     {selectedCase.logo && (
                       <button 
                         onClick={() => setPreviewLogo(selectedCase.logo)}
-                        className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-white/5 border border-white/10 p-4 sm:p-5 flex items-center justify-center overflow-hidden hover:bg-white/10 transition-all group/modal-logo shadow-xl shrink-0"
-                        style={{ borderColor: `${selectedCase.accentColor}30` }}
+                        className="w-20 h-20 sm:w-28 sm:h-28 rounded-2xl sm:rounded-3xl bg-white/10 border border-white/20 p-3 sm:p-5 flex items-center justify-center overflow-hidden hover:bg-white/20 transition-all group/modal-logo shadow-xl shrink-0"
+                        style={{ borderColor: `${selectedCase.accentColor}40` }}
                         title="Clique para ampliar a logo"
                       >
                         <img 
@@ -416,9 +421,10 @@ export const Cases = () => {
                           alt={`${selectedCase.client} logo`}
                           className="max-w-full max-h-full object-contain group-hover/modal-logo:scale-110 transition-transform"
                           referrerPolicy="no-referrer"
+                          loading="eager"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
-                            target.style.opacity = '0.2';
+                            target.style.opacity = '0.3';
                           }}
                         />
                       </button>
@@ -517,9 +523,9 @@ export const Cases = () => {
                                 delay: 0.2 + (i * 0.04),
                                 ease: [0.22, 1, 0.36, 1]
                               }}
-                              className="bg-white/5 border border-white/5 p-3 sm:p-4 rounded-xl group/metric transition-all hover:bg-white/10 hover:border-primary/30"
+                              className="bg-white/10 border border-white/10 p-3 sm:p-4 rounded-xl group/metric transition-all hover:bg-white/20 hover:border-primary/30"
                               style={{ 
-                                borderColor: i % 2 === 0 ? `${selectedCase.accentColor}10` : 'rgba(255,255,255,0.05)'
+                                borderColor: i % 2 === 0 ? `${selectedCase.accentColor}20` : 'rgba(255,255,255,0.1)'
                               }}
                             >
                               <div 

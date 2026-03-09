@@ -168,8 +168,9 @@ export const Testimonials = () => {
                   <img 
                     src={t.logo} 
                     alt="Company Logo" 
-                    className="h-full object-contain grayscale md:grayscale group-hover:grayscale-0 transition-all duration-500 opacity-100 md:opacity-50 group-hover:opacity-100"
+                    className="h-full object-contain grayscale-0 md:grayscale group-hover:grayscale-0 transition-all duration-500 opacity-100 md:opacity-50 group-hover:opacity-100"
                     referrerPolicy="no-referrer"
+                    loading="lazy"
                   />
                 </div>
                 <div 

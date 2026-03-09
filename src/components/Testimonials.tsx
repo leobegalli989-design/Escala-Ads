@@ -84,29 +84,31 @@ export const Testimonials = () => {
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 50, scale: 0.9, filter: 'blur(10px)' }}
-              whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-              viewport={{ once: true, margin: "-50px" }}
+              initial={{ opacity: 0, y: 100, rotateX: 15, scale: 0.8 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
               transition={{ 
-                duration: 0.8, 
-                delay: i * 0.15,
-                ease: [0.22, 1, 0.36, 1]
+                duration: 1, 
+                delay: i * 0.1,
+                ease: [0.16, 1, 0.3, 1]
               }}
               whileHover={{ 
-                y: -10,
-                boxShadow: `0 20px 40px -20px ${t.accentColor}40`,
-                borderColor: `${t.accentColor}40`
+                y: -15,
+                scale: 1.02,
+                rotateY: 5,
+                boxShadow: `0 30px 60px -12px ${t.accentColor}30`,
+                borderColor: `${t.accentColor}50`
               }}
-              className="bg-white/5 border border-white/10 p-8 rounded-2xl relative group hover:bg-white/10 transition-all duration-500 flex flex-col h-full will-change-transform transform-gpu"
+              className="bg-white/5 border border-white/10 p-8 rounded-3xl relative group hover:bg-white/10 transition-all duration-700 flex flex-col h-full will-change-transform transform-gpu perspective-1000"
             >
               <div 
-                className="absolute top-0 left-0 w-1 h-0 group-hover:h-full transition-all duration-500 rounded-l-2xl"
+                className="absolute top-0 left-0 w-1.5 h-0 group-hover:h-full transition-all duration-700 rounded-l-3xl"
                 style={{ backgroundColor: t.accentColor }}
               />
               
               <Quote 
-                className="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-opacity" 
-                size={40} 
+                className="absolute top-8 right-8 opacity-10 group-hover:opacity-30 transition-all duration-500 group-hover:scale-125 group-hover:rotate-12" 
+                size={48} 
                 style={{ color: t.accentColor }}
               />
 

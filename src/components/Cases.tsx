@@ -227,17 +227,21 @@ export const Cases = () => {
           {cases.map((item, index) => (
             <motion.div
               key={item.client}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative rounded-2xl overflow-hidden neon-border bg-zinc-900/50 will-change-transform transform-gpu"
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ 
+                duration: 0.8, 
+                delay: index * 0.1,
+                ease: [0.16, 1, 0.3, 1] 
+              }}
+              className="group relative rounded-3xl overflow-hidden neon-border bg-zinc-900/50 will-change-transform transform-gpu h-[400px] sm:h-[450px]"
             >
-              <div className="aspect-[4/3] overflow-hidden relative">
+              <div className="absolute inset-0 overflow-hidden">
                 <img
                   src={item.image}
                   alt={item.client}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60 md:opacity-40 group-hover:opacity-100 md:group-hover:opacity-60"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-80 md:opacity-40 group-hover:opacity-100 md:group-hover:opacity-70"
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   onLoad={(e) => {
@@ -253,12 +257,18 @@ export const Cases = () => {
                 {/* Fallback background / Skeleton */}
                 <div className="absolute inset-0 bg-zinc-900 animate-pulse -z-10" />
                 
+                {/* Overlay Gradient - More subtle on mobile to show image */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-100 md:opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+
+              {/* Content Container */}
+              <div className="relative h-full p-6 sm:p-8 flex flex-col justify-end z-20">
                 {/* ROAS Badge - Top Right */}
                 <motion.div 
                   initial={{ x: 20, opacity: 0 }}
                   whileInView={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                  className="absolute top-4 right-4 z-20 px-4 py-2 rounded-full backdrop-blur-xl border flex items-center gap-2 shadow-2xl"
+                  transition={{ delay: 0.4 + index * 0.1 }}
+                  className="absolute top-6 right-6 px-4 py-2 rounded-full backdrop-blur-xl border flex items-center gap-2 shadow-2xl"
                   style={{ 
                     backgroundColor: `${item.accentColor}20`,
                     borderColor: `${item.accentColor}40`,
@@ -275,7 +285,7 @@ export const Cases = () => {
                       e.stopPropagation();
                       setPreviewLogo(item.logo);
                     }}
-                    className="absolute top-4 left-4 z-20 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/30 md:bg-white/10 backdrop-blur-md border border-white/40 md:border-white/20 p-2 md:p-3 flex items-center justify-center overflow-hidden hover:scale-110 transition-all cursor-pointer group/logo shadow-2xl"
+                    className="absolute top-6 left-6 w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-3 flex items-center justify-center overflow-hidden hover:scale-110 transition-all cursor-pointer group/logo shadow-2xl"
                     style={{ 
                       borderColor: `${item.accentColor}30`
                     }}
@@ -300,41 +310,38 @@ export const Cases = () => {
                     </div>
                   </button>
                 )}
-              </div>
-              
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent p-8 flex flex-col justify-end opacity-90 group-hover:opacity-100 transition-opacity duration-300">
-                <h3 
-                  className="text-2xl mb-2 transition-colors duration-300"
-                  style={{ color: 'white' }}
-                >
-                  {item.client}
-                </h3>
-                <p className="text-gray-neutral text-xs mb-6 line-clamp-2">
-                  {item.description}
-                </p>
-                <button 
-                  onClick={() => setSelectedCase(item)}
-                  className="w-full py-3 border border-white/10 transition-all duration-500 rounded-lg flex items-center justify-center gap-2 text-xs font-bold uppercase overflow-hidden relative group/btn"
-                  style={{ 
-                    borderColor: `${item.accentColor}20`
-                  }}
-                >
-                  <div 
-                    className="absolute inset-0 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500"
-                    style={{ backgroundColor: item.accentColor }}
-                  />
-                  <span className="relative z-10 flex items-center gap-2 group-hover/btn:text-black transition-colors">
-                    Ver Case Completo <ExternalLink size={14} />
-                  </span>
-                </button>
+
+                <div className="transform group-hover:-translate-y-2 transition-transform duration-500">
+                  <h3 className="text-2xl sm:text-3xl font-black mb-2 text-white tracking-tight">
+                    {item.client}
+                  </h3>
+                  <p className="text-white/70 text-sm mb-6 line-clamp-2 font-medium max-w-[90%]">
+                    {item.description}
+                  </p>
+                  <button 
+                    onClick={() => setSelectedCase(item)}
+                    className="w-full py-4 border border-white/10 transition-all duration-500 rounded-xl flex items-center justify-center gap-3 text-xs font-black uppercase overflow-hidden relative group/btn tracking-widest"
+                    style={{ 
+                      borderColor: `${item.accentColor}30`
+                    }}
+                  >
+                    <div 
+                      className="absolute inset-0 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500"
+                      style={{ backgroundColor: item.accentColor }}
+                    />
+                    <span className="relative z-10 flex items-center gap-2 group-hover/btn:text-black transition-colors">
+                      Ver Case Completo <ExternalLink size={16} />
+                    </span>
+                  </button>
+                </div>
               </div>
               
               {/* Hover Glow Effect */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
                 <div 
-                  className="absolute inset-0 bg-gradient-to-tr from-transparent to-transparent" 
+                  className="absolute inset-0" 
                   style={{ 
-                    background: `radial-gradient(circle at top right, ${item.accentColor}15, transparent 70%)`
+                    background: `radial-gradient(circle at top right, ${item.accentColor}20, transparent 70%)`
                   }}
                 />
               </div>

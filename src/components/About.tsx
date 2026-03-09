@@ -21,7 +21,7 @@ const AboutCard = ({ icon: Icon, title, description, delay, color }: any) => {
         stiffness: 400,
         damping: 25
       }}
-      className="glass p-8 rounded-2xl border-white/5 transition-all group relative overflow-hidden will-change-transform"
+      className="glass p-8 rounded-2xl border-white/5 transition-all group relative overflow-hidden will-change-transform transform-gpu"
     >
     <div 
       className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110"

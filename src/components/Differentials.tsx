@@ -107,7 +107,7 @@ export const Differentials = () => {
             <motion.div 
               animate={{ top: ['-10%', '110%'] }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent z-20 pointer-events-none"
+              className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent z-20 pointer-events-none transform-gpu will-change-transform"
             />
 
             <div className="flex items-center justify-between mb-8">
@@ -157,12 +157,12 @@ export const Differentials = () => {
                       whileInView={{ width: `${metric.value}%` }}
                       viewport={{ once: true }}
                       transition={{ duration: 2, delay: 0.5 + (i * 0.1), ease: "circOut" }}
-                      className={cn("h-full relative", metric.color)}
+                      className={cn("h-full relative transform-gpu will-change-[width]", metric.color)}
                     >
                       <motion.div 
                         animate={{ x: ['-100%', '100%'] }}
                         transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform-gpu will-change-transform"
                       />
                     </motion.div>
                   </div>
@@ -190,7 +190,7 @@ export const Differentials = () => {
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: 1 + (i * 0.2) }}
-                    className="flex items-center justify-between text-[8px] bg-white/5 p-2 rounded border border-white/5 hover:border-primary/20 transition-colors group/item"
+                    className="flex items-center justify-between text-[8px] bg-white/5 p-2 rounded border border-white/5 hover:border-primary/20 transition-colors group/item transform-gpu will-change-transform"
                   >
                     <div className="flex items-center gap-2">
                       <span className={cn(
@@ -244,7 +244,7 @@ export const Differentials = () => {
                     ease: "linear",
                     delay: Math.random() * 5
                   }}
-                  className="absolute w-px h-20 bg-gradient-to-b from-transparent via-primary to-transparent"
+                  className="absolute w-px h-20 bg-gradient-to-b from-transparent via-primary to-transparent transform-gpu will-change-transform"
                 />
               ))}
             </div>

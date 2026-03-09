@@ -31,7 +31,7 @@ const Counter = ({ value, duration = 2, prefix = '', suffix = '', decimals = 0, 
   }, [value, duration, delay, count, decimals, prefix, suffix]);
 
   return (
-    <span className="relative inline-block">
+    <span className="relative inline-block transform-gpu">
       {displayValue}
       <motion.span
         animate={{ 
@@ -43,7 +43,7 @@ const Counter = ({ value, duration = 2, prefix = '', suffix = '', decimals = 0, 
           repeat: Infinity, 
           repeatDelay: 3 
         }}
-        className="absolute inset-0 text-white/5 pointer-events-none select-none"
+        className="absolute inset-0 text-white/5 pointer-events-none select-none will-change-transform"
       >
         {displayValue}
       </motion.span>
@@ -67,7 +67,7 @@ const MetricCard = ({ label, value, numericValue, prefix, suffix, decimals, colo
         <motion.div 
           animate={{ opacity: [0.4, 1, 0.4] }}
           transition={{ duration: 2, repeat: Infinity, delay: delay }}
-          className={cn("w-1.5 h-1.5 rounded-full shadow-[0_0_8px_currentColor]", color.replace('bg-', 'text-'))} 
+          className={cn("w-1.5 h-1.5 rounded-full shadow-[0_0_8px_currentColor] transform-gpu will-change-opacity", color.replace('bg-', 'text-'))} 
         />
         <span className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-black">{label}</span>
       </div>
@@ -84,7 +84,7 @@ const MetricCard = ({ label, value, numericValue, prefix, suffix, decimals, colo
     <motion.div 
       animate={{ left: ['-100%', '200%'] }}
       transition={{ duration: 3, repeat: Infinity, repeatDelay: Math.random() * 5 }}
-      className="absolute top-0 h-px w-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
+      className="absolute top-0 h-px w-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none transform-gpu will-change-transform"
     />
   </motion.div>
 );
@@ -135,7 +135,7 @@ export const PerformanceDashboard = () => {
                 ease: "linear",
                 delay: Math.random() * 5
               }}
-              className="absolute text-[8px] font-mono text-emerald-400 whitespace-nowrap"
+              className="absolute text-[8px] font-mono text-emerald-400 whitespace-nowrap transform-gpu will-change-transform"
               style={{ left: `${i * (isMobile ? 33 : 10)}%` }}
             >
               {Array.from({ length: isMobile ? 10 : 20 }).map(() => Math.floor(Math.random() * 2)).join('')}
@@ -207,7 +207,7 @@ export const PerformanceDashboard = () => {
         <motion.div 
           animate={{ left: ['-100%', '200%'] }}
           transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          className="absolute top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-emerald-400/30 to-transparent skew-x-12 pointer-events-none"
+          className="absolute top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-emerald-400/30 to-transparent skew-x-12 pointer-events-none transform-gpu will-change-transform"
         />
       </motion.div>
 

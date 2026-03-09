@@ -146,7 +146,7 @@ export const Hero = () => {
             delay: 0.3,
             whileHover: { duration: 0.5, ease: "easeOut" }
           }}
-          className="relative perspective-1000 mt-12 lg:mt-0"
+          className="relative perspective-1000 mt-12 lg:mt-0 transform-gpu will-change-transform"
         >
           <div className="relative z-10 w-full glass rounded-3xl overflow-hidden neon-border group min-h-[400px] lg:min-h-[600px] transition-shadow duration-500 group-hover:shadow-[0_0_50px_rgba(20,163,229,0.3)]">
             <PerformanceDashboard />

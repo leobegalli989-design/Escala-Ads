@@ -20,6 +20,9 @@
   body {
     @apply bg-black text-white font-tech selection:bg-primary selection:text-black;
     overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -101,13 +104,18 @@
   section {
     content-visibility: auto;
     contain-intrinsic-size: 1px 500px;
-    render-batch: auto;
   }
 
   .bg-grid {
     background-size: 40px 40px;
     background-image: linear-gradient(to right, rgba(20, 163, 229, 0.05) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(20, 163, 229, 0.05) 1px, transparent 1px);
+  }
+
+  .transform-gpu {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
 
   .will-change-transform {

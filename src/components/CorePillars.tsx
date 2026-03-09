@@ -60,17 +60,15 @@ export const CorePillars = () => {
   return (
     <section className="py-24 bg-black relative overflow-hidden" onMouseMove={handleMouseMove}>
       {/* Dynamic Background Glow */}
-      {!isMobile && (
-        <motion.div 
-          style={{
-            x: springX,
-            y: springY,
-            translateX: '-50%',
-            translateY: '-50%',
-          }}
-          className="absolute top-1/2 left-1/2 w-[800px] h-[800px] bg-primary/5 blur-[150px] rounded-full pointer-events-none -z-10 will-change-transform"
-        />
-      )}
+      <motion.div 
+        style={{
+          x: isMobile ? '50%' : springX,
+          y: isMobile ? '50%' : springY,
+          translateX: '-50%',
+          translateY: '-50%',
+        }}
+        className="absolute top-1/2 left-1/2 w-[600px] md:w-[800px] h-[600px] md:h-[800px] bg-primary/5 blur-[100px] md:blur-[150px] rounded-full pointer-events-none -z-10 will-change-transform"
+      />
 
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16 sm:mb-20">
@@ -101,7 +99,7 @@ export const CorePillars = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: pillar.delay, duration: 0.5 }}
-              whileHover={!isMobile ? { y: -12, scale: 1.02 } : {}}
+              whileHover={{ y: -12, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="group relative p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-primary/40 transition-all duration-500 overflow-hidden will-change-transform transform-gpu"
             >
@@ -116,10 +114,10 @@ export const CorePillars = () => {
                 style={{ 
                   boxShadow: `0 0 30px ${pillar.color}15`,
                 }}
-                animate={!isMobile ? { 
+                animate={{ 
                   y: [0, -6, 0],
                   rotate: [0, 2, 0, -2, 0]
-                } : {}}
+                }}
                 transition={{ 
                   duration: 5, 
                   repeat: Infinity, 

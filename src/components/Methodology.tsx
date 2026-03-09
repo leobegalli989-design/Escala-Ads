@@ -82,10 +82,21 @@ export const Methodology = () => {
                 </div>
 
                 <motion.div 
-                  className="relative z-10 flex items-center justify-center w-10 h-10 md:w-20 md:h-20 rounded-xl md:rounded-2xl bg-black border-2 transition-all duration-500 group overflow-hidden shrink-0 will-change-transform transform-gpu"
+                  className="relative z-10 flex items-center justify-center w-14 h-14 md:w-20 md:h-20 rounded-2xl bg-black border-2 transition-all duration-500 group overflow-hidden shrink-0 will-change-transform transform-gpu"
                   style={{ borderColor: step.color, boxShadow: `0 0 30px ${step.color}30` }}
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
+                  animate={{ 
+                    y: [0, -4, 0],
+                  }}
+                  transition={{ 
+                    y: {
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.5
+                    }
+                  }}
                   viewport={{ once: true }}
                 >
                   {/* Scanning Line Effect */}
@@ -95,7 +106,7 @@ export const Methodology = () => {
                     transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                   />
                   
-                  <step.icon style={{ color: step.color }} size={isMobile ? 20 : 32} className="group-hover:scale-110 transition-transform relative z-10" />
+                  <step.icon style={{ color: step.color }} size={isMobile ? 24 : 32} className="group-hover:scale-110 transition-transform relative z-10" />
                   <div className="absolute -top-2 -right-2 text-[8px] md:text-[10px] font-bold text-black px-1.5 md:px-2 py-0.5 rounded-bl-lg z-20" style={{ backgroundColor: step.color }}>0{index + 1}</div>
                   
                   {/* Inner Glow */}

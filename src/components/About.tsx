@@ -73,7 +73,7 @@ export const About = () => {
               <div className="w-px h-10 sm:h-12 bg-white/10" />
               <div className="text-center lg:text-left">
                 <div className="text-xl sm:text-3xl font-montserrat text-white mb-1 font-black">
-                  <AnimatedCounter value={10} suffix="X" />
+                  <AnimatedCounter value={15} suffix="X" />
                 </div>
                 <div className="text-[8px] sm:text-[10px] text-primary uppercase tracking-widest font-bold">ROI Médio</div>
               </div>

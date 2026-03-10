@@ -341,9 +341,9 @@ export const Cases = () => {
                   </p>
                   <button 
                     onClick={() => setSelectedCase(item)}
-                    className="w-full py-3.5 sm:py-4 border border-white/10 transition-all duration-500 rounded-xl flex items-center justify-center gap-2 sm:gap-3 text-[10px] sm:text-xs font-black uppercase overflow-hidden relative group/btn tracking-widest"
+                    className="w-full py-4 border border-white/10 transition-all duration-500 rounded-xl flex items-center justify-center gap-3 text-xs font-black uppercase overflow-hidden relative group/btn tracking-widest bg-white/5"
                     style={{ 
-                      borderColor: `${item.accentColor}30`
+                      borderColor: `${item.accentColor}40`
                     }}
                   >
                     <div 
@@ -351,7 +351,7 @@ export const Cases = () => {
                       style={{ backgroundColor: item.accentColor }}
                     />
                     <span className="relative z-10 flex items-center gap-2 group-hover/btn:text-black transition-colors">
-                      Ver Case Completo <ExternalLink size={14} className="sm:w-[16px] sm:h-[16px]" />
+                      Ver Case Completo <ExternalLink size={16} />
                     </span>
                   </button>
                 </div>

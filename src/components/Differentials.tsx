@@ -45,11 +45,11 @@ export const Differentials = () => {
             <span className="text-primary relative inline-block">
               SOMOS ELITE?
               <motion.span 
-                animate={!isMobile ? { 
+                animate={{ 
                   opacity: [0, 1, 0],
                   x: [-2, 2, -2],
                   scaleY: [1, 1.1, 1]
-                } : { opacity: 0 }}
+                }}
                 transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 3 }}
                 className="absolute inset-0 text-white/20 blur-[1px] pointer-events-none"
               >
@@ -74,19 +74,17 @@ export const Differentials = () => {
                   type: "spring",
                   stiffness: 100
                 }}
-                whileHover={!isMobile ? { x: 10, scale: 1.02 } : {}}
+                whileHover={{ x: 10, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="flex items-center gap-3 group cursor-default will-change-transform transform-gpu p-2 rounded-lg hover:bg-white/5 transition-colors"
               >
                 <div className="relative">
                   <CheckCircle2 className="text-primary shrink-0 group-hover:scale-125 transition-transform duration-300" size={20} />
-                  {!isMobile && (
-                    <motion.div 
-                      animate={{ scale: [1, 1.5, 1], opacity: [0, 0.5, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, delay: index * 0.5 }}
-                      className="absolute inset-0 bg-primary/40 rounded-full blur-md"
-                    />
-                  )}
+                  <motion.div 
+                    animate={{ scale: [1, 1.5, 1], opacity: [0, 0.5, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: index * 0.5 }}
+                    className="absolute inset-0 bg-primary/40 rounded-full blur-md"
+                  />
                 </div>
                 <span className="text-sm text-white/80 group-hover:text-white group-hover:font-bold transition-all duration-300">{item}</span>
               </motion.div>
@@ -233,10 +231,10 @@ export const Differentials = () => {
 
             {/* Subtle Data Stream Animation */}
             <div className="absolute inset-0 pointer-events-none opacity-10 overflow-hidden">
-              {[...Array(isMobile ? 3 : 5)].map((_, i) => (
+              {[...Array(5)].map((_, i) => (
                 <motion.div
                   key={i}
-                  initial={{ top: '-10%', left: `${isMobile ? 33 * i : 20 * i}%` }}
+                  initial={{ top: '-10%', left: `${20 * i}%` }}
                   animate={{ top: '110%' }}
                   transition={{ 
                     duration: 5 + Math.random() * 5, 
@@ -259,8 +257,8 @@ export const Differentials = () => {
               className="glass p-4 rounded-2xl border-emerald-500/20 flex flex-col items-center justify-center text-center group"
             >
               <div className="text-[10px] uppercase tracking-widest text-emerald-500 mb-1 group-hover:scale-110 transition-transform">ROI Global</div>
-              <div className="text-2xl font-black text-white">+R$ 2.4M</div>
-              <div className="text-[8px] text-white/30 uppercase mt-1">Gerenciados/Mês</div>
+              <div className="text-2xl font-black text-white">+R$ 322k</div>
+              <div className="text-[8px] text-white/30 uppercase mt-1">Gerados/Mês</div>
               <div className="w-full h-1 bg-emerald-500/10 rounded-full mt-2 overflow-hidden">
                 <motion.div 
                   animate={{ x: ['-100%', '100%'] }}

@@ -134,10 +134,10 @@ export const Hero = () => {
           </motion.div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-8 border-t border-white/10 pt-8 px-2 sm:px-0">
-            <StatItem numericValue={120} prefix="+R$ " suffix="M" label="Gerados" icon={TrendingUp} />
-            <StatItem numericValue={15} prefix="+R$ " suffix="M" label="Investidos" icon={DollarSign} />
-            <StatItem numericValue={300} prefix="+" label="Clientes" icon={Users} />
-            <StatItem numericValue={1.2} prefix="+" suffix="K" label="Campanhas" icon={Target} />
+            <StatItem numericValue={322} prefix="+R$ " suffix="k" label="Gerados" icon={TrendingUp} />
+            <StatItem numericValue={20} prefix="+R$ " suffix="k" label="Investidos" icon={DollarSign} />
+            <StatItem numericValue={15} prefix="+" label="Clientes" icon={Users} />
+            <StatItem numericValue={1.2} prefix="+" suffix="k" label="Campanhas" icon={Target} />
           </div>
         </motion.div>
 

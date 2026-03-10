@@ -134,21 +134,21 @@ export const PerformanceDashboard = () => {
       >
         {/* Background Data Stream Effect */}
         <div className="absolute inset-0 opacity-5 pointer-events-none overflow-hidden">
-          {Array.from({ length: isMobile ? 3 : 10 }).map((_, i) => (
+          {Array.from({ length: 10 }).map((_, i) => (
             <motion.div
               key={i}
               initial={{ y: -100 }}
               animate={{ y: 400 }}
               transition={{ 
-                duration: isMobile ? 10 : Math.random() * 5 + 5, 
+                duration: Math.random() * 5 + 5, 
                 repeat: Infinity, 
                 ease: "linear",
                 delay: Math.random() * 5
               }}
               className="absolute text-[8px] font-mono text-emerald-400 whitespace-nowrap transform-gpu will-change-transform"
-              style={{ left: `${i * (isMobile ? 33 : 10)}%` }}
+              style={{ left: `${i * 10}%` }}
             >
-              {Array.from({ length: isMobile ? 10 : 20 }).map(() => Math.floor(Math.random() * 2)).join('')}
+              {Array.from({ length: 20 }).map(() => Math.floor(Math.random() * 2)).join('')}
             </motion.div>
           ))}
         </div>
@@ -222,33 +222,25 @@ export const PerformanceDashboard = () => {
       </motion.div>
 
       {/* Grid Metrics */}
-      <div className="grid grid-cols-2 gap-2 sm:gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-2 sm:gap-3">
         <MetricCard label="Gasto Ads" numericValue={20986.83} prefix="R$ " decimals={2} color="bg-rose-500" icon={Zap} delay={0.4} />
         <MetricCard label="ROAS" numericValue={15.36} suffix="x" decimals={2} color="bg-amber-400" icon={TrendingUp} delay={0.8} />
-        {!isMobile && (
-          <>
-            <MetricCard label="Ticket Médio" numericValue={211.87} prefix="R$ " decimals={2} color="bg-emerald-400" delay={1.2} />
-            <MetricCard label="CPA Médio" numericValue={13.79} prefix="R$ " decimals={2} color="bg-blue-400" delay={1.6} />
-          </>
-        )}
+        <MetricCard label="Ticket Médio" numericValue={211.87} prefix="R$ " decimals={2} color="bg-emerald-400" delay={1.2} />
+        <MetricCard label="CPA Médio" numericValue={13.79} prefix="R$ " decimals={2} color="bg-blue-400" delay={1.6} />
         <MetricCard label="Conversões" numericValue={1.5} suffix="k" decimals={1} color="bg-cyan-400" icon={Target} delay={2.0} />
         <MetricCard label="Taxa Conv." numericValue={16.56} suffix="%" decimals={2} color="bg-fuchsia-400" delay={2.4} />
-        {!isMobile && (
-          <>
-            <MetricCard label="Cliques" numericValue={9.2} suffix="k" decimals={1} color="bg-orange-400" icon={MousePointer2} delay={2.8} />
-            <MetricCard label="CTR Médio" numericValue={0.34} suffix="%" decimals={2} color="bg-violet-400" delay={3.2} />
-            <MetricCard label="CPC Médio" numericValue={2.28} prefix="R$ " decimals={2} color="bg-sky-400" delay={3.6} />
-            <MetricCard label="Impressões" numericValue={2.7} suffix="M" decimals={1} color="bg-blue-500" icon={Eye} delay={4.0} />
-            <MetricCard label="Alcance" numericValue={1.5} suffix="M" decimals={1} color="bg-indigo-500" icon={Users} delay={4.4} />
-          </>
-        )}
+        <MetricCard label="Cliques" numericValue={9.2} suffix="k" decimals={1} color="bg-orange-400" icon={MousePointer2} delay={2.8} />
+        <MetricCard label="CTR Médio" numericValue={0.34} suffix="%" decimals={2} color="bg-violet-400" delay={3.2} />
+        <MetricCard label="CPC Médio" numericValue={2.28} prefix="R$ " decimals={2} color="bg-sky-400" delay={3.6} />
+        <MetricCard label="Impressões" numericValue={2.7} suffix="M" decimals={1} color="bg-blue-500" icon={Eye} delay={4.0} />
+        <MetricCard label="Alcance" numericValue={1.5} suffix="M" decimals={1} color="bg-indigo-500" icon={Users} delay={4.4} />
         
         {/* Growth Indicator */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.2, delay: isMobile ? 0.6 : 4.8 }}
+          transition={{ duration: 1.2, delay: 4.8 }}
           className="p-3 sm:p-4 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 border border-emerald-500/30 flex flex-col items-center justify-center text-center group"
         >
           <div className="w-8 h-8 sm:w-10 sm:h-10 bg-emerald-500 rounded-full flex items-center justify-center mb-1.5 sm:mb-2 shadow-[0_0_15px_rgba(52,211,153,0.5)] group-hover:scale-110 transition-transform">
@@ -256,19 +248,17 @@ export const PerformanceDashboard = () => {
           </div>
           <div className="text-[8px] sm:text-[10px] uppercase tracking-widest text-emerald-400 font-bold mb-0.5 sm:mb-1">Crescimento</div>
           <div className="text-lg sm:text-xl font-montserrat text-emerald-400 font-bold">
-            <Counter value={340} prefix="+" suffix="%" decimals={0} delay={isMobile ? 0.8 : 4.8} />
+            <Counter value={340} prefix="+" suffix="%" decimals={0} delay={4.8} />
           </div>
         </motion.div>
       </div>
 
         {/* Scanner Effect Overlay */}
-        {!isMobile && (
-          <motion.div
-            animate={{ top: ['-10%', '110%'] }}
-            transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-            className="absolute left-0 right-0 h-[2px] bg-primary/30 shadow-[0_0_20px_rgba(20,163,229,1)] z-50 pointer-events-none"
-          />
-        )}
+        <motion.div
+          animate={{ top: ['-10%', '110%'] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+          className="absolute left-0 right-0 h-[2px] bg-primary/30 shadow-[0_0_20px_rgba(20,163,229,1)] z-50 pointer-events-none"
+        />
       
       {/* Random Glitch Overlay for the whole dashboard */}
       <motion.div

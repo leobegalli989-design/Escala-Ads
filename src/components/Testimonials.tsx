@@ -196,12 +196,25 @@ export const Testimonials = () => {
                     decoding="async"
                   />
                 </div>
-                <div 
-                  className="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-white/5"
-                  style={{ color: t.accentColor }}
+                <motion.div 
+                  animate={{ 
+                    scale: [1, 1.05, 1],
+                    boxShadow: [
+                      `0 0 0px ${t.accentColor}00`,
+                      `0 0 15px ${t.accentColor}40`,
+                      `0 0 0px ${t.accentColor}00`
+                    ]
+                  }}
+                  transition={{ 
+                    duration: 3, 
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-white/5 border border-white/10"
+                  style={{ color: t.accentColor, borderColor: `${t.accentColor}20` }}
                 >
                   Case de Sucesso
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           ))}

@@ -145,7 +145,7 @@ export const Services = () => {
 
               {/* Floating Particles for each card */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                {[...Array(isMobile ? 2 : 3)].map((_, i) => (
+                {[...Array(3)].map((_, i) => (
                   <motion.div
                     key={i}
                     className="absolute w-1 h-1 rounded-full opacity-0 group-hover:opacity-20"

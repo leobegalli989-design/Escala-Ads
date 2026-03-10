@@ -53,6 +53,14 @@ const testimonials = [
   }
 ];
 
+const getImgurUrl = (url: string, suffix: string = '') => {
+  if (!url.includes('i.imgur.com')) return url;
+  const parts = url.split('.');
+  const ext = parts.pop();
+  const base = parts.join('.');
+  return `${base}${suffix}.${ext}`;
+};
+
 export const Testimonials = () => {
   return (
     <section id="depoimentos" className="py-24 bg-zinc-950 relative overflow-hidden">
@@ -178,11 +186,14 @@ export const Testimonials = () => {
               <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
                 <div className="h-8 flex items-center">
                   <img 
-                    src={t.logo} 
+                    src={getImgurUrl(t.logo, 'm')} 
+                    srcSet={`${getImgurUrl(t.logo, 's')} 90w, ${getImgurUrl(t.logo, 'm')} 320w`}
+                    sizes="100px"
                     alt="Company Logo" 
                     className="h-full object-contain grayscale-0 md:grayscale group-hover:grayscale-0 transition-all duration-500 opacity-100 md:opacity-50 group-hover:opacity-100"
                     referrerPolicy="no-referrer"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div 

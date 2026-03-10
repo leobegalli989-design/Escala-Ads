@@ -41,7 +41,7 @@ const cases = [
     result: '3.66x ROAS',
     accentColor: '#f97316',
     description: 'Escalamos de R$ 4k para +R$ 25k/mês. Faturamento total com tráfego pago ultrapassando R$ 100.000.',
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800&fm=webp',
     logo: 'https://i.imgur.com/iorC73i.png',
     fullDetails: {
       challenge: 'Baixa previsibilidade de vendas, dependência de tráfego orgânico e faturamento estagnado em R$ 4.000 mensais.',
@@ -72,7 +72,7 @@ const cases = [
     result: '24.28x ROAS',
     accentColor: '#10b981',
     description: 'Dominação de mercado regional com faturamento de R$ 98.182,89 e investimento estratégico de apenas R$ 4.043,13.',
-    image: 'https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?auto=format&fit=crop&q=80&w=800&fm=webp',
     logo: 'https://i.imgur.com/3BRZHVb.png',
     fullDetails: {
       challenge: 'Custo de aquisição de clientes (CPA) elevado e dificuldade de escala em regiões com alta concorrência de grandes operadoras nacionais.',
@@ -103,7 +103,7 @@ const cases = [
     result: '14.70x ROAS',
     accentColor: '#c2a353',
     description: 'Transformação digital com faturamento de R$ 24.974,63 e investimento estratégico de R$ 1.698,66.',
-    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800&fm=webp',
     logo: 'https://i.imgur.com/xwDv0Ow.png',
     fullDetails: {
       challenge: 'Dificuldade em escalar vendas online e alto custo de aquisição de clientes no setor de móveis de alto padrão.',
@@ -134,7 +134,7 @@ const cases = [
     result: '12.25x ROAS',
     accentColor: '#ec4899',
     description: 'Faturamento de R$ 10.043,78 com apenas R$ 820,13 de investimento em anúncios.',
-    image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&q=80&w=800&fm=webp',
     logo: 'https://i.imgur.com/QU9x4nP.png',
     fullDetails: {
       challenge: 'Dificuldade em atrair novos clientes para serviços de personal chef e baixa visibilidade online.',
@@ -165,7 +165,7 @@ const cases = [
     result: '10.36x ROAS',
     accentColor: '#ef4444',
     description: 'Faturamento de R$ 10.132,00 com investimento estratégico de R$ 977,58 no setor automotivo.',
-    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=800&fm=webp',
     logo: 'https://i.imgur.com/QOElzLc.png',
     fullDetails: {
       challenge: 'Baixa conversão em vendas online e necessidade de escala para serviços de estética automotiva e acessórios.',
@@ -192,6 +192,20 @@ const cases = [
     }
   },
 ];
+
+const getResponsiveUnsplashUrl = (url: string, width: number) => {
+  if (!url.includes('images.unsplash.com')) return url;
+  const baseUrl = url.split('?')[0];
+  return `${baseUrl}?auto=format&fit=crop&q=80&w=${width}&fm=webp`;
+};
+
+const getImgurUrl = (url: string, suffix: string = '') => {
+  if (!url.includes('i.imgur.com')) return url;
+  const parts = url.split('.');
+  const ext = parts.pop();
+  const base = parts.join('.');
+  return `${base}${suffix}.${ext}`;
+};
 
 export const Cases = () => {
   const [selectedCase, setSelectedCase] = useState<typeof cases[0] | null>(null);
@@ -239,11 +253,14 @@ export const Cases = () => {
             >
               <div className="absolute inset-0 overflow-hidden">
                 <img
-                  src={item.image}
+                  src={getResponsiveUnsplashUrl(item.image, 800)}
+                  srcSet={`${getResponsiveUnsplashUrl(item.image, 400)} 400w, ${getResponsiveUnsplashUrl(item.image, 800)} 800w, ${getResponsiveUnsplashUrl(item.image, 1200)} 1200w`}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   alt={item.client}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-80 md:opacity-40 group-hover:opacity-100 md:group-hover:opacity-70"
                   referrerPolicy="no-referrer"
                   loading="lazy"
+                  decoding="async"
                   onLoad={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.classList.add('opacity-100');
@@ -292,10 +309,14 @@ export const Cases = () => {
                     title="Clique para ampliar a logo"
                   >
                     <img 
-                      src={item.logo} 
+                      src={getImgurUrl(item.logo, 'm')} 
+                      srcSet={`${getImgurUrl(item.logo, 's')} 90w, ${getImgurUrl(item.logo, 'm')} 320w, ${getImgurUrl(item.logo, 'l')} 640w`}
+                      sizes="60px"
                       alt={`${item.client} logo`}
                       className="max-w-full max-h-full object-contain group-hover/logo:scale-110 transition-transform"
                       referrerPolicy="no-referrer"
+                      loading="lazy"
+                      decoding="async"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = 'https://i.imgur.com/B5HdJ4K.png'; // Fallback to a default logo or clear
@@ -385,11 +406,14 @@ export const Cases = () => {
                 {/* Fixed Image Section */}
                 <div className="w-full md:w-1/2 h-64 sm:h-72 md:h-full relative shrink-0 overflow-hidden bg-zinc-900">
                   <img 
-                    src={selectedCase.image} 
+                    src={getResponsiveUnsplashUrl(selectedCase.image, 1200)}
+                    srcSet={`${getResponsiveUnsplashUrl(selectedCase.image, 600)} 600w, ${getResponsiveUnsplashUrl(selectedCase.image, 1200)} 1200w`}
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     alt={selectedCase.client}
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
                     loading="eager"
+                    decoding="async"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = `https://picsum.photos/seed/${selectedCase.client}/1200/800`;
@@ -424,11 +448,14 @@ export const Cases = () => {
                         title="Clique para ampliar a logo"
                       >
                         <img 
-                          src={selectedCase.logo} 
+                          src={getImgurUrl(selectedCase.logo, 'l')} 
+                          srcSet={`${getImgurUrl(selectedCase.logo, 'm')} 320w, ${getImgurUrl(selectedCase.logo, 'l')} 640w, ${getImgurUrl(selectedCase.logo, 'h')} 1024w`}
+                          sizes="(max-width: 640px) 100px, 150px"
                           alt={`${selectedCase.client} logo`}
                           className="max-w-full max-h-full object-contain group-hover/modal-logo:scale-110 transition-transform"
                           referrerPolicy="no-referrer"
                           loading="eager"
+                          decoding="async"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
                             target.src = 'https://i.imgur.com/B5HdJ4K.png';
@@ -615,6 +642,8 @@ export const Cases = () => {
                   alt="Logo Preview" 
                   className="max-w-full max-h-full object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]"
                   referrerPolicy="no-referrer"
+                  loading="eager"
+                  decoding="async"
                 />
               </motion.div>
 

@@ -7,7 +7,7 @@ const Counter = ({ value, duration = 2, prefix = '', suffix = '', decimals = 0, 
   const [displayValue, setDisplayValue] = React.useState(`${prefix}${Number(0).toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}${suffix}`);
   const count = useMotionValue(0);
   const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-20px" });
+  const isInView = useInView(ref, { once: false, margin: "-10px" });
   const isAnimating = React.useRef(false);
 
   useEffect(() => {
@@ -59,30 +59,33 @@ const Counter = ({ value, duration = 2, prefix = '', suffix = '', decimals = 0, 
   );
 };
 
-const MetricCard = ({ label, value, numericValue, prefix, suffix, decimals, color, icon: Icon, delay }: any) => (
+const MetricCard = ({ label, value, numericValue, prefix, suffix, decimals, color, icon: Icon, delay, highlight }: any) => (
   <motion.div
     initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
     whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-    viewport={{ once: true, margin: "-20px" }}
+    viewport={{ once: false, margin: "-10px" }}
     transition={{ duration: 0.8, delay: delay * 0.2, ease: "easeOut" }}
     whileHover={{ scale: 1.05, zIndex: 10 }}
-    className="relative p-4 rounded-xl bg-white/5 border border-white/10 overflow-hidden group hover:border-primary/50 transition-all duration-500 will-change-transform transform-gpu"
+    className={cn(
+      "relative p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 overflow-hidden group hover:border-primary/50 transition-all duration-500 will-change-transform transform-gpu",
+      highlight && "border-amber-400/40 shadow-[0_0_20px_rgba(251,191,36,0.15)] bg-amber-400/[0.03]"
+    )}
   >
     {/* Card Glow Background */}
     <div className={cn("absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500", color)} />
     
-    <div className="flex items-center justify-between mb-2 relative z-10">
-      <div className="flex items-center gap-2">
+    <div className="flex items-center justify-between mb-1.5 sm:mb-2 relative z-10">
+      <div className="flex items-center gap-1.5 sm:gap-2">
         <motion.div 
           animate={{ opacity: [0.4, 1, 0.4] }}
           transition={{ duration: 2, repeat: Infinity, delay: delay }}
-          className={cn("w-1.5 h-1.5 rounded-full shadow-[0_0_8px_currentColor] transform-gpu will-change-opacity", color.replace('bg-', 'text-'))} 
+          className={cn("w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full shadow-[0_0_8px_currentColor] transform-gpu will-change-opacity", color.replace('bg-', 'text-'))} 
         />
-        <span className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-black">{label}</span>
+        <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-white/40 font-black">{label}</span>
       </div>
-      {Icon && <Icon size={12} className={cn("transition-all duration-500 group-hover:scale-125", color.replace('bg-', 'text-'))} />}
+      {Icon && <Icon size={10} className={cn("transition-all duration-500 group-hover:scale-125", color.replace('bg-', 'text-'))} />}
     </div>
-    <div className={cn("text-xl font-black font-montserrat tracking-tight relative z-10", color.replace('bg-', 'text-'))}>
+    <div className={cn("text-lg sm:text-xl font-black font-montserrat tracking-tight relative z-10", color.replace('bg-', 'text-'))}>
       <Counter value={numericValue} prefix={prefix} suffix={suffix} decimals={decimals} delay={delay} />
     </div>
     
@@ -128,9 +131,9 @@ export const PerformanceDashboard = () => {
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.95 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="relative p-4 sm:p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-emerald-500/30 overflow-hidden group will-change-transform transform-gpu"
+        className="relative p-4 sm:p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-emerald-500/40 overflow-hidden group will-change-transform transform-gpu shadow-[0_0_30px_rgba(52,211,153,0.15)]"
       >
         {/* Background Data Stream Effect */}
         <div className="absolute inset-0 opacity-5 pointer-events-none overflow-hidden">
@@ -224,7 +227,7 @@ export const PerformanceDashboard = () => {
       {/* Grid Metrics */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-2 sm:gap-3">
         <MetricCard label="Gasto Ads" numericValue={20986.83} prefix="R$ " decimals={2} color="bg-rose-500" icon={Zap} delay={0.4} />
-        <MetricCard label="ROAS" numericValue={15.36} suffix="x" decimals={2} color="bg-amber-400" icon={TrendingUp} delay={0.8} />
+        <MetricCard label="ROAS" numericValue={15.36} suffix="x" decimals={2} color="bg-amber-400" icon={TrendingUp} delay={0.8} highlight />
         <MetricCard label="Ticket Médio" numericValue={211.87} prefix="R$ " decimals={2} color="bg-emerald-400" delay={1.2} />
         <MetricCard label="CPA Médio" numericValue={13.79} prefix="R$ " decimals={2} color="bg-blue-400" delay={1.6} />
         <MetricCard label="Conversões" numericValue={1.5} suffix="k" decimals={1} color="bg-cyan-400" icon={Target} delay={2.0} />

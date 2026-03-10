@@ -75,7 +75,7 @@ export const CorePillars = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, margin: "-10px" }}
             className="text-primary text-xs tracking-[0.5em] uppercase mb-4"
           >
             Nossos Pilares
@@ -83,7 +83,7 @@ export const CorePillars = () => {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, margin: "-10px" }}
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-6xl font-black"
           >
@@ -97,7 +97,7 @@ export const CorePillars = () => {
               key={pillar.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, margin: "-10px" }}
               transition={{ delay: pillar.delay, duration: 0.5 }}
               whileHover={{ y: -12, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}

@@ -22,6 +22,7 @@ import { CustomCursor } from './components/CustomCursor';
 import { ScrollIndicator } from './components/ScrollIndicator';
 import { Loader } from './components/Loader';
 import { WhatsAppButton } from './components/WhatsAppButton';
+import { BackToTop } from './components/BackToTop';
 
 export default function App() {
   useEffect(() => {
@@ -80,6 +81,7 @@ export default function App() {
       
       <Footer />
       <WhatsAppButton />
+      <BackToTop />
 
       {/* Global Glow Effects */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">

@@ -14,6 +14,17 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   const navLinks = [
     { name: 'Início', href: '#home' },
     { name: 'Agência', href: '#about' },
@@ -88,11 +99,14 @@ export const Navbar = () => {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-white p-2 hover:bg-white/10 rounded-full transition-colors relative z-[7000]"
+          className="md:hidden text-white p-2 hover:bg-white/10 rounded-full transition-colors relative z-[7000] flex items-center gap-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
-          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          <span className="text-[10px] uppercase tracking-[0.2em] font-black text-white/60">
+            {isMobileMenuOpen ? 'Fechar' : 'Menu'}
+          </span>
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
@@ -105,22 +119,22 @@ export const Navbar = () => {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[6000] md:hidden bg-black/98 backdrop-blur-2xl"
           >
-            <div className="flex flex-col h-full pt-32 pb-12 px-8 overflow-y-auto">
-              <div className="flex flex-col gap-6 items-center w-full">
+            <div className="flex flex-col h-full pt-24 pb-12 px-8 overflow-y-auto">
+              <div className="flex flex-col gap-4 items-center w-full">
                 {navLinks.map((link, index) => (
                   <motion.a
                     key={link.name}
                     href={link.href}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
                     transition={{ 
-                      delay: index * 0.08 + 0.1,
+                      delay: index * 0.05 + 0.1,
                       type: "spring",
                       stiffness: 300,
                       damping: 30
                     }}
                     onClick={(e) => scrollToSection(e, link.href)}
-                    className="text-4xl font-black text-white hover:text-primary transition-all uppercase tracking-tighter active:scale-95"
+                    className="text-2xl sm:text-4xl font-black text-white hover:text-primary transition-all uppercase tracking-tighter active:scale-95 py-3 w-full text-center border-b border-white/5"
                   >
                     {link.name}
                   </motion.a>

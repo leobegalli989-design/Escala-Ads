@@ -13,7 +13,7 @@ interface CounterProps {
 export const AnimatedCounter = ({ value, duration = 1.5, prefix = '', suffix = '', decimals = 0, delay = 0 }: CounterProps) => {
   const [displayValue, setDisplayValue] = useState(0);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "-10px" });
   
   const formatter = useMemo(() => new Intl.NumberFormat('pt-BR', { 
     minimumFractionDigits: decimals, 

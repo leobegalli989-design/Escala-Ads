@@ -14,15 +14,15 @@ export const Loader = () => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          timer = setTimeout(() => setLoading(false), isMobileDevice ? 200 : 400);
+          timer = setTimeout(() => setLoading(false), isMobileDevice ? 100 : 300);
           return 100;
         }
         // Faster loading on mobile to avoid perceived stutter
-        const step = isMobileDevice ? 35 : 15;
+        const step = isMobileDevice ? 40 : 15;
         const next = prev + Math.random() * step;
         return next > 100 ? 100 : next;
       });
-    }, isMobileDevice ? 30 : 80);
+    }, isMobileDevice ? 20 : 80);
 
     // Failsafe: force loading to false after 3.5 seconds
     failsafe = setTimeout(() => {

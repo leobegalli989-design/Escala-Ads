@@ -211,10 +211,15 @@ export const Cases = () => {
   const [selectedCase, setSelectedCase] = useState<typeof cases[0] | null>(null);
   const [previewLogo, setPreviewLogo] = useState<string | null>(null);
 
+  const modalContentRef = React.useRef<HTMLDivElement>(null);
+
   // Lock body scroll when modal is open
   useEffect(() => {
     if (selectedCase || previewLogo) {
       document.body.style.overflow = 'hidden';
+      if (selectedCase && modalContentRef.current) {
+        modalContentRef.current.scrollTop = 0;
+      }
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -243,13 +248,14 @@ export const Cases = () => {
               key={item.client}
               initial={{ opacity: 0, y: 50, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: window.innerWidth < 768 ? "-20px" : "-100px" }}
+              viewport={{ once: false, margin: "-10px" }}
               transition={{ 
                 duration: 0.8, 
                 delay: index * 0.1,
                 ease: [0.16, 1, 0.3, 1] 
               }}
-              className="group relative rounded-3xl overflow-hidden neon-border bg-zinc-900/50 will-change-transform transform-gpu min-h-[420px] sm:h-[450px]"
+              className="group relative rounded-3xl overflow-hidden neon-border bg-zinc-900/50 will-change-transform transform-gpu h-auto min-h-[420px] sm:h-[450px] cursor-pointer"
+              onClick={() => setSelectedCase(item)}
             >
               <div className="absolute inset-0 overflow-hidden">
                 <img
@@ -336,7 +342,7 @@ export const Cases = () => {
                   <h3 className="text-xl sm:text-3xl font-black mb-1.5 sm:mb-2 text-white tracking-tight">
                     {item.client}
                   </h3>
-                  <p className="text-white/90 sm:text-white/70 text-sm sm:text-sm mb-4 sm:mb-6 line-clamp-3 sm:line-clamp-2 font-medium max-w-[95%]">
+                  <p className="text-white/90 sm:text-white/70 text-sm sm:text-sm mb-6 sm:mb-6 line-clamp-3 sm:line-clamp-none font-medium max-w-[95%]">
                     {item.description}
                   </p>
                   <button 
@@ -394,17 +400,21 @@ export const Cases = () => {
                 stiffness: 200,
                 mass: 0.8
               }}
-              className="relative w-full max-w-5xl h-full md:h-auto md:max-h-[90vh] bg-zinc-950 border-x md:border border-white/10 md:rounded-2xl shadow-2xl will-change-transform transform-gpu z-10 overflow-hidden flex flex-col md:flex-row"
+              className="relative w-full max-w-5xl h-[100dvh] md:h-auto md:max-h-[90vh] bg-zinc-950 border-x md:border border-white/10 md:rounded-2xl shadow-2xl will-change-transform transform-gpu z-10 overflow-hidden flex flex-col md:flex-row"
             >
                 <button 
                   onClick={() => setSelectedCase(null)}
-                  className="absolute top-6 right-6 z-50 p-2.5 bg-black/60 backdrop-blur-md rounded-full text-white hover:text-primary transition-all border border-white/10 shadow-2xl"
+                  className="absolute top-4 right-4 z-50 p-3 bg-black/60 backdrop-blur-md rounded-full text-white hover:text-primary transition-all border border-white/10 shadow-2xl active:scale-90"
+                  aria-label="Fechar case"
                 >
-                  <X size={24} />
+                  <X size={20} />
                 </button>
 
+                {/* Swipe Hint for Mobile */}
+                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-white/20 rounded-full md:hidden" />
+
                 {/* Fixed Image Section */}
-                <div className="w-full md:w-1/2 h-64 sm:h-72 md:h-full relative shrink-0 overflow-hidden bg-zinc-900">
+                <div className="w-full md:w-1/2 h-40 sm:h-64 md:h-full relative shrink-0 overflow-hidden bg-zinc-900">
                   <img 
                     src={getResponsiveUnsplashUrl(selectedCase.image, 1200)}
                     srcSet={`${getResponsiveUnsplashUrl(selectedCase.image, 600)} 600w, ${getResponsiveUnsplashUrl(selectedCase.image, 1200)} 1200w`}
@@ -438,8 +448,11 @@ export const Cases = () => {
                 </div>
 
                 {/* Scrollable Content Section */}
-                <div className="flex-1 overflow-y-auto custom-scrollbar p-5 sm:p-10 md:p-12 bg-zinc-950 pb-20 sm:pb-10">
-                  <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 sm:gap-6 mb-8 sm:mb-10 text-center sm:text-left">
+                <div 
+                  ref={modalContentRef}
+                  className="flex-1 overflow-y-auto custom-scrollbar p-6 sm:p-10 md:p-12 bg-zinc-950 pb-32 sm:pb-10"
+                >
+                  <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 sm:gap-6 mb-8 sm:mb-10 text-center sm:text-left pt-4 sm:pt-0">
                     {selectedCase.logo && (
                       <button 
                         onClick={() => setPreviewLogo(selectedCase.logo)}
@@ -528,7 +541,7 @@ export const Cases = () => {
                       >
                         <CheckCircle2 size={14} /> Métricas de Escala
                       </h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                      <div className="grid grid-cols-2 gap-3 sm:gap-4">
                         {selectedCase.fullDetails.metrics.map((metric, i) => {
                           const getMetricColor = (label: string) => {
                             const l = label.toLowerCase();
@@ -558,18 +571,18 @@ export const Cases = () => {
                                 delay: 0.2 + (i * 0.04),
                                 ease: [0.22, 1, 0.36, 1]
                               }}
-                              className="bg-white/10 border border-white/10 p-3 sm:p-4 rounded-xl group/metric transition-all hover:bg-white/20 hover:border-primary/30"
+                              className="bg-white/10 border border-white/10 p-2.5 sm:p-4 rounded-xl group/metric transition-all hover:bg-white/20 hover:border-primary/30"
                               style={{ 
                                 borderColor: i % 2 === 0 ? `${selectedCase.accentColor}20` : 'rgba(255,255,255,0.1)'
                               }}
                             >
                               <div 
-                                className="text-[10px] text-gray-neutral uppercase tracking-widest mb-1 group-hover/metric:text-primary transition-colors"
+                                className="text-[9px] text-gray-neutral uppercase tracking-wider mb-1 group-hover/metric:text-primary transition-colors"
                                 style={{ color: 'rgba(255,255,255,0.4)' }}
                               >
                                 {metric.label}
                               </div>
-                              <div className={cn("text-lg font-black tracking-tight", metricColor)}>
+                              <div className={cn("text-base sm:text-lg font-black tracking-tight", metricColor)}>
                                 <AnimatedCounter 
                                   value={metric.value} 
                                   prefix={metric.prefix} 

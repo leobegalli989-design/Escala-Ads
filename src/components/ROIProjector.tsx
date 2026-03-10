@@ -174,7 +174,7 @@ export const ROIProjector = () => {
 
               <div>
                 <label className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/40 font-bold mb-4 sm:mb-6 block">Selecione seu Nicho</label>
-                <div className="grid grid-cols-1 gap-2.5 sm:gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-1 gap-2 sm:gap-3">
                   {NICHES.map((niche) => {
                     const Icon = niche.icon;
                     const isSelected = selectedNiche.id === niche.id;
@@ -185,26 +185,26 @@ export const ROIProjector = () => {
                         whileHover={{ x: isMobile ? 0 : 5 }}
                         whileTap={{ scale: 0.98 }}
                         className={cn(
-                          "flex items-center gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl border transition-all text-left group relative overflow-hidden",
+                          "flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border transition-all text-left group relative overflow-hidden",
                           isSelected 
                             ? "bg-primary/10 border-primary/50 shadow-[0_0_20px_rgba(20,163,229,0.1)]" 
                             : "bg-white/5 border-white/5 hover:border-white/20"
                         )}
                       >
                         <div className={cn(
-                          "w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-colors shrink-0",
+                          "w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-colors shrink-0",
                           isSelected ? "bg-primary text-black" : "bg-white/5 text-white/40 group-hover:text-white"
                         )}>
-                          <Icon size={18} className="sm:w-[20px] sm:h-[20px]" />
+                          <Icon size={16} className="sm:w-[20px] sm:h-[20px]" />
                         </div>
                         <div className="min-w-0">
                           <div className={cn(
-                            "text-xs sm:text-sm font-bold uppercase tracking-tight truncate",
+                            "text-[11px] sm:text-sm font-bold uppercase tracking-tight truncate",
                             isSelected ? "text-white" : "text-white/60"
                           )}>
                             {niche.name}
                           </div>
-                          <div className="text-[9px] sm:text-[10px] text-white/30 leading-tight line-clamp-1">
+                          <div className="text-[8px] sm:text-[10px] text-white/30 leading-tight line-clamp-1">
                             {niche.description}
                           </div>
                         </div>

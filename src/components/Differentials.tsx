@@ -30,14 +30,14 @@ export const Differentials = () => {
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, margin: "-10px" }}
           className="text-center lg:text-left"
         >
           <div className="text-primary text-xs tracking-[0.5em] uppercase mb-4">Diferenciais</div>
           <motion.h2 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, margin: "-10px" }}
             transition={{ duration: 1, ease: "easeOut" }}
             className="text-3xl sm:text-4xl md:text-6xl mb-8 font-black tracking-tighter"
           >
@@ -67,7 +67,7 @@ export const Differentials = () => {
                 key={item}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, margin: "-10px" }}
                 transition={{ 
                   duration: 0.8, 
                   delay: index * 0.15,
@@ -95,7 +95,7 @@ export const Differentials = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.8, rotateY: 20 }}
           whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, margin: "-10px" }}
           transition={{ duration: 1.5, type: "spring" }}
           className="relative perspective-1000 space-y-4 sm:space-y-6"
         >

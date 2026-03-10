@@ -47,35 +47,35 @@ export const About = () => {
   return (
     <section id="about" className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 sm:mb-20">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="text-center lg:text-left"
           >
-            <div className="text-primary text-xs tracking-[0.4em] uppercase mb-4">A Agência</div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl mb-8 leading-tight">
+            <div className="text-primary text-[10px] sm:text-xs tracking-[0.4em] uppercase mb-4">A Agência</div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl mb-6 sm:mb-8 leading-tight font-black tracking-tighter">
               ESTRATÉGIA QUE <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400 font-black">TRANSFORMA</span> <br className="hidden sm:block" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">TRANSFORMA</span> <br className="hidden sm:block" />
               DADOS EM <span className="text-emerald-400 italic">LUCRO.</span>
             </h2>
-            <p className="text-gray-neutral text-base sm:text-lg mb-8">
+            <p className="text-gray-neutral text-sm sm:text-lg mb-8 max-w-xl mx-auto lg:mx-0">
               Nascemos no epicentro da revolução digital com um único propósito: destruir a mediocridade do marketing tradicional e implementar sistemas de <span className="text-primary font-bold shadow-[0_0_15px_rgba(20,163,229,0.3)]">escala agressiva.</span>
             </p>
-            <div className="flex gap-8 justify-center lg:justify-start">
-              <div>
-                <div className="text-2xl sm:text-3xl font-montserrat text-white mb-1">
+            <div className="flex gap-6 sm:gap-8 justify-center lg:justify-start">
+              <div className="text-center lg:text-left">
+                <div className="text-xl sm:text-3xl font-montserrat text-white mb-1 font-black">
                   <AnimatedCounter value={98} suffix="%" />
                 </div>
-                <div className="text-[10px] text-primary uppercase tracking-widest">Retenção</div>
+                <div className="text-[8px] sm:text-[10px] text-primary uppercase tracking-widest font-bold">Retenção</div>
               </div>
-              <div className="w-px h-12 bg-white/10" />
-              <div>
-                <div className="text-2xl sm:text-3xl font-montserrat text-white mb-1">
+              <div className="w-px h-10 sm:h-12 bg-white/10" />
+              <div className="text-center lg:text-left">
+                <div className="text-xl sm:text-3xl font-montserrat text-white mb-1 font-black">
                   <AnimatedCounter value={10} suffix="X" />
                 </div>
-                <div className="text-[10px] text-primary uppercase tracking-widest">ROI Médio</div>
+                <div className="text-[8px] sm:text-[10px] text-primary uppercase tracking-widest font-bold">ROI Médio</div>
               </div>
             </div>
           </motion.div>

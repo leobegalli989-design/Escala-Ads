@@ -101,7 +101,7 @@ export const CorePillars = () => {
               transition={{ delay: pillar.delay, duration: 0.5 }}
               whileHover={{ y: -12, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="group relative p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-primary/40 transition-all duration-500 overflow-hidden will-change-transform transform-gpu"
+              className="group relative p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-primary/40 transition-all duration-500 overflow-hidden will-change-transform transform-gpu flex flex-col items-center sm:items-start text-center sm:text-left"
             >
               {/* Card Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -110,7 +110,7 @@ export const CorePillars = () => {
               <div className="absolute -inset-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-500 -z-10" />
 
               <motion.div 
-                className="w-16 h-16 rounded-2xl bg-black/50 backdrop-blur-xl flex items-center justify-center mb-8 border border-white/10 group-hover:border-primary/30 transition-all duration-500 relative z-10 will-change-transform transform-gpu"
+                className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-black/50 backdrop-blur-xl flex items-center justify-center mb-6 sm:mb-8 border border-white/10 group-hover:border-primary/30 transition-all duration-500 relative z-10 will-change-transform transform-gpu"
                 style={{ 
                   boxShadow: `0 0 30px ${pillar.color}15`,
                 }}
@@ -125,17 +125,17 @@ export const CorePillars = () => {
                   delay: index * 0.7
                 }}
               >
-                <pillar.icon style={{ color: pillar.color }} size={32} className="relative z-10" />
+                <pillar.icon style={{ color: pillar.color }} size={28} className="sm:w-[32px] sm:h-[32px] relative z-10" />
                 {/* Icon Glow */}
                 <div className="absolute inset-0 bg-primary/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </motion.div>
               
               <div className="relative z-10">
-                <h3 className="text-2xl font-black mb-4 text-white group-hover:text-primary transition-colors tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-black mb-3 sm:mb-4 text-white group-hover:text-primary transition-colors tracking-tight">
                   {pillar.title}
                 </h3>
                 
-                <p className="text-gray-neutral text-sm leading-relaxed font-medium opacity-80 group-hover:opacity-100 transition-opacity">
+                <p className="text-gray-neutral text-xs sm:text-sm leading-relaxed font-medium opacity-80 group-hover:opacity-100 transition-opacity">
                   {pillar.description}
                 </p>
               </div>

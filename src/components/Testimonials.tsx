@@ -102,12 +102,17 @@ export const Testimonials = () => {
               className="bg-white/5 border border-white/10 p-8 rounded-3xl relative group hover:bg-white/10 transition-all duration-700 flex flex-col h-full will-change-transform transform-gpu perspective-1000"
             >
               <div 
-                className="absolute top-0 left-0 w-1.5 h-0 group-hover:h-full transition-all duration-700 rounded-l-3xl"
+                className="absolute top-0 left-0 w-1.5 h-0 group-hover:h-full transition-all duration-700 rounded-l-3xl z-20"
                 style={{ backgroundColor: t.accentColor }}
               />
+
+              {/* Shimmer Effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none overflow-hidden rounded-3xl">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer-slide" />
+              </div>
               
               <Quote 
-                className="absolute top-8 right-8 opacity-10 group-hover:opacity-30 transition-all duration-500 group-hover:scale-125 group-hover:rotate-12" 
+                className="absolute top-8 right-8 opacity-10 group-hover:opacity-30 transition-all duration-500 group-hover:scale-125 group-hover:rotate-12 z-10" 
                 size={48} 
                 style={{ color: t.accentColor }}
               />
@@ -146,21 +151,26 @@ export const Testimonials = () => {
                 "{t.content}"
               </p>
 
-              <div className="flex gap-1 mb-8">
+              <div className="flex gap-1.5 mb-8">
                 {[...Array(5)].map((_, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, scale: 0, rotate: -45 }}
-                    whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                    initial={{ opacity: 0, scale: 0, y: 10 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ 
                       type: "spring",
-                      stiffness: 400,
+                      stiffness: 500,
                       damping: 15,
-                      delay: 0.4 + (i * 0.1) 
+                      delay: 0.6 + (i * 0.1) 
+                    }}
+                    whileHover={{ 
+                      scale: 1.3, 
+                      rotate: 15,
+                      transition: { duration: 0.2 }
                     }}
                   >
-                    <Star size={14} className="fill-primary text-primary" />
+                    <Star size={16} className="fill-primary text-primary drop-shadow-[0_0_8px_rgba(20,163,229,0.5)]" />
                   </motion.div>
                 ))}
               </div>

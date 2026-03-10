@@ -99,10 +99,10 @@ export const Differentials = () => {
           whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1.5, type: "spring" }}
-          className="relative perspective-1000 space-y-6"
+          className="relative perspective-1000 space-y-4 sm:space-y-6"
         >
           {/* Performance Card */}
-          <div className="glass p-8 rounded-3xl border-primary/20 relative z-10 overflow-hidden group will-change-transform transform-gpu">
+          <div className="glass p-5 sm:p-8 rounded-3xl border-primary/20 relative z-10 overflow-hidden group will-change-transform transform-gpu">
             {/* Scanner Line */}
             <motion.div 
               animate={{ top: ['-10%', '110%'] }}
@@ -126,15 +126,15 @@ export const Differentials = () => {
               </div>
             </div>
             
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {[
                 { label: 'ROAS Médio', value: 85, color: 'bg-emerald-500', text: 'text-emerald-500' },
                 { label: 'Taxa de Conversão', value: 92, color: 'bg-blue-500', text: 'text-blue-500' },
                 { label: 'Escalabilidade', value: 78, color: 'bg-violet-500', text: 'text-violet-500' },
                 { label: 'Eficiência de Gasto', value: 96, color: 'bg-amber-500', text: 'text-amber-500' }
               ].map((metric, i) => (
-                <div key={i} className="space-y-2">
-                  <div className="flex justify-between text-[10px] uppercase tracking-widest text-white/50">
+                <div key={i} className="space-y-1.5 sm:space-y-2">
+                  <div className="flex justify-between text-[9px] sm:text-[10px] uppercase tracking-widest text-white/50">
                     <span>{metric.label}</span>
                     <div className="flex items-center gap-2">
                       <motion.span 
@@ -151,7 +151,7 @@ export const Differentials = () => {
                       />
                     </div>
                   </div>
-                  <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                  <div className="h-1 sm:h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${metric.value}%` }}

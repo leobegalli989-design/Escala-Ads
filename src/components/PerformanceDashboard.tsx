@@ -130,7 +130,7 @@ export const PerformanceDashboard = () => {
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="relative p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-emerald-500/30 overflow-hidden group will-change-transform transform-gpu"
+        className="relative p-4 sm:p-6 rounded-2xl bg-black/40 backdrop-blur-xl border border-emerald-500/30 overflow-hidden group will-change-transform transform-gpu"
       >
         {/* Background Data Stream Effect */}
         <div className="absolute inset-0 opacity-5 pointer-events-none overflow-hidden">
@@ -167,7 +167,7 @@ export const PerformanceDashboard = () => {
           </div>
         </div>
 
-        <div className="text-5xl md:text-6xl font-montserrat text-emerald-400 font-black text-glow mb-6 relative z-10">
+        <div className="text-4xl sm:text-5xl md:text-6xl font-montserrat text-emerald-400 font-black text-glow mb-4 sm:mb-6 relative z-10">
           <Counter value={322257.05} prefix="R$ " decimals={2} delay={0.2} />
         </div>
         
@@ -222,32 +222,41 @@ export const PerformanceDashboard = () => {
       </motion.div>
 
       {/* Grid Metrics */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-2 sm:gap-3">
         <MetricCard label="Gasto Ads" numericValue={20986.83} prefix="R$ " decimals={2} color="bg-rose-500" icon={Zap} delay={0.4} />
         <MetricCard label="ROAS" numericValue={15.36} suffix="x" decimals={2} color="bg-amber-400" icon={TrendingUp} delay={0.8} />
-        <MetricCard label="Ticket Médio" numericValue={211.87} prefix="R$ " decimals={2} color="bg-emerald-400" delay={1.2} />
-        <MetricCard label="CPA Médio" numericValue={13.79} prefix="R$ " decimals={2} color="bg-blue-400" delay={1.6} />
+        {!isMobile && (
+          <>
+            <MetricCard label="Ticket Médio" numericValue={211.87} prefix="R$ " decimals={2} color="bg-emerald-400" delay={1.2} />
+            <MetricCard label="CPA Médio" numericValue={13.79} prefix="R$ " decimals={2} color="bg-blue-400" delay={1.6} />
+          </>
+        )}
         <MetricCard label="Conversões" numericValue={1.5} suffix="k" decimals={1} color="bg-cyan-400" icon={Target} delay={2.0} />
         <MetricCard label="Taxa Conv." numericValue={16.56} suffix="%" decimals={2} color="bg-fuchsia-400" delay={2.4} />
-        <MetricCard label="Cliques" numericValue={9.2} suffix="k" decimals={1} color="bg-orange-400" icon={MousePointer2} delay={2.8} />
-        <MetricCard label="CTR Médio" numericValue={0.34} suffix="%" decimals={2} color="bg-violet-400" delay={3.2} />
-        <MetricCard label="CPC Médio" numericValue={2.28} prefix="R$ " decimals={2} color="bg-sky-400" delay={3.6} />
-        <MetricCard label="Impressões" numericValue={2.7} suffix="M" decimals={1} color="bg-blue-500" icon={Eye} delay={4.0} />
-        <MetricCard label="Alcance" numericValue={1.5} suffix="M" decimals={1} color="bg-indigo-500" icon={Users} delay={4.4} />
+        {!isMobile && (
+          <>
+            <MetricCard label="Cliques" numericValue={9.2} suffix="k" decimals={1} color="bg-orange-400" icon={MousePointer2} delay={2.8} />
+            <MetricCard label="CTR Médio" numericValue={0.34} suffix="%" decimals={2} color="bg-violet-400" delay={3.2} />
+            <MetricCard label="CPC Médio" numericValue={2.28} prefix="R$ " decimals={2} color="bg-sky-400" delay={3.6} />
+            <MetricCard label="Impressões" numericValue={2.7} suffix="M" decimals={1} color="bg-blue-500" icon={Eye} delay={4.0} />
+            <MetricCard label="Alcance" numericValue={1.5} suffix="M" decimals={1} color="bg-indigo-500" icon={Users} delay={4.4} />
+          </>
+        )}
         
         {/* Growth Indicator */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 4.8 }}
-          className="p-4 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 border border-emerald-500/30 flex flex-col items-center justify-center text-center group"
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, delay: isMobile ? 0.6 : 4.8 }}
+          className="p-3 sm:p-4 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 border border-emerald-500/30 flex flex-col items-center justify-center text-center group"
         >
-          <div className="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center mb-2 shadow-[0_0_15px_rgba(52,211,153,0.5)] group-hover:scale-110 transition-transform">
-            <ArrowUpRight className="text-black" size={20} />
+          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-emerald-500 rounded-full flex items-center justify-center mb-1.5 sm:mb-2 shadow-[0_0_15px_rgba(52,211,153,0.5)] group-hover:scale-110 transition-transform">
+            <ArrowUpRight className="text-black" size={16} />
           </div>
-          <div className="text-[10px] uppercase tracking-widest text-emerald-400 font-bold mb-1">Crescimento</div>
-          <div className="text-xl font-montserrat text-emerald-400 font-bold">
-            <Counter value={340} prefix="+" suffix="%" decimals={0} delay={4.8} />
+          <div className="text-[8px] sm:text-[10px] uppercase tracking-widest text-emerald-400 font-bold mb-0.5 sm:mb-1">Crescimento</div>
+          <div className="text-lg sm:text-xl font-montserrat text-emerald-400 font-bold">
+            <Counter value={340} prefix="+" suffix="%" decimals={0} delay={isMobile ? 0.8 : 4.8} />
           </div>
         </motion.div>
       </div>

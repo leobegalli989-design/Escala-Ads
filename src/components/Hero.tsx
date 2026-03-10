@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, ChevronRight, Sparkles } from 'lucide-react';
+import { ArrowRight, ChevronRight, Sparkles, TrendingUp, DollarSign, Users, Target } from 'lucide-react';
 import { Particles } from './Particles';
 
 import { PerformanceDashboard } from './PerformanceDashboard';
@@ -8,21 +8,24 @@ import { Magnetic } from './Magnetic';
 
 import { AnimatedCounter } from './AnimatedCounter';
 
-const StatItem = ({ numericValue, label, prefix = '', suffix = '' }: { numericValue: number; label: string; prefix?: string; suffix?: string }) => (
-  <div className="flex flex-col items-center sm:items-start group">
+const StatItem = ({ numericValue, label, prefix = '', suffix = '', icon: Icon }: { numericValue: number; label: string; prefix?: string; suffix?: string; icon: any }) => (
+  <div className="flex flex-col items-center sm:items-start group p-4 sm:p-0 rounded-2xl bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 transition-all duration-500 hover:bg-white/10 sm:hover:bg-transparent">
+    <div className="flex items-center gap-2 mb-2 sm:mb-1">
+      <Icon size={14} className="text-primary/60 group-hover:text-primary transition-colors" />
+      <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-white/40 font-black">{label}</span>
+    </div>
     <div className="relative">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
-        className="text-3xl md:text-4xl font-montserrat text-primary font-black tracking-tighter"
+        className="text-2xl sm:text-3xl md:text-4xl font-montserrat text-white font-black tracking-tighter group-hover:text-primary transition-colors"
       >
         <AnimatedCounter value={numericValue} prefix={prefix} suffix={suffix} decimals={numericValue % 1 !== 0 ? 1 : 0} />
       </motion.div>
       {/* Glow effect on hover - Only on desktop */}
       <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 -z-10" />
     </div>
-    <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/40 font-bold mt-1">{label}</span>
   </div>
 );
 
@@ -130,10 +133,11 @@ export const Hero = () => {
             </a>
           </motion.div>
 
-          <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-white/10 pt-8 px-4 sm:px-0">
-            <StatItem numericValue={50} prefix="+R$ " suffix="M" label="Investidos" />
-            <StatItem numericValue={250} prefix="+" label="Clientes" />
-            <StatItem numericValue={1.2} prefix="+" suffix="K" label="Campanhas" />
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-8 border-t border-white/10 pt-8 px-2 sm:px-0">
+            <StatItem numericValue={120} prefix="+R$ " suffix="M" label="Gerados" icon={TrendingUp} />
+            <StatItem numericValue={15} prefix="+R$ " suffix="M" label="Investidos" icon={DollarSign} />
+            <StatItem numericValue={300} prefix="+" label="Clientes" icon={Users} />
+            <StatItem numericValue={1.2} prefix="+" suffix="K" label="Campanhas" icon={Target} />
           </div>
         </motion.div>
 

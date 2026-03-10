@@ -89,7 +89,14 @@ const NICHES: Niche[] = [
 export const ROIProjector = () => {
   const [budget, setBudget] = useState(5000);
   const [selectedNiche, setSelectedNiche] = useState(NICHES[0]);
-  const [isHovered, setIsHovered] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const results = useMemo(() => {
     const impressions = (budget / selectedNiche.avgCpm) * 1000;
@@ -134,19 +141,19 @@ export const ROIProjector = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-8 items-start">
+        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           {/* Controls Side */}
-          <div className="lg:col-span-5 space-y-8">
+          <div className="lg:col-span-5 space-y-6 sm:space-y-8">
             <motion.div 
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="glass p-8 rounded-3xl border-white/10"
+              className="glass p-6 sm:p-8 rounded-3xl border-white/10"
             >
-              <div className="mb-10">
-                <div className="flex justify-between items-end mb-4">
-                  <label className="text-xs uppercase tracking-[0.2em] text-white/40 font-bold">Investimento Mensal</label>
-                  <div className="text-3xl font-montserrat text-primary font-black">
+              <div className="mb-8 sm:mb-10">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-4 gap-2">
+                  <label className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/40 font-bold">Investimento Mensal</label>
+                  <div className="text-2xl sm:text-3xl font-montserrat text-primary font-black">
                     R$ {budget.toLocaleString('pt-BR')}
                   </div>
                 </div>
@@ -166,8 +173,8 @@ export const ROIProjector = () => {
               </div>
 
               <div>
-                <label className="text-xs uppercase tracking-[0.2em] text-white/40 font-bold mb-6 block">Selecione seu Nicho</label>
-                <div className="grid grid-cols-1 gap-3">
+                <label className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/40 font-bold mb-4 sm:mb-6 block">Selecione seu Nicho</label>
+                <div className="grid grid-cols-1 gap-2.5 sm:gap-3">
                   {NICHES.map((niche) => {
                     const Icon = niche.icon;
                     const isSelected = selectedNiche.id === niche.id;
@@ -175,38 +182,38 @@ export const ROIProjector = () => {
                       <motion.button
                         key={niche.id}
                         onClick={() => setSelectedNiche(niche)}
-                        whileHover={{ x: 5 }}
+                        whileHover={{ x: isMobile ? 0 : 5 }}
                         whileTap={{ scale: 0.98 }}
                         className={cn(
-                          "flex items-center gap-4 p-4 rounded-xl border transition-all text-left group relative overflow-hidden",
+                          "flex items-center gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl border transition-all text-left group relative overflow-hidden",
                           isSelected 
                             ? "bg-primary/10 border-primary/50 shadow-[0_0_20px_rgba(20,163,229,0.1)]" 
                             : "bg-white/5 border-white/5 hover:border-white/20"
                         )}
                       >
                         <div className={cn(
-                          "w-10 h-10 rounded-lg flex items-center justify-center transition-colors",
+                          "w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-colors shrink-0",
                           isSelected ? "bg-primary text-black" : "bg-white/5 text-white/40 group-hover:text-white"
                         )}>
-                          <Icon size={20} />
+                          <Icon size={18} className="sm:w-[20px] sm:h-[20px]" />
                         </div>
-                        <div>
+                        <div className="min-w-0">
                           <div className={cn(
-                            "text-sm font-bold uppercase tracking-tight",
+                            "text-xs sm:text-sm font-bold uppercase tracking-tight truncate",
                             isSelected ? "text-white" : "text-white/60"
                           )}>
                             {niche.name}
                           </div>
-                          <div className="text-[10px] text-white/30 leading-tight">
+                          <div className="text-[9px] sm:text-[10px] text-white/30 leading-tight line-clamp-1">
                             {niche.description}
                           </div>
                         </div>
                         {isSelected && (
                           <motion.div 
                             layoutId="active-niche"
-                            className="absolute right-4 text-primary"
+                            className="absolute right-3 sm:right-4 text-primary"
                           >
-                            <ArrowRight size={16} />
+                            <ArrowRight size={14} className="sm:w-[16px] sm:h-[16px]" />
                           </motion.div>
                         )}
                       </motion.button>
@@ -232,19 +239,19 @@ export const ROIProjector = () => {
               {/* Main Result: Revenue */}
               <motion.div 
                 layout
-                className="md:col-span-2 glass p-8 rounded-3xl border-emerald-500/30 bg-emerald-500/5 relative overflow-hidden group transform-gpu will-change-transform"
+                className="md:col-span-2 glass p-6 sm:p-8 rounded-3xl border-emerald-500/30 bg-emerald-500/5 relative overflow-hidden group transform-gpu will-change-transform"
               >
                 <div className="flex justify-between items-start mb-4 relative z-10">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]" />
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-emerald-500 font-black">Faturamento Estimado</span>
+                    <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.3em] text-emerald-500 font-black">Faturamento Estimado</span>
                   </div>
-                  <TrendingUp className="text-emerald-500" size={20} />
+                  <TrendingUp className="text-emerald-500 sm:w-[20px] sm:h-[20px]" size={18} />
                 </div>
-                <div className="text-5xl md:text-7xl font-montserrat text-white font-black mb-2 relative z-10">
+                <div className="text-4xl sm:text-5xl md:text-7xl font-montserrat text-white font-black mb-2 relative z-10">
                   <AnimatedCounter value={results.revenue} prefix="R$ " decimals={2} />
                 </div>
-                <div className="text-sm text-emerald-500/60 font-medium relative z-10">
+                <div className="text-xs sm:text-sm text-emerald-500/60 font-medium relative z-10">
                   Potencial de escala mensal projetado
                 </div>
                 
@@ -297,15 +304,15 @@ export const ROIProjector = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mt-8 p-8 rounded-3xl bg-primary text-black flex flex-col md:flex-row items-center justify-between gap-6 group cursor-pointer hover:shadow-[0_0_40px_rgba(20,163,229,0.4)] transition-all"
+              className="mt-6 sm:mt-8 p-6 sm:p-8 rounded-3xl bg-primary text-black flex flex-col md:flex-row items-center justify-between gap-6 group cursor-pointer hover:shadow-[0_0_40px_rgba(20,163,229,0.4)] transition-all"
               onClick={() => window.open('https://wa.me/5535998208622', '_blank')}
             >
               <div className="text-center md:text-left">
-                <h3 className="text-2xl font-black uppercase tracking-tighter mb-1">Quer alcançar esses números?</h3>
-                <p className="text-sm font-bold opacity-80">Agende um diagnóstico gratuito e vamos traçar sua rota de escala.</p>
+                <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-1">Quer alcançar esses números?</h3>
+                <p className="text-xs sm:text-sm font-bold opacity-80">Agende um diagnóstico gratuito e vamos traçar sua rota de escala.</p>
               </div>
-              <div className="w-14 h-14 bg-black text-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                <ArrowRight size={28} />
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-black text-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                <ArrowRight size={24} className="sm:w-[28px] sm:h-[28px]" />
               </div>
             </motion.div>
           </div>

@@ -222,20 +222,20 @@ export const Cases = () => {
           </p>
         </div>
 
-        <div className="md:max-h-[800px] md:overflow-y-auto custom-scrollbar pr-2 -mr-2">
+        <div className="">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {cases.map((item, index) => (
             <motion.div
               key={item.client}
               initial={{ opacity: 0, y: 50, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, margin: window.innerWidth < 768 ? "-20px" : "-100px" }}
               transition={{ 
                 duration: 0.8, 
                 delay: index * 0.1,
                 ease: [0.16, 1, 0.3, 1] 
               }}
-              className="group relative rounded-3xl overflow-hidden neon-border bg-zinc-900/50 will-change-transform transform-gpu h-[400px] sm:h-[450px]"
+              className="group relative rounded-3xl overflow-hidden neon-border bg-zinc-900/50 will-change-transform transform-gpu min-h-[420px] sm:h-[450px]"
             >
               <div className="absolute inset-0 overflow-hidden">
                 <img
@@ -262,21 +262,21 @@ export const Cases = () => {
               </div>
 
               {/* Content Container */}
-              <div className="relative h-full p-6 sm:p-8 flex flex-col justify-end z-20">
+              <div className="relative h-full p-5 sm:p-8 flex flex-col justify-end z-20">
                 {/* ROAS Badge - Top Right */}
                 <motion.div 
                   initial={{ x: 20, opacity: 0 }}
                   whileInView={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
-                  className="absolute top-6 right-6 px-4 py-2 rounded-full backdrop-blur-xl border flex items-center gap-2 shadow-2xl"
+                  className="absolute top-4 right-4 sm:top-6 sm:right-6 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full backdrop-blur-xl border flex items-center gap-1.5 sm:gap-2 shadow-2xl"
                   style={{ 
                     backgroundColor: `${item.accentColor}20`,
                     borderColor: `${item.accentColor}40`,
                     color: item.accentColor
                   }}
                 >
-                  <TrendingUp size={18} />
-                  <span className="text-lg font-black tracking-tighter">{item.result}</span>
+                  <TrendingUp size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  <span className="text-base sm:text-lg font-black tracking-tighter">{item.result}</span>
                 </motion.div>
 
                 {item.logo && (
@@ -285,7 +285,7 @@ export const Cases = () => {
                       e.stopPropagation();
                       setPreviewLogo(item.logo);
                     }}
-                    className="absolute top-6 left-6 w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-3 flex items-center justify-center overflow-hidden hover:scale-110 transition-all cursor-pointer group/logo shadow-2xl"
+                    className="absolute top-4 left-4 sm:top-6 sm:left-6 w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-2.5 sm:p-3 flex items-center justify-center overflow-hidden hover:scale-110 transition-all cursor-pointer group/logo shadow-2xl"
                     style={{ 
                       borderColor: `${item.accentColor}30`
                     }}
@@ -306,31 +306,31 @@ export const Cases = () => {
                       className="absolute inset-0 opacity-0 group-hover/logo:opacity-100 flex items-center justify-center transition-opacity"
                       style={{ backgroundColor: `${item.accentColor}40` }}
                     >
-                      <Eye size={24} className="text-white drop-shadow-lg" />
+                      <Eye size={20} className="text-white drop-shadow-lg" />
                     </div>
                   </button>
                 )}
 
-                <div className="transform group-hover:-translate-y-2 transition-transform duration-500">
-                  <h3 className="text-2xl sm:text-3xl font-black mb-2 text-white tracking-tight">
+                <div className="transform md:group-hover:-translate-y-2 transition-transform duration-500">
+                  <h3 className="text-xl sm:text-3xl font-black mb-1.5 sm:mb-2 text-white tracking-tight">
                     {item.client}
                   </h3>
-                  <p className="text-white/70 text-sm mb-6 line-clamp-2 font-medium max-w-[90%]">
+                  <p className="text-white/90 sm:text-white/70 text-sm sm:text-sm mb-4 sm:mb-6 line-clamp-3 sm:line-clamp-2 font-medium max-w-[95%]">
                     {item.description}
                   </p>
                   <button 
                     onClick={() => setSelectedCase(item)}
-                    className="w-full py-4 border border-white/10 transition-all duration-500 rounded-xl flex items-center justify-center gap-3 text-xs font-black uppercase overflow-hidden relative group/btn tracking-widest"
+                    className="w-full py-3.5 sm:py-4 border border-white/10 transition-all duration-500 rounded-xl flex items-center justify-center gap-2 sm:gap-3 text-[10px] sm:text-xs font-black uppercase overflow-hidden relative group/btn tracking-widest"
                     style={{ 
                       borderColor: `${item.accentColor}30`
                     }}
                   >
                     <div 
-                      className="absolute inset-0 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500"
+                      className="absolute inset-0 translate-y-full md:group-hover/btn:translate-y-0 transition-transform duration-500"
                       style={{ backgroundColor: item.accentColor }}
                     />
                     <span className="relative z-10 flex items-center gap-2 group-hover/btn:text-black transition-colors">
-                      Ver Case Completo <ExternalLink size={16} />
+                      Ver Case Completo <ExternalLink size={14} className="sm:w-[16px] sm:h-[16px]" />
                     </span>
                   </button>
                 </div>
@@ -373,17 +373,17 @@ export const Cases = () => {
                 stiffness: 200,
                 mass: 0.8
               }}
-              className="relative w-full max-w-5xl h-[90vh] bg-zinc-950 border border-white/10 rounded-2xl shadow-2xl will-change-transform transform-gpu z-10 overflow-hidden flex flex-col md:flex-row"
+              className="relative w-full max-w-5xl h-full md:h-auto md:max-h-[90vh] bg-zinc-950 border-x md:border border-white/10 md:rounded-2xl shadow-2xl will-change-transform transform-gpu z-10 overflow-hidden flex flex-col md:flex-row"
             >
                 <button 
                   onClick={() => setSelectedCase(null)}
-                  className="absolute top-4 right-4 z-50 p-2 bg-black/50 backdrop-blur-md rounded-full text-white hover:text-primary transition-all border border-white/10"
+                  className="absolute top-6 right-6 z-50 p-2.5 bg-black/60 backdrop-blur-md rounded-full text-white hover:text-primary transition-all border border-white/10 shadow-2xl"
                 >
                   <X size={24} />
                 </button>
 
                 {/* Fixed Image Section */}
-                <div className="w-full md:w-1/2 h-56 sm:h-64 md:h-full relative shrink-0 overflow-hidden bg-zinc-900">
+                <div className="w-full md:w-1/2 h-64 sm:h-72 md:h-full relative shrink-0 overflow-hidden bg-zinc-900">
                   <img 
                     src={selectedCase.image} 
                     alt={selectedCase.client}
@@ -414,12 +414,12 @@ export const Cases = () => {
                 </div>
 
                 {/* Scrollable Content Section */}
-                <div className="flex-1 overflow-y-auto custom-scrollbar p-6 sm:p-8 md:p-12 bg-zinc-950">
-                  <div className="flex flex-col sm:flex-row items-center sm:items-center gap-6 mb-8 text-center sm:text-left">
+                <div className="flex-1 overflow-y-auto custom-scrollbar p-5 sm:p-10 md:p-12 bg-zinc-950 pb-20 sm:pb-10">
+                  <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 sm:gap-6 mb-8 sm:mb-10 text-center sm:text-left">
                     {selectedCase.logo && (
                       <button 
                         onClick={() => setPreviewLogo(selectedCase.logo)}
-                        className="w-20 h-20 sm:w-28 sm:h-28 rounded-2xl sm:rounded-3xl bg-white/10 border border-white/20 p-3 sm:p-5 flex items-center justify-center overflow-hidden hover:bg-white/20 transition-all group/modal-logo shadow-xl shrink-0"
+                        className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-white/10 border border-white/20 p-4 sm:p-5 flex items-center justify-center overflow-hidden hover:bg-white/20 transition-all group/modal-logo shadow-xl shrink-0"
                         style={{ borderColor: `${selectedCase.accentColor}40` }}
                         title="Clique para ampliar a logo"
                       >

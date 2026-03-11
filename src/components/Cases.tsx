@@ -193,10 +193,30 @@ const cases = [
   },
 ];
 
-const getResponsiveUnsplashUrl = (url: string, width: number) => {
-  if (!url.includes('images.unsplash.com')) return url;
-  const baseUrl = url.split('?')[0];
-  return `${baseUrl}?auto=format&fit=crop&q=80&w=${width}&fm=webp`;
+const getOptimizedImageUrl = (url: string, width: number) => {
+  if (!url) return '';
+  
+  if (url.includes('images.unsplash.com')) {
+    const baseUrl = url.split('?')[0];
+    return `${baseUrl}?auto=format&fit=crop&q=80&w=${width}&fm=webp`;
+  }
+  
+  if (url.includes('i.imgur.com')) {
+    // Imgur suffixes: s (90x90), m (320x320), l (640x640), h (1024x1024)
+    let suffix = '';
+    if (width <= 100) suffix = 's';
+    else if (width <= 320) suffix = 'm';
+    else if (width <= 640) suffix = 'l';
+    else suffix = 'h';
+    
+    const parts = url.split('.');
+    const ext = parts.pop();
+    const base = parts.join('.');
+    // Imgur supports webp conversion by changing extension
+    return `${base}${suffix}.webp`;
+  }
+  
+  return url;
 };
 
 const getImgurUrl = (url: string, suffix: string = '') => {
@@ -204,7 +224,7 @@ const getImgurUrl = (url: string, suffix: string = '') => {
   const parts = url.split('.');
   const ext = parts.pop();
   const base = parts.join('.');
-  return `${base}${suffix}.${ext}`;
+  return `${base}${suffix}.webp`;
 };
 
 export const Cases = () => {
@@ -258,27 +278,39 @@ export const Cases = () => {
               onClick={() => setSelectedCase(item)}
             >
               <div className="absolute inset-0 overflow-hidden">
+                {/* Blur-up Placeholder */}
                 <img
-                  src={getResponsiveUnsplashUrl(item.image, 800)}
-                  srcSet={`${getResponsiveUnsplashUrl(item.image, 400)} 400w, ${getResponsiveUnsplashUrl(item.image, 800)} 800w, ${getResponsiveUnsplashUrl(item.image, 1200)} 1200w`}
+                  src={getOptimizedImageUrl(item.image, 20)}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-50 -z-10"
+                  aria-hidden="true"
+                />
+                
+                <img
+                  src={getOptimizedImageUrl(item.image, 800)}
+                  srcSet={`${getOptimizedImageUrl(item.image, 400)} 400w, ${getOptimizedImageUrl(item.image, 800)} 800w, ${getOptimizedImageUrl(item.image, 1200)} 1200w`}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   alt={item.client}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-80 md:opacity-40 group-hover:opacity-100 md:group-hover:opacity-70"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-0 transition-opacity duration-700"
                   referrerPolicy="no-referrer"
-                  loading="lazy"
+                  loading={index < 2 ? "eager" : "lazy"}
                   decoding="async"
+                  {...(index === 0 ? { fetchpriority: "high" } : {})}
                   onLoad={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.classList.add('opacity-100');
+                    target.classList.remove('opacity-0');
+                    target.classList.add('opacity-80', 'md:opacity-40');
                   }}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = `https://picsum.photos/seed/${item.client}/800/600`;
+                    target.classList.remove('opacity-0');
+                    target.classList.add('opacity-80');
                   }}
                 />
                 
                 {/* Fallback background / Skeleton */}
-                <div className="absolute inset-0 bg-zinc-900 animate-pulse -z-10" />
+                <div className="absolute inset-0 bg-zinc-900 animate-pulse -z-20" />
                 
                 {/* Overlay Gradient - More subtle on mobile to show image */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-100 md:opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
@@ -415,21 +447,37 @@ export const Cases = () => {
 
                 {/* Fixed Image Section */}
                 <div className="w-full md:w-1/2 h-40 sm:h-64 md:h-full relative shrink-0 overflow-hidden bg-zinc-900">
+                  {/* Blur-up Placeholder */}
+                  <img
+                    src={getOptimizedImageUrl(selectedCase.image, 40)}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover blur-3xl scale-110 opacity-50 -z-10"
+                    aria-hidden="true"
+                  />
+                  
                   <img 
-                    src={getResponsiveUnsplashUrl(selectedCase.image, 1200)}
-                    srcSet={`${getResponsiveUnsplashUrl(selectedCase.image, 600)} 600w, ${getResponsiveUnsplashUrl(selectedCase.image, 1200)} 1200w`}
+                    src={getOptimizedImageUrl(selectedCase.image, 1200)}
+                    srcSet={`${getOptimizedImageUrl(selectedCase.image, 600)} 600w, ${getOptimizedImageUrl(selectedCase.image, 1200)} 1200w`}
                     sizes="(max-width: 768px) 100vw, 50vw"
                     alt={selectedCase.client}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover opacity-0 transition-opacity duration-500"
                     referrerPolicy="no-referrer"
                     loading="eager"
                     decoding="async"
+                    fetchpriority="high"
+                    onLoad={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.classList.remove('opacity-0');
+                      target.classList.add('opacity-100');
+                    }}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = `https://picsum.photos/seed/${selectedCase.client}/1200/800`;
+                      target.classList.remove('opacity-0');
+                      target.classList.add('opacity-100');
                     }}
                   />
-                  <div className="absolute inset-0 bg-zinc-900 animate-pulse -z-10" />
+                  <div className="absolute inset-0 bg-zinc-900 animate-pulse -z-20" />
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent md:hidden" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-zinc-950/20 to-zinc-950 hidden md:block" />
                   

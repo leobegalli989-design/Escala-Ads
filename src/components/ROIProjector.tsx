@@ -89,14 +89,6 @@ const NICHES: Niche[] = [
 export const ROIProjector = () => {
   const [budget, setBudget] = useState(5000);
   const [selectedNiche, setSelectedNiche] = useState(NICHES[0]);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   const results = useMemo(() => {
     const impressions = (budget / selectedNiche.avgCpm) * 1000;
@@ -182,7 +174,7 @@ export const ROIProjector = () => {
                       <motion.button
                         key={niche.id}
                         onClick={() => setSelectedNiche(niche)}
-                        whileHover={{ x: isMobile ? 0 : 5 }}
+                        whileHover={{ x: 5 }}
                         whileTap={{ scale: 0.98 }}
                         className={cn(
                           "flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border transition-all text-left group relative overflow-hidden",

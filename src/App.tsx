@@ -16,6 +16,7 @@ import { Cases } from './components/Cases';
 import { Testimonials } from './components/Testimonials';
 import { Differentials } from './components/Differentials';
 import { ROIProjector } from './components/ROIProjector';
+import { LeadForm } from './components/LeadForm';
 import { FinalCTA } from './components/FinalCTA';
 import { Footer } from './components/Footer';
 import { CustomCursor } from './components/CustomCursor';
@@ -27,7 +28,6 @@ import { BackToTop } from './components/BackToTop';
 export default function App() {
   useEffect(() => {
     const isMobile = window.innerWidth < 1024;
-    if (isMobile) return;
     
     const lenis = new Lenis({
       duration: 1.2,
@@ -75,6 +75,7 @@ export default function App() {
           <Cases />
           <Testimonials />
           <Differentials />
+          <LeadForm />
           <FinalCTA />
         </div>
       </main>

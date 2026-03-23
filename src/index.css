@@ -45,7 +45,9 @@
     background: linear-gradient(
       90deg,
       #14a3e5 0%,
-      #34d399 50%,
+      #34d399 25%,
+      #ffffff 50%,
+      #34d399 75%,
       #14a3e5 100%
     );
     background-size: 200% auto;
@@ -53,7 +55,8 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    animation: shimmer 4s linear infinite;
+    animation: shimmer 5s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(20, 163, 229, 0.3));
   }
 
   @keyframes shimmer {
@@ -62,12 +65,12 @@
   }
 
   .glow-pulse {
-    animation: glow-pulse 3s ease-in-out infinite;
+    animation: glow-pulse 4s ease-in-out infinite;
   }
 
   @keyframes glow-pulse {
     0%, 100% { filter: drop-shadow(0 0 5px rgba(20, 163, 229, 0.4)); }
-    50% { filter: drop-shadow(0 0 15px rgba(20, 163, 229, 0.8)); }
+    50% { filter: drop-shadow(0 0 12px rgba(20, 163, 229, 0.6)); }
   }
   
   .border-glow {

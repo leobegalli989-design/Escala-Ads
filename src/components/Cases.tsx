@@ -10,8 +10,7 @@ const cases = [
     result: '8.88x ROAS',
     accentColor: '#FFCC00',
     description: 'Faturamento de R$ 78.923,75 com apenas R$ 8.886,88 de investimento em anúncios.',
-    image: 'https://i.imgur.com/pjfivwX.png',
-    logo: 'https://i.imgur.com/B5HdJ4K.png',
+    image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&q=80&w=800&fm=webp',
     fullDetails: {
       challenge: 'Lançamento de marca do zero em um mercado extremamente competitivo de delivery gastronômico.',
       strategy: 'Implementação de funil de vendas direto para WhatsApp e iFood, com foco em criativos cinematográficos de alto desejo e segmentação local ultra-precisa.',
@@ -42,7 +41,6 @@ const cases = [
     accentColor: '#f97316',
     description: 'Escalamos de R$ 4k para +R$ 25k/mês. Faturamento total com tráfego pago ultrapassando R$ 100.000.',
     image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800&fm=webp',
-    logo: 'https://i.imgur.com/iorC73i.png',
     fullDetails: {
       challenge: 'Baixa previsibilidade de vendas, dependência de tráfego orgânico e faturamento estagnado em R$ 4.000 mensais.',
       strategy: 'Campanhas de geração de leads focadas em pedidos diretos no WhatsApp, otimização de criativos para delivery e remarketing agressivo para base de clientes.',
@@ -73,7 +71,6 @@ const cases = [
     accentColor: '#10b981',
     description: 'Dominação de mercado regional com faturamento de R$ 98.182,89 e investimento estratégico de apenas R$ 4.043,13.',
     image: 'https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?auto=format&fit=crop&q=80&w=800&fm=webp',
-    logo: 'https://i.imgur.com/3BRZHVb.png',
     fullDetails: {
       challenge: 'Custo de aquisição de clientes (CPA) elevado e dificuldade de escala em regiões com alta concorrência de grandes operadoras nacionais.',
       strategy: 'Implementação de campanhas de geofencing ultra-localizadas, landing pages otimizadas para conversão imediata e um funil de vendas direto para o time comercial via WhatsApp, focado em planos de alta velocidade.',
@@ -104,7 +101,6 @@ const cases = [
     accentColor: '#c2a353',
     description: 'Transformação digital com faturamento de R$ 24.974,63 e investimento estratégico de R$ 1.698,66.',
     image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800&fm=webp',
-    logo: 'https://i.imgur.com/xwDv0Ow.png',
     fullDetails: {
       challenge: 'Dificuldade em escalar vendas online e alto custo de aquisição de clientes no setor de móveis de alto padrão.',
       strategy: 'Implementação de campanhas de fundo de funil com criativos de alto impacto visual, segmentação por interesse em decoração de luxo e funil de vendas otimizado para fechamento via WhatsApp.',
@@ -135,7 +131,6 @@ const cases = [
     accentColor: '#ec4899',
     description: 'Faturamento de R$ 10.043,78 com apenas R$ 820,13 de investimento em anúncios.',
     image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&q=80&w=800&fm=webp',
-    logo: 'https://i.imgur.com/QU9x4nP.png',
     fullDetails: {
       challenge: 'Dificuldade em atrair novos clientes para serviços de personal chef e baixa visibilidade online.',
       strategy: 'Campanhas de tráfego pago focadas em público local de alto poder aquisitivo, utilizando criativos que demonstram a experiência gastronômica e funil direto para agendamento via WhatsApp.',
@@ -166,7 +161,6 @@ const cases = [
     accentColor: '#ef4444',
     description: 'Faturamento de R$ 10.132,00 com investimento estratégico de R$ 977,58 no setor automotivo.',
     image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=800&fm=webp',
-    logo: 'https://i.imgur.com/QOElzLc.png',
     fullDetails: {
       challenge: 'Baixa conversão em vendas online e necessidade de escala para serviços de estética automotiva e acessórios.',
       strategy: 'Campanhas focadas em desejo visual, demonstração de aplicação de películas e acessórios, com segmentação para entusiastas automotivos e conversão direta via WhatsApp.',
@@ -219,23 +213,14 @@ const getOptimizedImageUrl = (url: string, width: number) => {
   return url;
 };
 
-const getImgurUrl = (url: string, suffix: string = '') => {
-  if (!url.includes('i.imgur.com')) return url;
-  const parts = url.split('.');
-  const ext = parts.pop();
-  const base = parts.join('.');
-  return `${base}${suffix}.webp`;
-};
-
 export const Cases = () => {
   const [selectedCase, setSelectedCase] = useState<typeof cases[0] | null>(null);
-  const [previewLogo, setPreviewLogo] = useState<string | null>(null);
 
   const modalContentRef = React.useRef<HTMLDivElement>(null);
 
   // Lock body scroll when modal is open
   useEffect(() => {
-    if (selectedCase || previewLogo) {
+    if (selectedCase) {
       document.body.style.overflow = 'hidden';
       if (selectedCase && modalContentRef.current) {
         modalContentRef.current.scrollTop = 0;
@@ -246,7 +231,7 @@ export const Cases = () => {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [selectedCase, previewLogo]);
+  }, [selectedCase]);
 
   return (
     <section id="cases" className="py-24 bg-black relative">
@@ -291,11 +276,11 @@ export const Cases = () => {
                   srcSet={`${getOptimizedImageUrl(item.image, 400)} 400w, ${getOptimizedImageUrl(item.image, 800)} 800w, ${getOptimizedImageUrl(item.image, 1200)} 1200w`}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   alt={item.client}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-0 transition-opacity duration-700"
+                  className="w-full h-full object-contain bg-zinc-900 group-hover:scale-110 transition-transform duration-1000 opacity-0 transition-opacity duration-700"
                   referrerPolicy="no-referrer"
                   loading={index < 2 ? "eager" : "lazy"}
                   decoding="async"
-                  {...(index === 0 ? { fetchpriority: "high" } : {})}
+                  {...(index === 0 ? { fetchPriority: "high" } : {})}
                   onLoad={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.classList.remove('opacity-0');
@@ -333,42 +318,6 @@ export const Cases = () => {
                   <TrendingUp size={16} className="sm:w-[18px] sm:h-[18px]" />
                   <span className="text-base sm:text-lg font-black tracking-tighter">{item.result}</span>
                 </motion.div>
-
-                {item.logo && (
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setPreviewLogo(item.logo);
-                    }}
-                    className="absolute top-4 left-4 sm:top-6 sm:left-6 w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-2.5 sm:p-3 flex items-center justify-center overflow-hidden hover:scale-110 transition-all cursor-pointer group/logo shadow-2xl"
-                    style={{ 
-                      borderColor: `${item.accentColor}30`
-                    }}
-                    title="Clique para ampliar a logo"
-                  >
-                    <img 
-                      src={getImgurUrl(item.logo, 'm')} 
-                      srcSet={`${getImgurUrl(item.logo, 's')} 90w, ${getImgurUrl(item.logo, 'm')} 320w, ${getImgurUrl(item.logo, 'l')} 640w`}
-                      sizes="60px"
-                      alt={`${item.client} logo`}
-                      className="max-w-full max-h-full object-contain group-hover/logo:scale-110 transition-transform"
-                      referrerPolicy="no-referrer"
-                      loading="lazy"
-                      decoding="async"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = 'https://i.imgur.com/B5HdJ4K.png'; // Fallback to a default logo or clear
-                        target.style.opacity = '0.5';
-                      }}
-                    />
-                    <div 
-                      className="absolute inset-0 opacity-0 group-hover/logo:opacity-100 flex items-center justify-center transition-opacity"
-                      style={{ backgroundColor: `${item.accentColor}40` }}
-                    >
-                      <Eye size={20} className="text-white drop-shadow-lg" />
-                    </div>
-                  </button>
-                )}
 
                 <div className="transform md:group-hover:-translate-y-2 transition-transform duration-500">
                   <h3 className="text-xl sm:text-3xl font-black mb-1.5 sm:mb-2 text-white tracking-tight">
@@ -421,6 +370,17 @@ export const Cases = () => {
               onClick={() => setSelectedCase(null)}
               className="absolute inset-0 bg-black/90 backdrop-blur-sm"
             />
+
+            <motion.button 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              onClick={() => setSelectedCase(null)}
+              className="fixed top-4 right-4 md:top-8 md:right-8 z-[110] p-3 bg-black/60 backdrop-blur-md rounded-full text-white hover:text-primary transition-all border border-white/10 shadow-2xl active:scale-90"
+              aria-label="Fechar case"
+            >
+              <X size={20} />
+            </motion.button>
             
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 40, filter: 'blur(10px)' }}
@@ -432,21 +392,15 @@ export const Cases = () => {
                 stiffness: 200,
                 mass: 0.8
               }}
-              className="relative w-full max-w-5xl h-[100dvh] md:h-auto md:max-h-[90vh] bg-zinc-950 border-x md:border border-white/10 md:rounded-2xl shadow-2xl will-change-transform transform-gpu z-10 overflow-hidden flex flex-col md:flex-row"
+              className="relative w-full max-w-5xl h-[100dvh] md:h-auto md:max-h-[90vh] bg-zinc-950 border-x md:border border-white/10 md:rounded-2xl shadow-2xl z-10 overflow-y-auto flex flex-col md:flex-row custom-scrollbar"
+              ref={modalContentRef}
+              data-lenis-prevent
             >
-                <button 
-                  onClick={() => setSelectedCase(null)}
-                  className="absolute top-4 right-4 z-50 p-3 bg-black/60 backdrop-blur-md rounded-full text-white hover:text-primary transition-all border border-white/10 shadow-2xl active:scale-90"
-                  aria-label="Fechar case"
-                >
-                  <X size={20} />
-                </button>
-
                 {/* Swipe Hint for Mobile */}
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-white/20 rounded-full md:hidden" />
+                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-white/20 rounded-full md:hidden z-50" />
 
                 {/* Fixed Image Section */}
-                <div className="w-full md:w-1/2 h-40 sm:h-64 md:h-full relative shrink-0 overflow-hidden bg-zinc-900">
+                <div className="w-full md:w-1/2 md:sticky md:top-0 h-64 sm:h-80 md:h-[90vh] relative shrink-0 overflow-hidden bg-zinc-900">
                   {/* Blur-up Placeholder */}
                   <img
                     src={getOptimizedImageUrl(selectedCase.image, 40)}
@@ -460,11 +414,11 @@ export const Cases = () => {
                     srcSet={`${getOptimizedImageUrl(selectedCase.image, 600)} 600w, ${getOptimizedImageUrl(selectedCase.image, 1200)} 1200w`}
                     sizes="(max-width: 768px) 100vw, 50vw"
                     alt={selectedCase.client}
-                    className="w-full h-full object-cover opacity-0 transition-opacity duration-500"
+                    className="w-full h-full object-contain bg-zinc-900 opacity-0 transition-opacity duration-500"
                     referrerPolicy="no-referrer"
                     loading="eager"
                     decoding="async"
-                    fetchpriority="high"
+                    fetchPriority="high"
                     onLoad={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.classList.remove('opacity-0');
@@ -497,34 +451,9 @@ export const Cases = () => {
 
                 {/* Scrollable Content Section */}
                 <div 
-                  ref={modalContentRef}
-                  className="flex-1 overflow-y-auto custom-scrollbar p-6 sm:p-10 md:p-12 bg-zinc-950 pb-32 sm:pb-10"
+                  className="w-full md:w-1/2 p-6 sm:p-10 md:p-12 bg-zinc-950 pb-32 sm:pb-10"
                 >
                   <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 sm:gap-6 mb-8 sm:mb-10 text-center sm:text-left pt-4 sm:pt-0">
-                    {selectedCase.logo && (
-                      <button 
-                        onClick={() => setPreviewLogo(selectedCase.logo)}
-                        className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-white/10 border border-white/20 p-4 sm:p-5 flex items-center justify-center overflow-hidden hover:bg-white/20 transition-all group/modal-logo shadow-xl shrink-0"
-                        style={{ borderColor: `${selectedCase.accentColor}40` }}
-                        title="Clique para ampliar a logo"
-                      >
-                        <img 
-                          src={getImgurUrl(selectedCase.logo, 'l')} 
-                          srcSet={`${getImgurUrl(selectedCase.logo, 'm')} 320w, ${getImgurUrl(selectedCase.logo, 'l')} 640w, ${getImgurUrl(selectedCase.logo, 'h')} 1024w`}
-                          sizes="(max-width: 640px) 100px, 150px"
-                          alt={`${selectedCase.client} logo`}
-                          className="max-w-full max-h-full object-contain group-hover/modal-logo:scale-110 transition-transform"
-                          referrerPolicy="no-referrer"
-                          loading="eager"
-                          decoding="async"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.src = 'https://i.imgur.com/B5HdJ4K.png';
-                            target.style.opacity = '0.5';
-                          }}
-                        />
-                      </button>
-                    )}
                     <div className="flex flex-col items-center sm:items-start">
                       <div 
                         className="text-xs font-bold uppercase tracking-[0.3em] mb-2"
@@ -657,61 +586,6 @@ export const Cases = () => {
                     Fechar Case
                   </button>
                 </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
-      {/* Logo Preview Modal */}
-      <AnimatePresence>
-        {previewLogo && (
-          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setPreviewLogo(null)}
-              className="absolute inset-0 bg-black/95 backdrop-blur-xl"
-            />
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative max-w-3xl w-full aspect-square bg-zinc-950/50 border border-white/10 rounded-[2.5rem] p-16 flex items-center justify-center shadow-[0_0_50px_rgba(20,163,229,0.2)] overflow-hidden group/preview"
-            >
-              {/* Decorative background elements */}
-              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/5 to-transparent pointer-events-none" />
-              <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
-              <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
-
-              <button 
-                onClick={() => setPreviewLogo(null)}
-                className="absolute top-8 right-8 z-10 p-3 bg-white/5 border border-white/10 rounded-full text-white hover:text-primary hover:bg-white/10 transition-all shadow-xl"
-              >
-                <X size={24} />
-              </button>
-              
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2, type: "spring", damping: 20 }}
-                className="relative z-10 w-full h-full flex items-center justify-center"
-              >
-                <img 
-                  src={previewLogo} 
-                  alt="Logo Preview" 
-                  className="max-w-full max-h-full object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]"
-                  referrerPolicy="no-referrer"
-                  loading="eager"
-                  decoding="async"
-                />
-              </motion.div>
-
-              {/* Bottom Label */}
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.5em] text-white/30 font-black">
-                Visualização de Marca
-              </div>
             </motion.div>
           </div>
         )}

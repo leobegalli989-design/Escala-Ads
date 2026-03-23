@@ -30,30 +30,17 @@ const StatItem = ({ numericValue, label, prefix = '', suffix = '', icon: Icon }:
 );
 
 export const Hero = () => {
-  const [isDesktop, setIsDesktop] = useState(() => 
-    typeof window !== 'undefined' ? window.innerWidth >= 1024 : false
-  );
-
-  useEffect(() => {
-    const checkDesktop = () => {
-      const desktop = window.innerWidth >= 1024;
-      if (desktop !== isDesktop) setIsDesktop(desktop);
-    };
-    window.addEventListener('resize', checkDesktop);
-    return () => window.removeEventListener('resize', checkDesktop);
-  }, [isDesktop]);
-
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
-      {isDesktop && <Particles />}
+      <Particles />
       <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/20 blur-[80px] rounded-full animate-pulse hidden md:block" />
       <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary/10 blur-[80px] rounded-full hidden md:block" />
 
       <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
         <motion.div
-          initial={{ opacity: 0, x: isDesktop ? -50 : 0, y: isDesktop ? 0 : 20 }}
+          initial={{ opacity: 0, x: -50, y: 0 }}
           animate={{ opacity: 1, x: 0, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
@@ -67,26 +54,43 @@ export const Hero = () => {
             Performance Digital de Elite
           </motion.div>
 
-          <h1 className="text-[2.5rem] sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-[1.1] sm:leading-[1] will-change-transform text-center sm:text-left">
-            <div className="overflow-hidden py-2">
-              <motion.span 
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
+          <h1 className="text-[2.2rem] sm:text-6xl md:text-7xl lg:text-8xl mb-8 leading-[1.3] sm:leading-[1.2] font-black tracking-tighter text-center sm:text-left">
+            <div className="overflow-hidden -my-4 py-4 px-6 -mx-6">
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="inline-block transform-gpu"
+                className="pb-4"
               >
                 DOMÍNIO DE <span className="text-shimmer glow-pulse">MERCADO</span>
-              </motion.span>
+              </motion.div>
             </div>
-            <div className="overflow-hidden py-2">
-              <motion.span 
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="inline-block transform-gpu"
+            <div className="overflow-hidden -my-4 py-4 px-6 -mx-6">
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="pb-4"
               >
-                COM <span className="text-shimmer glow-pulse">ESCALA.</span>
-              </motion.span>
+                COM{' '}
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
+                  className="text-shimmer glow-pulse inline-block"
+                >
+                  ESCALA
+                </motion.span>{' '}
+                E{' '}
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+                  className="text-shimmer glow-pulse inline-block"
+                >
+                  CRESCIMENTO.
+                </motion.span>
+              </motion.div>
             </div>
           </h1>
 
@@ -105,11 +109,9 @@ export const Hero = () => {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 mb-16 px-4 sm:px-0"
           >
-            <Magnetic disabled={!isDesktop}>
+            <Magnetic>
               <a 
-                href="https://wa.me/5535998208622?text=Olá!%20Gostaria%20de%20agendar%20um%20diagnóstico%20estratégico%20para%20o%20meu%20negócio."
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#cadastro"
                 className="group relative px-6 py-5 sm:px-8 sm:py-4 bg-primary text-black font-black uppercase tracking-tighter rounded-xl overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,163,229,0.5)] flex items-center justify-center text-sm sm:text-base"
               >
                 <span className="relative z-10 flex items-center gap-2">
@@ -144,7 +146,7 @@ export const Hero = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          whileHover={isDesktop ? { y: -10, rotateY: 5, rotateX: -5 } : {}}
+          whileHover={{ y: -10, rotateY: 5, rotateX: -5 }}
           transition={{ 
             duration: 1, 
             delay: 0.3,
@@ -152,7 +154,7 @@ export const Hero = () => {
           }}
           className="relative perspective-1000 mt-12 lg:mt-0 transform-gpu will-change-transform"
         >
-          <div className="relative z-10 w-full glass rounded-3xl overflow-hidden neon-border group min-h-[400px] lg:min-h-[600px] transition-shadow duration-500 group-hover:shadow-[0_0_50px_rgba(20,163,229,0.3)]">
+          <div className="relative z-10 w-full glass rounded-3xl overflow-hidden neon-border group transition-shadow duration-500 group-hover:shadow-[0_0_50px_rgba(20,163,229,0.3)]">
             <PerformanceDashboard />
             
             {/* Decorative Overlay */}

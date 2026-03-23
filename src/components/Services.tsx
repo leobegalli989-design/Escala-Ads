@@ -55,15 +55,6 @@ const services = [
 ];
 
 export const Services = () => {
-  const [isMobile, setIsMobile] = React.useState(false);
-
-  React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   return (
     <section id="services" className="py-24 bg-black relative">
       <div className="absolute inset-0 bg-primary/5 blur-[120px] rounded-full -z-10 translate-y-1/2" />

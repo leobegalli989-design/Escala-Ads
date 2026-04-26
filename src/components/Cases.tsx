@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ExternalLink, TrendingUp, X, CheckCircle2, Eye } from 'lucide-react';
+import { ExternalLink, TrendingUp, X, CheckCircle2, Eye, ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatedCounter } from './AnimatedCounter';
 import { cn } from '../lib/utils';
 
@@ -215,6 +215,15 @@ const getOptimizedImageUrl = (url: string, width: number) => {
 
 export const Cases = () => {
   const [selectedCase, setSelectedCase] = useState<typeof cases[0] | null>(null);
+  const [currentIdx, setCurrentIdx] = useState(0);
+
+  const handleNext = () => {
+    setCurrentIdx((prev) => (prev + 1) % cases.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIdx((prev) => (prev - 1 + cases.length) % cases.length);
+  };
 
   const modalContentRef = React.useRef<HTMLDivElement>(null);
 
@@ -246,51 +255,44 @@ export const Cases = () => {
           </p>
         </div>
 
-        <div className="w-full relative">
-          <div className="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-6 sm:gap-8 max-w-7xl mx-auto pb-12 pt-4 px-6 md:px-0">
-          {cases.map((item, index) => (
+        <div className="w-full relative max-w-4xl mx-auto px-6 md:px-0">
+          <AnimatePresence mode="wait">
             <motion.div
-              key={item.client}
-              initial={{ opacity: 0, y: 40, scale: 0.95, filter: "blur(10px)" }}
-              whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-              whileHover={{ scale: 1.02, y: -8, transition: { duration: 0.4, ease: "easeOut" } }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ 
-                duration: 0.8, 
-                delay: index * 0.1,
-                ease: [0.16, 1, 0.3, 1] 
-              }}
-              className="group relative rounded-[2rem] overflow-hidden p-[1px] will-change-transform transform-gpu shrink-0 w-[85vw] sm:w-[45vw] lg:w-[30vw] min-h-[420px] sm:h-[480px] cursor-pointer shadow-2xl bg-zinc-900/40 border border-white/5 snap-center"
-              onClick={() => setSelectedCase(item)}
+              key={currentIdx}
+              initial={{ opacity: 0, x: 50, filter: "blur(10px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, x: -50, filter: "blur(10px)" }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="group relative rounded-[2rem] overflow-hidden p-[1px] will-change-transform transform-gpu w-full h-auto min-h-[500px] sm:h-[550px] cursor-pointer shadow-2xl bg-zinc-900/40 border border-white/5"
+              onClick={() => setSelectedCase(cases[currentIdx])}
             >
               {/* Animated Gradient Border */}
               <div 
                 className="absolute inset-0 z-0 animate-spin-slow opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-md hidden md:block"
                 style={{
-                  background: `conic-gradient(from 0deg, transparent 0 340deg, ${item.accentColor} 360deg)`
+                  background: `conic-gradient(from 0deg, transparent 0 340deg, ${cases[currentIdx].accentColor} 360deg)`
                 }}
               />
               
-              <div className="relative z-10 w-full h-full rounded-[2rem] overflow-hidden bg-black/80 backdrop-blur-3xl flex flex-col group-hover:bg-black/40 transition-colors duration-700">
+              <div className="relative z-10 w-full h-full rounded-[2rem] overflow-hidden bg-black flex flex-col group-hover:bg-black/80 transition-colors duration-700">
                 <div className="absolute inset-0 overflow-hidden rounded-[2rem]">
                   {/* Blur-up Placeholder */}
                   <img
-                    src={getOptimizedImageUrl(item.image, 40)}
+                    src={getOptimizedImageUrl(cases[currentIdx].image, 40)}
                     alt=""
                     className="absolute inset-0 w-full h-full object-cover blur-3xl scale-125 opacity-40 group-hover:opacity-60 transition-opacity duration-700 -z-10"
                     aria-hidden="true"
                   />
                   
                   <img
-                    src={getOptimizedImageUrl(item.image, 800)}
-                    srcSet={`${getOptimizedImageUrl(item.image, 400)} 400w, ${getOptimizedImageUrl(item.image, 800)} 800w, ${getOptimizedImageUrl(item.image, 1200)} 1200w`}
+                    src={getOptimizedImageUrl(cases[currentIdx].image, 800)}
+                    srcSet={`${getOptimizedImageUrl(cases[currentIdx].image, 400)} 400w, ${getOptimizedImageUrl(cases[currentIdx].image, 800)} 800w, ${getOptimizedImageUrl(cases[currentIdx].image, 1200)} 1200w`}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    alt={item.client}
+                    alt={cases[currentIdx].client}
                     className="w-full h-full object-cover sm:object-contain bg-transparent sm:bg-zinc-950 group-hover:scale-105 transition-transform duration-1000 opacity-0 transition-opacity duration-700"
                     referrerPolicy="no-referrer"
-                    loading={index < 2 ? "eager" : "lazy"}
+                    loading="eager"
                     decoding="async"
-                    {...(index === 0 ? { fetchPriority: "high" } : {})}
                     onLoad={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.classList.remove('opacity-0');
@@ -304,51 +306,50 @@ export const Cases = () => {
                 </div>
 
                 {/* Content Container */}
-                <div className="relative h-full p-6 sm:p-8 flex flex-col justify-end z-20">
+                <div className="relative h-full p-6 sm:p-10 flex flex-col justify-end z-20">
                   {/* Metric Floating Badge */}
                   <motion.div 
                     initial={{ y: -10, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.4 + index * 0.1, duration: 0.6 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
                     className="absolute top-6 right-6 px-4 py-2 rounded-full backdrop-blur-xl flex items-center gap-2 shadow-[0_8px_30px_rgb(0,0,0,0.5)] border border-white/10"
                     style={{ 
-                      backgroundColor: `${item.accentColor}10`,
-                      color: item.accentColor,
+                      backgroundColor: `${cases[currentIdx].accentColor}10`,
+                      color: cases[currentIdx].accentColor,
                     }}
                   >
                     <TrendingUp size={16} />
-                    <span className="text-base sm:text-lg font-black tracking-tight">{item.result}</span>
+                    <span className="text-base sm:text-xl font-black tracking-tight">{cases[currentIdx].result}</span>
                   </motion.div>
 
                   <div className="transform translate-y-0 sm:translate-y-8 sm:group-hover:translate-y-0 transition-all duration-500 ease-out">
-                    
                     <div className="flex items-center gap-3 mb-3">
                       <div className="w-8 h-px bg-white/20" />
                       <div className="text-xs font-bold tracking-widest uppercase text-white/50">Case Study</div>
                     </div>
 
-                    <h3 className="text-2xl sm:text-3xl font-black mb-3 text-white tracking-tight drop-shadow-lg leading-tight">
-                      {item.client}
+                    <h3 className="text-3xl sm:text-4xl font-black mb-3 text-white tracking-tight drop-shadow-lg leading-tight">
+                      {cases[currentIdx].client}
                     </h3>
                     
-                    <p className="text-white/70 text-sm mb-6 line-clamp-3 sm:line-clamp-none font-medium leading-relaxed max-w-[95%] sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                      {item.description}
+                    <p className="text-white/70 text-base mb-6 line-clamp-3 sm:line-clamp-none font-medium leading-relaxed max-w-[95%] sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                      {cases[currentIdx].description}
                     </p>
                     
                     <motion.button 
-                      onClick={(e) => { e.stopPropagation(); setSelectedCase(item); }}
+                      onClick={(e) => { e.stopPropagation(); setSelectedCase(cases[currentIdx]); }}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      animate={{ boxShadow: ["0px 0px 0px rgba(255,255,255,0)", `0px 0px 15px ${item.accentColor}40`, "0px 0px 0px rgba(255,255,255,0)"] }}
-                      transition={{ boxShadow: { repeat: Infinity, duration: 2, delay: index * 0.2 } }}
-                      className="w-full py-4 border border-white/10 transition-all duration-500 rounded-xl flex items-center justify-center gap-3 text-xs font-black uppercase overflow-hidden relative group/btn tracking-widest bg-white/5 hover:border-transparent sm:opacity-0 sm:group-hover:opacity-100 shadow-xl"
+                      animate={{ boxShadow: ["0px 0px 0px rgba(255,255,255,0)", `0px 0px 15px ${cases[currentIdx].accentColor}40`, "0px 0px 0px rgba(255,255,255,0)"] }}
+                      transition={{ boxShadow: { repeat: Infinity, duration: 2, delay: 0.2 } }}
+                      className="w-full sm:w-auto px-8 py-4 border border-white/10 transition-all duration-500 rounded-xl flex items-center justify-center gap-3 text-sm font-black uppercase overflow-hidden relative group/btn tracking-widest bg-white/5 hover:border-transparent sm:opacity-0 sm:group-hover:opacity-100 shadow-xl"
                       style={{ 
-                        borderColor: `${item.accentColor}30`
+                        borderColor: `${cases[currentIdx].accentColor}30`
                       }}
                     >
                       <div 
                         className="absolute inset-0 translate-y-full sm:group-hover/btn:translate-y-0 transition-transform duration-500 ease-out"
-                        style={{ backgroundColor: item.accentColor }}
+                        style={{ backgroundColor: cases[currentIdx].accentColor }}
                       />
                       <span className="relative z-10 flex items-center gap-2 group-hover/btn:text-black transition-colors duration-300">
                         Ver Case Completo <ExternalLink size={16} />
@@ -362,14 +363,40 @@ export const Cases = () => {
                   <div 
                     className="absolute inset-0" 
                     style={{ 
-                      background: `radial-gradient(circle at bottom left, ${item.accentColor}15, transparent 70%)`
+                      background: `radial-gradient(circle at bottom left, ${cases[currentIdx].accentColor}15, transparent 70%)`
                     }}
                   />
                 </div>
               </div>
             </motion.div>
-          ))}
-            <div className="shrink-0 w-2 md:w-6" />
+          </AnimatePresence>
+          
+          {/* Navigation Controls */}
+          <div className="flex items-center justify-between gap-4 mt-8 px-2 md:px-0">
+            <button 
+              onClick={handlePrev}
+              className="p-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-white active:scale-95"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <div className="flex gap-2">
+              {cases.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentIdx(idx)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    idx === currentIdx ? 'w-8 bg-primary' : 'w-2 bg-white/20 hover:bg-white/40'
+                  }`}
+                  aria-label={`Go to case ${idx + 1}`}
+                />
+              ))}
+            </div>
+            <button 
+              onClick={handleNext}
+              className="p-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-white active:scale-95"
+            >
+              <ChevronRight size={24} />
+            </button>
           </div>
         </div>
       </div>
@@ -377,7 +404,7 @@ export const Cases = () => {
       {/* Modal */}
       <AnimatePresence>
         {selectedCase && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -391,7 +418,7 @@ export const Cases = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               onClick={() => setSelectedCase(null)}
-              className="fixed top-4 right-4 md:top-8 md:right-8 z-[110] p-3 bg-black/60 backdrop-blur-md rounded-full text-white hover:text-primary transition-all border border-white/10 shadow-2xl active:scale-90"
+              className="fixed top-4 right-4 md:top-8 md:right-8 z-[110] p-3 bg-black/60 backdrop-blur-md rounded-full text-white hover:text-primary transition-all border border-white/10 shadow-2xl active:scale-90 hidden md:block"
               aria-label="Fechar case"
             >
               <X size={20} />
@@ -407,10 +434,18 @@ export const Cases = () => {
                 stiffness: 200,
                 mass: 0.8
               }}
-              className="relative w-full max-w-5xl h-[100dvh] md:h-auto md:max-h-[90vh] bg-zinc-950 border-x md:border border-white/10 md:rounded-2xl shadow-2xl z-10 overflow-y-auto flex flex-col md:flex-row custom-scrollbar"
+              className="relative w-full h-[100dvh] md:max-w-5xl md:h-auto md:max-h-[90vh] bg-zinc-950 border-x md:border border-white/10 md:rounded-2xl shadow-2xl z-10 overflow-y-auto flex flex-col md:flex-row custom-scrollbar"
               ref={modalContentRef}
               data-lenis-prevent
             >
+                {/* Mobile Close Button inside the scrollable content */}
+                <button 
+                  onClick={() => setSelectedCase(null)}
+                  className="absolute top-4 right-4 z-[60] p-2 bg-black/60 backdrop-blur-md rounded-full text-white border border-white/10 md:hidden shadow-lg"
+                >
+                  <X size={20} />
+                </button>
+
                 {/* Swipe Hint for Mobile */}
                 <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-white/20 rounded-full md:hidden z-50" />
 

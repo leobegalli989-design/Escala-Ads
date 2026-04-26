@@ -54,20 +54,20 @@ export const Hero = () => {
             Performance Digital de Elite
           </motion.div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-8 leading-[1.1] sm:leading-[1.2] font-black tracking-tighter text-center sm:text-left">
+          <h1 className="text-[7.5vw] min-[380px]:text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-8 leading-[1.1] sm:leading-[1.2] font-black tracking-tighter text-center sm:text-left whitespace-nowrap sm:whitespace-normal">
             <div className="overflow-visible py-2 sm:-mx-6 sm:px-6">
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="pb-2 flex flex-col sm:block break-words hyphens-auto"
+                className="pb-2 block tracking-tighter"
               >
                 <span>AUMENTE SEU</span>{' '}
                 <motion.span
                   initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
                   animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                   transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-                  className="text-shimmer glow-pulse inline-block text-[8vw] sm:text-inherit w-full sm:w-auto mt-2 sm:mt-0 tracking-tight"
+                  className="text-shimmer glow-pulse inline-block"
                 >
                   FATURAMENTO
                 </motion.span>

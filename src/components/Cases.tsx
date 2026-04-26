@@ -247,37 +247,37 @@ export const Cases = () => {
         </div>
 
         <div className="">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
           {cases.map((item, index) => (
             <motion.div
               key={item.client}
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              whileHover={{ scale: 1.03, y: -10 }}
-              viewport={{ once: true, margin: "-10px" }}
+              initial={{ opacity: 0, y: 40, scale: 0.95, filter: "blur(10px)" }}
+              whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+              whileHover={{ scale: 1.02, y: -8, transition: { duration: 0.4, ease: "easeOut" } }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ 
                 duration: 0.8, 
-                delay: index * 0.1,
+                delay: index * 0.15,
                 ease: [0.16, 1, 0.3, 1] 
               }}
-              className="group relative rounded-[2rem] overflow-hidden p-[2px] will-change-transform transform-gpu h-auto min-h-[420px] sm:h-[450px] cursor-pointer"
+              className="group relative rounded-[2rem] overflow-hidden p-[1px] will-change-transform transform-gpu h-auto min-h-[420px] sm:h-[480px] cursor-pointer shadow-2xl bg-zinc-900/40 border border-white/5"
               onClick={() => setSelectedCase(item)}
             >
+              {/* Animated Gradient Border */}
               <div 
-                className="absolute inset-0 z-0 animate-spin-slow opacity-0 group-hover:opacity-100 transition-opacity duration-1000"
+                className="absolute inset-0 z-0 animate-spin-slow opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-md hidden md:block"
                 style={{
                   background: `conic-gradient(from 0deg, transparent 0 340deg, ${item.accentColor} 360deg)`
                 }}
               />
-              <div className="absolute inset-0 bg-zinc-900/40 rounded-[2rem] z-0 pointer-events-none border border-white/5 group-hover:border-transparent transition-colors" />
-
-              <div className="relative z-10 w-full h-full rounded-[2rem] overflow-hidden bg-black flex flex-col">
-                <div className="absolute inset-0 overflow-hidden">
+              
+              <div className="relative z-10 w-full h-full rounded-[2rem] overflow-hidden bg-black/80 backdrop-blur-3xl flex flex-col group-hover:bg-black/40 transition-colors duration-700">
+                <div className="absolute inset-0 overflow-hidden rounded-[2rem]">
                   {/* Blur-up Placeholder */}
                   <img
-                    src={getOptimizedImageUrl(item.image, 20)}
+                    src={getOptimizedImageUrl(item.image, 40)}
                     alt=""
-                    className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-50 -z-10"
+                    className="absolute inset-0 w-full h-full object-cover blur-3xl scale-125 opacity-40 group-hover:opacity-60 transition-opacity duration-700 -z-10"
                     aria-hidden="true"
                   />
                   
@@ -286,7 +286,7 @@ export const Cases = () => {
                     srcSet={`${getOptimizedImageUrl(item.image, 400)} 400w, ${getOptimizedImageUrl(item.image, 800)} 800w, ${getOptimizedImageUrl(item.image, 1200)} 1200w`}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     alt={item.client}
-                    className="w-full h-full object-contain bg-zinc-900 group-hover:scale-110 transition-transform duration-1000 opacity-0 transition-opacity duration-700"
+                    className="w-full h-full object-cover sm:object-contain bg-transparent sm:bg-zinc-950 group-hover:scale-105 transition-transform duration-1000 opacity-0 transition-opacity duration-700"
                     referrerPolicy="no-referrer"
                     loading={index < 2 ? "eager" : "lazy"}
                     decoding="async"
@@ -294,58 +294,56 @@ export const Cases = () => {
                     onLoad={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.classList.remove('opacity-0');
-                      target.classList.add('opacity-80', 'md:opacity-40');
-                    }}
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = `https://picsum.photos/seed/${item.client}/800/600`;
-                      target.classList.remove('opacity-0');
-                      target.classList.add('opacity-80');
+                      target.classList.add('opacity-80', 'group-hover:opacity-50');
                     }}
                   />
                   
-                  {/* Fallback background / Skeleton */}
-                  <div className="absolute inset-0 bg-zinc-900 animate-pulse -z-20" />
-                  
-                  {/* Overlay Gradient - More subtle on mobile to show image */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-100 md:opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
+                  {/* Gradient Overlay for Text Readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent md:opacity-90 opacity-100 transition-opacity duration-500 z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-60" />
                 </div>
 
                 {/* Content Container */}
-                <div className="relative h-full p-5 sm:p-8 flex flex-col justify-end z-20">
-                  {/* ROAS Badge - Top Right */}
+                <div className="relative h-full p-6 sm:p-8 flex flex-col justify-end z-20">
+                  {/* Metric Floating Badge */}
                   <motion.div 
-                    initial={{ x: 20, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    className="absolute top-4 right-4 sm:top-6 sm:right-6 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full backdrop-blur-xl flex items-center gap-1.5 sm:gap-2 shadow-2xl"
+                    initial={{ y: -10, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.4 + index * 0.1, duration: 0.6 }}
+                    className="absolute top-6 right-6 px-4 py-2 rounded-full backdrop-blur-xl flex items-center gap-2 shadow-[0_8px_30px_rgb(0,0,0,0.5)] border border-white/10"
                     style={{ 
-                      backgroundColor: `${item.accentColor}1A`,
-                      border: `1px solid ${item.accentColor}40`,
+                      backgroundColor: `${item.accentColor}10`,
                       color: item.accentColor,
-                      boxShadow: `0 0 20px ${item.accentColor}20`
                     }}
                   >
-                    <TrendingUp size={16} className="sm:w-[18px] sm:h-[18px]" />
-                    <span className="text-base sm:text-lg font-black tracking-tighter">{item.result}</span>
+                    <TrendingUp size={16} />
+                    <span className="text-base sm:text-lg font-black tracking-tight">{item.result}</span>
                   </motion.div>
 
-                  <div className="transform md:translate-y-8 md:group-hover:translate-y-0 transition-all duration-500 ease-out">
-                    <h3 className="text-xl sm:text-3xl font-black mb-2 text-white tracking-tight drop-shadow-md">
+                  <div className="transform translate-y-0 sm:translate-y-8 sm:group-hover:translate-y-0 transition-all duration-500 ease-out">
+                    
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-8 h-px bg-white/20" />
+                      <div className="text-xs font-bold tracking-widest uppercase text-white/50">Case Study</div>
+                    </div>
+
+                    <h3 className="text-2xl sm:text-3xl font-black mb-3 text-white tracking-tight drop-shadow-lg leading-tight">
                       {item.client}
                     </h3>
-                    <p className="text-white/80 text-sm mb-6 line-clamp-3 sm:line-clamp-none font-medium max-w-[95%] md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                    
+                    <p className="text-white/70 text-sm mb-6 line-clamp-3 sm:line-clamp-none font-medium leading-relaxed max-w-[95%] sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 delay-100">
                       {item.description}
                     </p>
+                    
                     <button 
                       onClick={(e) => { e.stopPropagation(); setSelectedCase(item); }}
-                      className="w-full py-4 border border-white/10 transition-all duration-500 rounded-xl flex items-center justify-center gap-3 text-xs font-black uppercase overflow-hidden relative group/btn tracking-widest bg-white/5 hover:border-transparent md:opacity-0 md:group-hover:opacity-100"
+                      className="w-full py-4 border border-white/10 transition-all duration-500 rounded-xl flex items-center justify-center gap-3 text-xs font-black uppercase overflow-hidden relative group/btn tracking-widest bg-white/5 hover:border-transparent sm:opacity-0 sm:group-hover:opacity-100 shadow-xl"
                       style={{ 
-                        borderColor: `${item.accentColor}40`
+                        borderColor: `${item.accentColor}30`
                       }}
                     >
                       <div 
-                        className="absolute inset-0 translate-y-full md:group-hover/btn:translate-y-0 transition-transform duration-500 ease-out"
+                        className="absolute inset-0 translate-y-full sm:group-hover/btn:translate-y-0 transition-transform duration-500 ease-out"
                         style={{ backgroundColor: item.accentColor }}
                       />
                       <span className="relative z-10 flex items-center gap-2 group-hover/btn:text-black transition-colors duration-300">
@@ -355,12 +353,12 @@ export const Cases = () => {
                   </div>
                 </div>
                 
-                {/* Hover Glow Effect */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+                {/* Glow Effect behind text container */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0">
                   <div 
                     className="absolute inset-0" 
                     style={{ 
-                      background: `radial-gradient(circle at top right, ${item.accentColor}30, transparent 60%)`
+                      background: `radial-gradient(circle at bottom left, ${item.accentColor}15, transparent 70%)`
                     }}
                   />
                 </div>

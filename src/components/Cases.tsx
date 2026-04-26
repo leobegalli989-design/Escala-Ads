@@ -246,8 +246,8 @@ export const Cases = () => {
           </p>
         </div>
 
-        <div className="">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
+        <div className="w-full relative">
+          <div className="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-6 sm:gap-8 max-w-7xl mx-auto pb-12 pt-4 px-6 md:px-0">
           {cases.map((item, index) => (
             <motion.div
               key={item.client}
@@ -257,10 +257,10 @@ export const Cases = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ 
                 duration: 0.8, 
-                delay: index * 0.15,
+                delay: index * 0.1,
                 ease: [0.16, 1, 0.3, 1] 
               }}
-              className="group relative rounded-[2rem] overflow-hidden p-[1px] will-change-transform transform-gpu h-auto min-h-[420px] sm:h-[480px] cursor-pointer shadow-2xl bg-zinc-900/40 border border-white/5"
+              className="group relative rounded-[2rem] overflow-hidden p-[1px] will-change-transform transform-gpu shrink-0 w-[85vw] sm:w-[45vw] lg:w-[30vw] min-h-[420px] sm:h-[480px] cursor-pointer shadow-2xl bg-zinc-900/40 border border-white/5 snap-center"
               onClick={() => setSelectedCase(item)}
             >
               {/* Animated Gradient Border */}
@@ -335,8 +335,12 @@ export const Cases = () => {
                       {item.description}
                     </p>
                     
-                    <button 
+                    <motion.button 
                       onClick={(e) => { e.stopPropagation(); setSelectedCase(item); }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      animate={{ boxShadow: ["0px 0px 0px rgba(255,255,255,0)", `0px 0px 15px ${item.accentColor}40`, "0px 0px 0px rgba(255,255,255,0)"] }}
+                      transition={{ boxShadow: { repeat: Infinity, duration: 2, delay: index * 0.2 } }}
                       className="w-full py-4 border border-white/10 transition-all duration-500 rounded-xl flex items-center justify-center gap-3 text-xs font-black uppercase overflow-hidden relative group/btn tracking-widest bg-white/5 hover:border-transparent sm:opacity-0 sm:group-hover:opacity-100 shadow-xl"
                       style={{ 
                         borderColor: `${item.accentColor}30`
@@ -349,7 +353,7 @@ export const Cases = () => {
                       <span className="relative z-10 flex items-center gap-2 group-hover/btn:text-black transition-colors duration-300">
                         Ver Case Completo <ExternalLink size={16} />
                       </span>
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
                 
@@ -365,6 +369,7 @@ export const Cases = () => {
               </div>
             </motion.div>
           ))}
+            <div className="shrink-0 w-2 md:w-6" />
           </div>
         </div>
       </div>

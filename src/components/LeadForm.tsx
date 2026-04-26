@@ -169,12 +169,16 @@ Aguardo o retorno para darmos o próximo passo!`;
             />
           </div>
 
-          <button 
+          <motion.button 
             type="submit"
-            className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest rounded-xl hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(20,163,229,0.3)] transition-all flex items-center justify-center gap-2"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            animate={{ boxShadow: ["0px 0px 0px rgba(20,163,229,0)", "0px 0px 20px rgba(20,163,229,0.4)", "0px 0px 0px rgba(20,163,229,0)"] }}
+            transition={{ boxShadow: { repeat: Infinity, duration: 2 } }}
+            className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest rounded-xl hover:shadow-[0_0_30px_rgba(20,163,229,0.3)] transition-all flex items-center justify-center gap-2"
           >
             Enviar para o WhatsApp <Send size={18} />
-          </button>
+          </motion.button>
         </motion.form>
       </div>
     </section>

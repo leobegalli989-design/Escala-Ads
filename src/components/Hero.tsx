@@ -54,7 +54,7 @@ export const Hero = () => {
             Performance Digital de Elite
           </motion.div>
 
-          <h1 className="text-[7.5vw] min-[380px]:text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-8 leading-[1.1] sm:leading-[1.2] font-black tracking-tighter text-center sm:text-left whitespace-nowrap sm:whitespace-normal">
+          <h1 className="text-[5vw] min-[400px]:text-xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl mb-8 leading-[1.1] sm:leading-[1.2] font-black tracking-tighter text-center sm:text-left whitespace-nowrap sm:whitespace-normal">
             <div className="overflow-visible py-2 sm:-mx-6 sm:px-6">
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
@@ -96,7 +96,7 @@ export const Hero = () => {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.30, ease: [0.16, 1, 0.3, 1] }}
-                className="pb-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2 sm:mt-4 tracking-tight"
+                className="pb-2 text-lg sm:text-3xl md:text-4xl lg:text-5xl mt-2 sm:mt-4 tracking-tight whitespace-normal"
               >
                 COM GESTÃO DE TRÁFEGO PAGO.
               </motion.div>
@@ -132,38 +132,50 @@ export const Hero = () => {
                 />
               </a>
             </Magnetic>
-            <a 
+            <motion.a 
               href="https://wa.me/5535998208622?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Escala%20Ads."
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-5 sm:px-8 sm:py-4 border border-[#25D366]/30 hover:border-[#25D366]/80 hover:bg-[#25D366]/10 transition-all text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-2 relative overflow-hidden group text-sm sm:text-base w-full sm:w-auto"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{ boxShadow: ["0px 0px 0px rgba(37,211,102,0)", "0px 0px 20px rgba(37,211,102,0.4)", "0px 0px 0px rgba(37,211,102,0)"] }}
+              transition={{ boxShadow: { repeat: Infinity, duration: 2 } }}
+              className="px-6 py-5 sm:px-8 sm:py-4 border border-[#25D366]/30 hover:border-[#25D366]/80 hover:bg-[#25D366]/10 transition-colors text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-2 relative overflow-hidden group text-sm sm:text-base w-full sm:w-auto shadow-[0_0_15px_rgba(37,211,102,0.15)]"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <MessageCircle size={20} className="text-[#25D366]" />
                 WhatsApp
               </span>
-            </a>
-            <a 
+            </motion.a>
+            <motion.a 
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-5 sm:px-8 sm:py-4 border border-[#E1306C]/30 hover:border-[#E1306C]/80 hover:bg-[#E1306C]/10 transition-all text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-2 relative overflow-hidden group text-sm sm:text-base w-full sm:w-auto"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{ boxShadow: ["0px 0px 0px rgba(225,48,108,0)", "0px 0px 20px rgba(225,48,108,0.4)", "0px 0px 0px rgba(225,48,108,0)"] }}
+              transition={{ boxShadow: { repeat: Infinity, duration: 2, delay: 0.5 } }}
+              className="px-6 py-5 sm:px-8 sm:py-4 border border-[#E1306C]/30 hover:border-[#E1306C]/80 hover:bg-[#E1306C]/10 transition-colors text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-2 relative overflow-hidden group text-sm sm:text-base w-full sm:w-auto shadow-[0_0_15px_rgba(225,48,108,0.15)]"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <Instagram size={20} className="text-[#E1306C]" />
                 Instagram
               </span>
-            </a>
-            <a 
+            </motion.a>
+            <motion.a 
               href="#cases"
-              className="px-6 py-5 sm:px-8 sm:py-4 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-2 relative overflow-hidden group text-sm sm:text-base w-full sm:w-auto"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{ boxShadow: ["0px 0px 0px rgba(255,255,255,0)", "0px 0px 15px rgba(255,255,255,0.2)", "0px 0px 0px rgba(255,255,255,0)"] }}
+              transition={{ boxShadow: { repeat: Infinity, duration: 2, delay: 1 } }}
+              className="px-6 py-5 sm:px-8 sm:py-4 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-colors text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-2 relative overflow-hidden group text-sm sm:text-base w-full sm:w-auto"
             >
               <span className="relative z-10 flex items-center gap-2">
                 Ver Cases
                 <ChevronRight size={20} />
               </span>
               <div className="absolute inset-0 bg-primary/10 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300" />
-            </a>
+            </motion.a>
           </motion.div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-8 border-t border-white/10 pt-8 px-2 sm:px-0">

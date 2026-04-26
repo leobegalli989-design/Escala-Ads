@@ -42,6 +42,14 @@
     text-shadow: 0 0 10px rgba(20, 163, 229, 0.5), 0 0 20px rgba(20, 163, 229, 0.3);
   }
 
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   .text-shimmer {
     background: linear-gradient(
       90deg,

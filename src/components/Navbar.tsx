@@ -27,12 +27,7 @@ export const Navbar = () => {
 
   const navLinks = [
     { name: 'Início', href: '#home' },
-    { name: 'Agência', href: '#about' },
-    { name: 'Serviços', href: '#services' },
-    { name: 'Metodologia', href: '#methodology' },
-    { name: 'Calculadora', href: '#calculator' },
     { name: 'Cases', href: '#cases' },
-    { name: 'Depoimentos', href: '#depoimentos' },
   ];
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -92,7 +87,7 @@ export const Navbar = () => {
             onClick={(e) => scrollToSection(e, '#cadastro')}
             className="px-6 py-2 bg-primary text-black font-bold rounded-full hover:shadow-[0_0_20px_rgba(20,163,229,0.6)] transition-all hover:scale-105 active:scale-95"
           >
-            Falar com Especialista
+            Agendar Reunião
           </a>
         </div>
 
@@ -153,7 +148,7 @@ export const Navbar = () => {
                     }}
                     className="w-full flex items-center justify-center py-6 bg-primary text-black font-black rounded-2xl text-xl uppercase tracking-widest shadow-[0_0_40px_rgba(20,163,229,0.4)] active:scale-95 transition-transform"
                   >
-                    Falar com Especialista
+                    Agendar Reunião
                   </a>
                 </motion.div>
 

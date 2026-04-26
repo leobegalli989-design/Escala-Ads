@@ -11,6 +11,7 @@
 
   --animate-glow: glow 2s ease-in-out infinite alternate;
   --animate-shimmer-slide: shimmer-slide 2s infinite;
+  --animate-spin-slow: spin 8s linear infinite;
 }
 
 @keyframes shimmer-slide {

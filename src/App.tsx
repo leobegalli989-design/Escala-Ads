@@ -5,19 +5,10 @@
 
 import React, { useEffect } from 'react';
 import Lenis from 'lenis';
-import { motion } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { About } from './components/About';
-import { Services } from './components/Services';
-import { Methodology } from './components/Methodology';
-import { CorePillars } from './components/CorePillars';
 import { Cases } from './components/Cases';
-import { Testimonials } from './components/Testimonials';
-import { Differentials } from './components/Differentials';
-import { ROIProjector } from './components/ROIProjector';
 import { LeadForm } from './components/LeadForm';
-import { FinalCTA } from './components/FinalCTA';
 import { Footer } from './components/Footer';
 import { CustomCursor } from './components/CustomCursor';
 import { ScrollIndicator } from './components/ScrollIndicator';
@@ -67,16 +58,8 @@ export default function App() {
         <Hero />
         
         <div>
-          <About />
-          <Services />
-          <CorePillars />
-          <Methodology />
-          <ROIProjector />
           <Cases />
-          <Testimonials />
-          <Differentials />
           <LeadForm />
-          <FinalCTA />
         </div>
       </main>
       

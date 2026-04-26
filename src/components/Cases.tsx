@@ -251,107 +251,119 @@ export const Cases = () => {
           {cases.map((item, index) => (
             <motion.div
               key={item.client}
-              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: false, margin: "-10px" }}
+              whileHover={{ scale: 1.03, y: -10 }}
+              viewport={{ once: true, margin: "-10px" }}
               transition={{ 
                 duration: 0.8, 
                 delay: index * 0.1,
                 ease: [0.16, 1, 0.3, 1] 
               }}
-              className="group relative rounded-3xl overflow-hidden neon-border bg-zinc-900/50 will-change-transform transform-gpu h-auto min-h-[420px] sm:h-[450px] cursor-pointer"
+              className="group relative rounded-[2rem] overflow-hidden p-[2px] will-change-transform transform-gpu h-auto min-h-[420px] sm:h-[450px] cursor-pointer"
               onClick={() => setSelectedCase(item)}
             >
-              <div className="absolute inset-0 overflow-hidden">
-                {/* Blur-up Placeholder */}
-                <img
-                  src={getOptimizedImageUrl(item.image, 20)}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-50 -z-10"
-                  aria-hidden="true"
-                />
-                
-                <img
-                  src={getOptimizedImageUrl(item.image, 800)}
-                  srcSet={`${getOptimizedImageUrl(item.image, 400)} 400w, ${getOptimizedImageUrl(item.image, 800)} 800w, ${getOptimizedImageUrl(item.image, 1200)} 1200w`}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  alt={item.client}
-                  className="w-full h-full object-contain bg-zinc-900 group-hover:scale-110 transition-transform duration-1000 opacity-0 transition-opacity duration-700"
-                  referrerPolicy="no-referrer"
-                  loading={index < 2 ? "eager" : "lazy"}
-                  decoding="async"
-                  {...(index === 0 ? { fetchPriority: "high" } : {})}
-                  onLoad={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.classList.remove('opacity-0');
-                    target.classList.add('opacity-80', 'md:opacity-40');
-                  }}
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = `https://picsum.photos/seed/${item.client}/800/600`;
-                    target.classList.remove('opacity-0');
-                    target.classList.add('opacity-80');
-                  }}
-                />
-                
-                {/* Fallback background / Skeleton */}
-                <div className="absolute inset-0 bg-zinc-900 animate-pulse -z-20" />
-                
-                {/* Overlay Gradient - More subtle on mobile to show image */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-100 md:opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
+              <div 
+                className="absolute inset-0 z-0 animate-spin-slow opacity-0 group-hover:opacity-100 transition-opacity duration-1000"
+                style={{
+                  background: `conic-gradient(from 0deg, transparent 0 340deg, ${item.accentColor} 360deg)`
+                }}
+              />
+              <div className="absolute inset-0 bg-zinc-900/40 rounded-[2rem] z-0 pointer-events-none border border-white/5 group-hover:border-transparent transition-colors" />
 
-              {/* Content Container */}
-              <div className="relative h-full p-5 sm:p-8 flex flex-col justify-end z-20">
-                {/* ROAS Badge - Top Right */}
-                <motion.div 
-                  initial={{ x: 20, opacity: 0 }}
-                  whileInView={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.4 + index * 0.1 }}
-                  className="absolute top-4 right-4 sm:top-6 sm:right-6 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full backdrop-blur-xl border flex items-center gap-1.5 sm:gap-2 shadow-2xl"
-                  style={{ 
-                    backgroundColor: `${item.accentColor}20`,
-                    borderColor: `${item.accentColor}40`,
-                    color: item.accentColor
-                  }}
-                >
-                  <TrendingUp size={16} className="sm:w-[18px] sm:h-[18px]" />
-                  <span className="text-base sm:text-lg font-black tracking-tighter">{item.result}</span>
-                </motion.div>
+              <div className="relative z-10 w-full h-full rounded-[2rem] overflow-hidden bg-black flex flex-col">
+                <div className="absolute inset-0 overflow-hidden">
+                  {/* Blur-up Placeholder */}
+                  <img
+                    src={getOptimizedImageUrl(item.image, 20)}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-50 -z-10"
+                    aria-hidden="true"
+                  />
+                  
+                  <img
+                    src={getOptimizedImageUrl(item.image, 800)}
+                    srcSet={`${getOptimizedImageUrl(item.image, 400)} 400w, ${getOptimizedImageUrl(item.image, 800)} 800w, ${getOptimizedImageUrl(item.image, 1200)} 1200w`}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    alt={item.client}
+                    className="w-full h-full object-contain bg-zinc-900 group-hover:scale-110 transition-transform duration-1000 opacity-0 transition-opacity duration-700"
+                    referrerPolicy="no-referrer"
+                    loading={index < 2 ? "eager" : "lazy"}
+                    decoding="async"
+                    {...(index === 0 ? { fetchPriority: "high" } : {})}
+                    onLoad={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.classList.remove('opacity-0');
+                      target.classList.add('opacity-80', 'md:opacity-40');
+                    }}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = `https://picsum.photos/seed/${item.client}/800/600`;
+                      target.classList.remove('opacity-0');
+                      target.classList.add('opacity-80');
+                    }}
+                  />
+                  
+                  {/* Fallback background / Skeleton */}
+                  <div className="absolute inset-0 bg-zinc-900 animate-pulse -z-20" />
+                  
+                  {/* Overlay Gradient - More subtle on mobile to show image */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-100 md:opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
 
-                <div className="transform md:group-hover:-translate-y-2 transition-transform duration-500">
-                  <h3 className="text-xl sm:text-3xl font-black mb-1.5 sm:mb-2 text-white tracking-tight">
-                    {item.client}
-                  </h3>
-                  <p className="text-white/90 sm:text-white/70 text-sm sm:text-sm mb-6 sm:mb-6 line-clamp-3 sm:line-clamp-none font-medium max-w-[95%]">
-                    {item.description}
-                  </p>
-                  <button 
-                    onClick={() => setSelectedCase(item)}
-                    className="w-full py-4 border border-white/10 transition-all duration-500 rounded-xl flex items-center justify-center gap-3 text-xs font-black uppercase overflow-hidden relative group/btn tracking-widest bg-white/5"
+                {/* Content Container */}
+                <div className="relative h-full p-5 sm:p-8 flex flex-col justify-end z-20">
+                  {/* ROAS Badge - Top Right */}
+                  <motion.div 
+                    initial={{ x: 20, opacity: 0 }}
+                    whileInView={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.4 + index * 0.1 }}
+                    className="absolute top-4 right-4 sm:top-6 sm:right-6 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full backdrop-blur-xl flex items-center gap-1.5 sm:gap-2 shadow-2xl"
                     style={{ 
-                      borderColor: `${item.accentColor}40`
+                      backgroundColor: `${item.accentColor}1A`,
+                      border: `1px solid ${item.accentColor}40`,
+                      color: item.accentColor,
+                      boxShadow: `0 0 20px ${item.accentColor}20`
                     }}
                   >
-                    <div 
-                      className="absolute inset-0 translate-y-full md:group-hover/btn:translate-y-0 transition-transform duration-500"
-                      style={{ backgroundColor: item.accentColor }}
-                    />
-                    <span className="relative z-10 flex items-center gap-2 group-hover/btn:text-black transition-colors">
-                      Ver Case Completo <ExternalLink size={16} />
-                    </span>
-                  </button>
+                    <TrendingUp size={16} className="sm:w-[18px] sm:h-[18px]" />
+                    <span className="text-base sm:text-lg font-black tracking-tighter">{item.result}</span>
+                  </motion.div>
+
+                  <div className="transform md:translate-y-8 md:group-hover:translate-y-0 transition-all duration-500 ease-out">
+                    <h3 className="text-xl sm:text-3xl font-black mb-2 text-white tracking-tight drop-shadow-md">
+                      {item.client}
+                    </h3>
+                    <p className="text-white/80 text-sm mb-6 line-clamp-3 sm:line-clamp-none font-medium max-w-[95%] md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                      {item.description}
+                    </p>
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); setSelectedCase(item); }}
+                      className="w-full py-4 border border-white/10 transition-all duration-500 rounded-xl flex items-center justify-center gap-3 text-xs font-black uppercase overflow-hidden relative group/btn tracking-widest bg-white/5 hover:border-transparent md:opacity-0 md:group-hover:opacity-100"
+                      style={{ 
+                        borderColor: `${item.accentColor}40`
+                      }}
+                    >
+                      <div 
+                        className="absolute inset-0 translate-y-full md:group-hover/btn:translate-y-0 transition-transform duration-500 ease-out"
+                        style={{ backgroundColor: item.accentColor }}
+                      />
+                      <span className="relative z-10 flex items-center gap-2 group-hover/btn:text-black transition-colors duration-300">
+                        Ver Case Completo <ExternalLink size={16} />
+                      </span>
+                    </button>
+                  </div>
                 </div>
-              </div>
-              
-              {/* Hover Glow Effect */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                <div 
-                  className="absolute inset-0" 
-                  style={{ 
-                    background: `radial-gradient(circle at top right, ${item.accentColor}20, transparent 70%)`
-                  }}
-                />
+                
+                {/* Hover Glow Effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+                  <div 
+                    className="absolute inset-0" 
+                    style={{ 
+                      background: `radial-gradient(circle at top right, ${item.accentColor}30, transparent 60%)`
+                    }}
+                  />
+                </div>
               </div>
             </motion.div>
           ))}

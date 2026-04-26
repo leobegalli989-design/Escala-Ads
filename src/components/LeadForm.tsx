@@ -8,6 +8,7 @@ export const LeadForm = () => {
     phone: '',
     company: '',
     revenue: '',
+    willingToInvest: '',
     challenge: ''
   });
 
@@ -18,6 +19,7 @@ export const LeadForm = () => {
 Gostaria de agendar um diagnóstico estratégico para minha empresa *${formData.company}*.
 
 *Faturamento Atual:* ${formData.revenue}
+*Disposto a investir R$ 1.000+ em tráfego?* ${formData.willingToInvest}
 *Meu principal desafio hoje é:* ${formData.challenge}
 
 Aguardo o retorno para darmos o próximo passo!`;
@@ -126,13 +128,30 @@ Aguardo o retorno para darmos o próximo passo!`;
                 onChange={handleChange}
                 className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 transition-colors appearance-none"
               >
-                <option value="" disabled>Selecione uma opção</option>
+                <option value="" disabled>Qual o faturamento da empresa?</option>
                 <option value="Abaixo de R$ 10.000">Abaixo de R$ 10.000</option>
                 <option value="De R$ 10.000 a R$ 50.000">De R$ 10.000 a R$ 50.000</option>
                 <option value="De R$ 50.000 a R$ 100.000">De R$ 50.000 a R$ 100.000</option>
                 <option value="Acima de R$ 100.000">Acima de R$ 100.000</option>
               </select>
             </div>
+          </div>
+
+          <div className="space-y-2 mb-6">
+            <label className="text-sm font-bold text-white/80 flex items-center gap-2">
+              <Target size={16} className="text-primary" /> Está disposta a investir pelo menos R$ 1.000 em tráfego pago?
+            </label>
+            <select 
+              name="willingToInvest"
+              required
+              value={formData.willingToInvest}
+              onChange={handleChange}
+              className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 transition-colors appearance-none"
+            >
+              <option value="" disabled>Selecione uma opção</option>
+              <option value="Sim, estou disposto">Sim, estou disposto a investir R$ 1.000+ mensais</option>
+              <option value="Não, ainda não posso">Não tenho esse orçamento no momento</option>
+            </select>
           </div>
 
           <div className="space-y-2 mb-8">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, ChevronRight, Sparkles, TrendingUp, DollarSign, Users, Target } from 'lucide-react';
+import { ArrowRight, ChevronRight, Sparkles, TrendingUp, DollarSign, Users, Target, MessageCircle, Instagram } from 'lucide-react';
 import { Particles } from './Particles';
 
 import { PerformanceDashboard } from './PerformanceDashboard';
@@ -54,42 +54,51 @@ export const Hero = () => {
             Performance Digital de Elite
           </motion.div>
 
-          <h1 className="text-[2.2rem] sm:text-6xl md:text-7xl lg:text-8xl mb-8 leading-[1.3] sm:leading-[1.2] font-black tracking-tighter text-center sm:text-left">
-            <div className="overflow-hidden -my-4 py-4 px-6 -mx-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-8 leading-[1.1] sm:leading-[1.2] font-black tracking-tighter text-center sm:text-left">
+            <div className="overflow-visible py-2 sm:-mx-6 sm:px-6">
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="pb-4"
+                className="pb-2 flex flex-col sm:block break-words hyphens-auto"
               >
-                DOMÍNIO DE <span className="text-shimmer glow-pulse">MERCADO</span>
+                <span>AUMENTE SEU</span>{' '}
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                  transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+                  className="text-shimmer glow-pulse inline-block text-[8vw] sm:text-inherit w-full sm:w-auto mt-2 sm:mt-0 tracking-tight"
+                >
+                  FATURAMENTO
+                </motion.span>
               </motion.div>
             </div>
-            <div className="overflow-hidden -my-4 py-4 px-6 -mx-6">
+            <div className="overflow-visible py-2 sm:-mx-6 sm:px-6">
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="pb-4"
+                className="pb-2"
               >
-                COM{' '}
+                EM ATÉ{' '}
                 <motion.span
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                   transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
                   className="text-shimmer glow-pulse inline-block"
                 >
-                  ESCALA
+                  300%
                 </motion.span>{' '}
-                E{' '}
-                <motion.span
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-                  className="text-shimmer glow-pulse inline-block"
-                >
-                  CRESCIMENTO.
-                </motion.span>
+              </motion.div>
+            </div>
+            <div className="overflow-visible py-2 sm:-mx-6 sm:px-6">
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.30, ease: [0.16, 1, 0.3, 1] }}
+                className="pb-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2 sm:mt-4 tracking-tight"
+              >
+                COM GESTÃO DE TRÁFEGO PAGO.
               </motion.div>
             </div>
           </h1>
@@ -107,12 +116,12 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 mb-16 px-4 sm:px-0"
+            className="flex flex-col sm:flex-row flex-wrap gap-4 mb-16 px-4 sm:px-0"
           >
             <Magnetic>
               <a 
                 href="#cadastro"
-                className="group relative px-6 py-5 sm:px-8 sm:py-4 bg-primary text-black font-black uppercase tracking-tighter rounded-xl overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,163,229,0.5)] flex items-center justify-center text-sm sm:text-base"
+                className="group relative px-6 py-5 sm:px-8 sm:py-4 bg-primary text-black font-black uppercase tracking-tighter rounded-xl overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(20,163,229,0.5)] flex items-center justify-center text-sm sm:text-base w-full sm:w-auto"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Agendar Diagnóstico
@@ -124,11 +133,33 @@ export const Hero = () => {
               </a>
             </Magnetic>
             <a 
-              href="#cases"
-              className="px-6 py-5 sm:px-8 sm:py-4 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-2 relative overflow-hidden group text-sm sm:text-base"
+              href="https://wa.me/5535998208622?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Escala%20Ads."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-5 sm:px-8 sm:py-4 border border-[#25D366]/30 hover:border-[#25D366]/80 hover:bg-[#25D366]/10 transition-all text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-2 relative overflow-hidden group text-sm sm:text-base w-full sm:w-auto"
             >
               <span className="relative z-10 flex items-center gap-2">
-                Ver Cases de Sucesso
+                <MessageCircle size={20} className="text-[#25D366]" />
+                WhatsApp
+              </span>
+            </a>
+            <a 
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-5 sm:px-8 sm:py-4 border border-[#E1306C]/30 hover:border-[#E1306C]/80 hover:bg-[#E1306C]/10 transition-all text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-2 relative overflow-hidden group text-sm sm:text-base w-full sm:w-auto"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <Instagram size={20} className="text-[#E1306C]" />
+                Instagram
+              </span>
+            </a>
+            <a 
+              href="#cases"
+              className="px-6 py-5 sm:px-8 sm:py-4 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-2 relative overflow-hidden group text-sm sm:text-base w-full sm:w-auto"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                Ver Cases
                 <ChevronRight size={20} />
               </span>
               <div className="absolute inset-0 bg-primary/10 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300" />

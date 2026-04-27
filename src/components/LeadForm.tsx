@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Send, Building2, User, Phone, Target, TrendingUp, Video } from 'lucide-react';
+import { Send, Building2, User, Phone, Target, TrendingUp, Video, Calendar, Clock } from 'lucide-react';
 
 export const LeadForm = () => {
   const [formData, setFormData] = useState({
@@ -8,21 +8,27 @@ export const LeadForm = () => {
     phone: '',
     company: '',
     revenue: '',
+    propertyRent: '',
     willingToInvest: '',
-    challenge: ''
+    challenge: '',
+    date: '',
+    time: ''
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const text = `Ol\u00E1! Meu nome \u00E9 *${formData.name}* \ud83d\udc4b
-Gostaria de agendar uma reuni\u00E3o de diagn\u00F3stico via Google Meet para minha empresa *${formData.company}* \ud83d\ude80
+    // Convert current emojis to standard strings to avoid URL encoding ? issues caused by unicode escape parsing
+    const text = `Olá! Meu nome é *${formData.name}* 👋
+Gostaria de agendar uma reunião de diagnóstico via Google Meet para minha empresa *${formData.company}* 🚀
 
-\ud83d\udcb0 *Faturamento Atual:* ${formData.revenue}
-\ud83d\udcba *Disposto a investir R$ 1.000+ em tr\u00E1fego?* ${formData.willingToInvest}
-\ud83c\udfaf *Meu principal desafio hoje \u00E9:* ${formData.challenge}
+💰 *Faturamento Atual:* ${formData.revenue}
+🏢 *Aluguel do Imóvel:* ${formData.propertyRent}
+📈 *Disposto a investir R$ 1.000+ em tráfego?* ${formData.willingToInvest}
+🎯 *Meu principal desafio hoje é:* ${formData.challenge}
+🗓️ *Disponibilidade:* ${formData.date.split('-').reverse().join('/')} às ${formData.time}
 
-Aguardo o retorno para validarmos um hor\u00E1rio! \ud83d\udca5`;
+Aguardo o retorno para validarmos um horário! 💥`;
 
     const encodedText = encodeURIComponent(text);
     const whatsappUrl = `https://wa.me/5535984081705?text=${encodedText}`;
@@ -44,13 +50,33 @@ Aguardo o retorno para validarmos um hor\u00E1rio! \ud83d\udca5`;
       
       <div className="max-w-4xl mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
+          <motion.div
+             initial={{ scale: 0.8, opacity: 0 }}
+             whileInView={{ scale: 1, opacity: 1 }}
+             viewport={{ once: true }}
+             transition={{ duration: 0.5, type: 'spring', bounce: 0.5 }}
+             className="flex justify-center mb-6"
+          >
+             <motion.div 
+               animate={{ y: [0, -10, 0] }}
+               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+               className="w-16 h-16 md:w-20 md:h-20 bg-white/5 rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.05)] relative border border-white/10 backdrop-blur-xl"
+             >
+               <img 
+                 src="https://www.gstatic.com/meet/icons/meet_icon_2020q4_512dp_2x_a9a5840d02462e07172fe4c3d22b647f.png" 
+                 alt="Google Meet"
+                 className="w-10 h-10 md:w-12 md:h-12 object-contain"
+                 referrerPolicy="no-referrer"
+               />
+             </motion.div>
+          </motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-3xl md:text-5xl font-black tracking-tighter mb-4 flex items-center justify-center gap-3 flex-wrap"
           >
-            AGENDAR <span className="text-primary">REUNIÃO (GOOGLE MEET)</span> <Video className="w-8 h-8 md:w-12 md:h-12 text-primary" />
+            AGENDAR <span className="text-primary">REUNIÃO (GOOGLE MEET)</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -102,7 +128,7 @@ Aguardo o retorno para validarmos um hor\u00E1rio! \ud83d\udca5`;
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div className="grid md:grid-cols-3 gap-6 mb-6">
             <div className="space-y-2">
               <label className="text-sm font-bold text-white/80 flex items-center gap-2">
                 <Building2 size={16} className="text-primary" /> Nome da Empresa
@@ -135,6 +161,20 @@ Aguardo o retorno para validarmos um hor\u00E1rio! \ud83d\udca5`;
                 <option value="Acima de R$ 100.000">Acima de R$ 100.000</option>
               </select>
             </div>
+            <div className="space-y-2">
+              <label className="text-sm font-bold text-white/80 flex items-center gap-2">
+                <Building2 size={16} className="text-primary" /> Aluguel do Imóvel
+              </label>
+              <input 
+                type="text" 
+                name="propertyRent"
+                required
+                value={formData.propertyRent}
+                onChange={handleChange}
+                className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 transition-colors"
+                placeholder="Ex: R$ 2.500,00"
+              />
+            </div>
           </div>
 
           <div className="space-y-2 mb-6">
@@ -164,20 +204,65 @@ Aguardo o retorno para validarmos um hor\u00E1rio! \ud83d\udca5`;
               value={formData.challenge}
               onChange={handleChange}
               rows={4}
-              className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 transition-colors resize-none"
+              className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 transition-colors resize-none mb-6"
               placeholder="Descreva brevemente o que está impedindo sua empresa de crescer..."
             />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <div className="space-y-2">
+               <label className="text-sm font-bold text-white/80 flex items-center gap-2">
+                 <Calendar size={16} className="text-primary" /> Data Sugerida
+               </label>
+               <input 
+                 type="date"
+                 name="date"
+                 required
+                 value={formData.date}
+                 onChange={handleChange}
+                 className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 transition-colors"
+                 style={{ colorScheme: 'dark' }}
+               />
+            </div>
+            <div className="space-y-2">
+               <label className="text-sm font-bold text-white/80 flex items-center gap-2">
+                 <Clock size={16} className="text-primary" /> Horário Sugerido
+               </label>
+               <input 
+                 type="time"
+                 name="time"
+                 required
+                 value={formData.time}
+                 onChange={handleChange}
+                 className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 transition-colors"
+                 style={{ colorScheme: 'dark' }}
+               />
+            </div>
           </div>
 
           <motion.button 
             type="submit"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            animate={{ boxShadow: ["0px 0px 0px rgba(20,163,229,0)", "0px 0px 20px rgba(20,163,229,0.4)", "0px 0px 0px rgba(20,163,229,0)"] }}
-            transition={{ boxShadow: { repeat: Infinity, duration: 2 } }}
-            className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest rounded-xl hover:shadow-[0_0_30px_rgba(20,163,229,0.3)] transition-all flex items-center justify-center gap-2"
+            className="group relative w-full py-5 rounded-2xl overflow-hidden bg-gradient-to-b from-[#25D366] to-[#128C7E] transition-all duration-300 hover:shadow-[0_0_40px_rgba(37,211,102,0.4)]"
           >
-            Agendar Reunião no WhatsApp <Send size={18} />
+            {/* Animated shimmer effect via framer-motion */}
+            <motion.div 
+              className="absolute inset-0 z-0 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"
+              animate={{ x: ['-200%', '200%'] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
+            />
+            
+            {/* Inner borders and gloss */}
+            <div className="absolute inset-0 z-0 bg-gradient-to-b from-white/20 to-transparent opacity-50" />
+            <div className="absolute inset-0 z-0 border border-white/40 rounded-2xl" />
+
+            <span className="relative z-10 flex items-center justify-center gap-3 text-white font-black text-lg md:text-xl uppercase tracking-wider drop-shadow-md">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 drop-shadow-sm group-hover:scale-110 transition-transform duration-300">
+                 <path d="M12.031 21.085c-1.636-.005-3.238-.426-4.664-1.22l-.335-.187-3.468.91 1.054-3.324-.228-.358a9.49 9.49 0 0 1-1.464-5.06c0-5.26 4.281-9.544 9.542-9.544 2.551 0 4.949.992 6.752 2.793a9.489 9.489 0 0 1 2.785 6.758c0 5.258-4.28 9.54-9.54 9.542h-.002zM7.051 18.256c1.472.87 3.162 1.33 4.908 1.33h.001c4.426-.002 8.03-3.606 8.03-8.034a8.006 8.006 0 0 0-2.348-5.696A8.003 8.003 0 0 0 11.97 3.513c-4.429 0-8.034 3.606-8.034 8.035 0 1.558.411 3.084 1.192 4.428l.21.36-1.127 3.551 3.633-.951.378.216zm10.02-6.536c-.161-.24-1.071-.322-1.928-.75-1.018-.508-1.552-.508-1.928-.24-.375.268-.96 1.072-1.233 1.233-.268.161-1.072.054-2.143-.482-1.286-.643-2.358-1.607-3.001-2.679-.643-1.072-.268-1.607.054-2.143.161-.268.536-.75.75-1.072.107-.161.428-.428.536-1.286.107-.857 0-1.286 0-1.607-.107-.643-.536-1.928-.964-2.143-.428-.428-1.072-.428-1.608-.428s-1.071.107-1.607.536c-.536.428-1.608 1.607-1.608 3.858 0 2.25 1.714 4.5 2.143 5.036.428.536 3.642 5.679 8.784 7.608.857.322 2.036.75 3.001.75 1.072 0 1.821-.643 2.143-1.393.322-.75.322-1.714.214-1.928z"/>
+              </svg>
+              Agendar Reunião
+            </span>
           </motion.button>
         </motion.form>
       </div>

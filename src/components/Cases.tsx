@@ -249,7 +249,15 @@ export const Cases = () => {
         </div>
 
         <div className="w-full relative mt-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div 
+            id="cases-scroll"
+            className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-8 pt-4 px-1"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            <style>{`
+              #cases-scroll::-webkit-scrollbar { display: none; }
+              #cases-scroll { scroll-behavior: smooth; }
+            `}</style>
             {cases.map((item, index) => (
               <motion.div
                 key={item.client}
@@ -265,23 +273,23 @@ export const Cases = () => {
                   y: -5,
                   boxShadow: `0px 20px 40px -10px ${item.accentColor}40`,
                 }}
-                className="group relative rounded-[2rem] overflow-hidden p-[1px] transform-gpu cursor-pointer bg-zinc-900/40 border border-white/5 flex flex-col min-h-[450px]"
+                className="group relative rounded-[2rem] overflow-hidden p-[1px] transform-gpu cursor-pointer bg-zinc-900/40 border border-white/5 flex flex-col min-h-[450px] snap-center shrink-0 w-[85vw] sm:w-[360px] md:w-[calc(50%-12px)] lg:min-w-[calc(33.333%-16px)] lg:w-[calc(33.333%-16px)] max-w-full"
                 onClick={() => setSelectedCase(item)}
               >
-                {/* Animated Gradient Border on Hover */}
+                {/* Continuous Animated Gradient Border */}
                 <div 
-                  className="absolute inset-0 z-0 animate-spin-slow opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-md hidden md:block"
+                  className="absolute inset-0 z-0 animate-[spin_6s_linear_infinite] blur-md opacity-30 group-hover:opacity-100 transition-opacity duration-700"
                   style={{
-                    background: `conic-gradient(from 0deg, transparent 0 340deg, ${item.accentColor} 360deg)`
+                    background: `conic-gradient(from 0deg, transparent 0 300deg, ${item.accentColor} 360deg)`
                   }}
                 />
                 
-                <div className="relative z-10 w-full h-full rounded-[2rem] overflow-hidden bg-black flex flex-col group-hover:bg-black/90 transition-colors duration-500">
+                <div className="relative z-10 w-full h-full rounded-[2rem] overflow-hidden bg-black/90 flex flex-col group-hover:bg-black/80 transition-colors duration-500">
                   <div className="h-48 sm:h-56 relative overflow-hidden shrink-0">
                     <img
                       src={getOptimizedImageUrl(item.image, 400)}
                       alt=""
-                      className="absolute inset-0 w-full h-full object-cover blur-2xl scale-125 opacity-40 group-hover:opacity-60 transition-opacity duration-700 -z-10"
+                      className="absolute inset-0 w-full h-full object-cover blur-2xl scale-125 opacity-30 group-hover:opacity-60 transition-opacity duration-700 -z-10"
                       aria-hidden="true"
                     />
                     <img
@@ -335,7 +343,7 @@ export const Cases = () => {
                   
                   {/* Subtle Glow inside card */}
                   <div 
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0"
+                    className="absolute inset-0 opacity-40 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 animate-[pulse_4s_ease-in-out_infinite]"
                     style={{ 
                       background: `radial-gradient(circle at bottom center, ${item.accentColor}10, transparent 70%)`
                     }}
@@ -343,6 +351,30 @@ export const Cases = () => {
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* New Animated Controls at Bottom */}
+          <div className="flex justify-center md:justify-end gap-4 mt-6">
+            <button 
+              onClick={() => {
+                const el = document.getElementById('cases-scroll');
+                if (el) el.scrollBy({ left: -(el.offsetWidth), behavior: 'smooth' });
+              }}
+              className="group relative w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center overflow-hidden bg-[#0A0D15]/80 border border-white/20 hover:border-primary transition-all duration-500 shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:shadow-[0_0_40px_rgba(20,163,229,0.3)] backdrop-blur-md"
+            >
+              <div className="absolute inset-0 bg-primary/20 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
+              <ChevronLeft size={28} className="relative z-10 text-white/70 group-hover:text-primary transition-all group-hover:-translate-x-1 duration-500" />
+            </button>
+            <button 
+              onClick={() => {
+                const el = document.getElementById('cases-scroll');
+                if (el) el.scrollBy({ left: el.offsetWidth, behavior: 'smooth' });
+              }}
+              className="group relative w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center overflow-hidden bg-[#0A0D15]/80 border border-white/20 hover:border-primary transition-all duration-500 shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:shadow-[0_0_40px_rgba(20,163,229,0.3)] backdrop-blur-md"
+            >
+              <div className="absolute inset-0 bg-primary/20 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
+              <ChevronRight size={28} className="relative z-10 text-white/70 group-hover:text-primary transition-all group-hover:translate-x-1 duration-500" />
+            </button>
           </div>
         </div>
       </div>
@@ -402,11 +434,17 @@ export const Cases = () => {
 
                 {/* Chart Section substituting Image */}
                 <div className="w-full md:w-1/2 md:sticky md:top-0 h-[450px] sm:h-[500px] md:h-[100dvh] relative shrink-0 overflow-hidden bg-[#050505] flex flex-col md:border-r border-white/5">
-                  <CaseCharts 
-                    faturamentoInfo={selectedCase.fullDetails.metrics.find(m => m.label.toLowerCase().includes('faturamento') && !m.label.toLowerCase().includes('inicial')) || { value: selectedCase.fullDetails.metrics[0]?.value || 0, label: 'Faturamento' }}
-                    investimentoInfo={selectedCase.fullDetails.metrics.find(m => m.label.toLowerCase().includes('gasto') || m.label.toLowerCase().includes('investimento')) || { value: selectedCase.fullDetails.metrics[1]?.value || 0, label: 'Investimento' }}
-                    accentColor={selectedCase.accentColor}
-                  />
+                  {(selectedCase.fullDetails && selectedCase.fullDetails.metrics && selectedCase.fullDetails.metrics.length > 0) ? (
+                    <CaseCharts 
+                      faturamentoInfo={selectedCase.fullDetails.metrics.find(m => m.label.toLowerCase().includes('faturamento') && !m.label.toLowerCase().includes('inicial')) || { value: selectedCase.fullDetails.metrics[0]?.value || 0, label: 'Faturamento' }}
+                      investimentoInfo={selectedCase.fullDetails.metrics.find(m => m.label.toLowerCase().includes('gasto') || m.label.toLowerCase().includes('investimento')) || { value: selectedCase.fullDetails.metrics[1]?.value || 0, label: 'Investimento' }}
+                      accentColor={selectedCase.accentColor}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-white/50 bg-zinc-900/50">
+                      <p>Dados de faturamento não disponíveis no momento.</p>
+                    </div>
+                  )}
                   
                   {/* Decorative Elements */}
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent md:hidden pointer-events-none" />
@@ -451,7 +489,7 @@ export const Cases = () => {
                         <CheckCircle2 size={14} /> O Desafio
                       </h4>
                       <p className="text-gray-neutral text-sm leading-relaxed">
-                        {selectedCase.fullDetails.challenge}
+                        {selectedCase.fullDetails?.challenge || 'Dados não disponíveis.'}
                       </p>
                     </div>
 
@@ -463,11 +501,11 @@ export const Cases = () => {
                         <CheckCircle2 size={14} /> Estratégia de Elite
                       </h4>
                       <p className="text-gray-neutral text-sm leading-relaxed">
-                        {selectedCase.fullDetails.strategy}
+                        {selectedCase.fullDetails?.strategy || 'Estratégia confidencial.'}
                       </p>
                     </div>
 
-                    {selectedCase.fullDetails.testimonial && (
+                    {selectedCase.fullDetails?.testimonial && (
                       <div className="bg-white/5 border-l-2 p-6 rounded-r-xl italic relative group/quote">
                         <div 
                           className="absolute -top-3 -left-3 w-8 h-8 rounded-full flex items-center justify-center text-black"
@@ -488,8 +526,27 @@ export const Cases = () => {
                       </div>
                     )}
 
-                    <div className="mt-8 relative w-full overflow-hidden sm:overflow-visible">
-                      <div className="bg-[#0A0D15]/90 backdrop-blur-2xl p-4 sm:p-8 rounded-3xl border border-[#1A233A]/80 shadow-[0_0_50px_-12px_rgba(37,99,235,0.15)] relative w-full overflow-hidden mx-auto transform-gpu">
+                    {selectedCase.fullDetails?.metrics && selectedCase.fullDetails.metrics.length > 0 && (
+                      <div className="mt-8 relative w-full overflow-hidden sm:overflow-visible">
+                        <div className="bg-[#0A0D15]/90 backdrop-blur-2xl p-4 sm:p-8 rounded-3xl border border-[#1A233A]/80 shadow-[0_0_50px_-12px_rgba(37,99,235,0.15)] relative w-full overflow-hidden mx-auto transform-gpu">
+                        
+                        {/* Animated Background */}
+                        <motion.div 
+                          className="absolute inset-0 z-0 opacity-30"
+                          animate={{ 
+                            backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
+                          }}
+                          transition={{ 
+                            duration: 15,
+                            repeat: Infinity,
+                            ease: "linear"
+                          }}
+                          style={{
+                            backgroundImage: 'radial-gradient(circle at center, rgba(59,130,246,0.15) 0%, transparent 50%), radial-gradient(circle at bottom right, rgba(52,211,153,0.1) 0%, transparent 40%)',
+                            backgroundSize: '200% 200%'
+                          }}
+                        />
+
                         {/* Glows at the top */}
                         <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary/80 to-transparent"></div>
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-8 bg-primary/20 blur-2xl rounded-full"></div>
@@ -568,6 +625,7 @@ export const Cases = () => {
                         </div>
                       </div>
                     </div>
+                    )}
                   </div>
 
                   <button 

@@ -101,8 +101,16 @@ export const CaseCharts: React.FC<CaseChartsProps> = ({ faturamentoInfo, investi
 
   return (
     <div className="w-full h-full flex flex-col p-6 sm:p-10 justify-center bg-zinc-950/50 backdrop-blur-3xl overflow-hidden relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent z-0 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/10 blur-[120px] rounded-full pointer-events-none z-0" />
+      <motion.div 
+        className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent z-0 pointer-events-none" 
+        animate={{ opacity: [0.5, 0.8, 0.5] }}
+        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/10 blur-[120px] rounded-full pointer-events-none z-0" 
+        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+      />
       
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
@@ -120,25 +128,31 @@ export const CaseCharts: React.FC<CaseChartsProps> = ({ faturamentoInfo, investi
             </p>
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-2">
-             <div className="flex bg-white/5 p-1 rounded-lg backdrop-blur-xl border border-white/10 relative">
+             <div className="flex bg-zinc-900/80 p-1.5 rounded-xl backdrop-blur-xl border border-white/20 shadow-xl relative w-full sm:w-auto">
                <div 
-                  className="absolute inset-y-1 rounded-md transition-all duration-300 ease-out z-0"
+                  className="absolute inset-y-1.5 rounded-lg transition-all duration-300 ease-out z-0"
                   style={{ 
-                    backgroundColor: `${accentColor}30`, 
-                    boxShadow: `0 0 20px ${accentColor}40`,
-                    left: viewMode === 'history' ? '4px' : 'calc(50% + 2px)',
-                    width: 'calc(50% - 6px)' 
+                    backgroundColor: accentColor, 
+                    boxShadow: `0 0 15px ${accentColor}80`,
+                    left: viewMode === 'history' ? '6px' : 'calc(50% + 3px)',
+                    width: 'calc(50% - 9px)' 
                   }}
                />
                <button 
                  onClick={() => setViewMode('history')}
-                 className={`relative z-10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded-md transition-colors ${viewMode === 'history' ? 'text-white' : 'text-white/50 hover:text-white/80'}`}
+                 className={`relative z-10 px-5 py-2 text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-lg transition-colors flex-1 sm:flex-none text-center ${viewMode === 'history' ? 'text-black' : 'text-white/70 hover:text-white'}`}
+                 style={{
+                    textShadow: viewMode === 'history' ? 'none' : '0 1px 3px rgba(0,0,0,0.8)'
+                 }}
                >
                  Histórico
                </button>
                <button 
                  onClick={() => setViewMode('projection')}
-                 className={`relative z-10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded-md transition-colors ${viewMode === 'projection' ? 'text-white' : 'text-white/50 hover:text-white/80'}`}
+                 className={`relative z-10 px-5 py-2 text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-lg transition-colors flex-1 sm:flex-none text-center ${viewMode === 'projection' ? 'text-black' : 'text-white/70 hover:text-white'}`}
+                 style={{
+                    textShadow: viewMode === 'projection' ? 'none' : '0 1px 3px rgba(0,0,0,0.8)'
+                 }}
                >
                  Projetar (+12m)
                </button>
@@ -148,7 +162,7 @@ export const CaseCharts: React.FC<CaseChartsProps> = ({ faturamentoInfo, investi
         
         <div className="h-[250px] sm:h-[300px] w-full bg-[#111827]/40 rounded-2xl border border-white/5 p-4 sm:p-6 backdrop-blur-sm">
            <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={data} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+            <AreaChart data={data} margin={{ top: 10, right: 40, left: 20, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorFat" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor={accentColor} stopOpacity={0.6}/>
@@ -164,8 +178,16 @@ export const CaseCharts: React.FC<CaseChartsProps> = ({ faturamentoInfo, investi
                 dataKey="name" 
                 axisLine={false} 
                 tickLine={false} 
-                tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 9, fontWeight: 700, textAnchor: 'middle' }} 
+                tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 9, fontWeight: 700 }} 
                 dy={10}
+              />
+              <YAxis 
+                hide={false}
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 9, fontWeight: 700 }}
+                tickFormatter={(value) => `R$${(value / 1000).toFixed(0)}k`}
+                dx={-10}
               />
               <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1, strokeDasharray: '3 3' }} />
               

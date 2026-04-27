@@ -100,16 +100,34 @@ export const CaseCharts: React.FC<CaseChartsProps> = ({ faturamentoInfo, investi
   const data = useMemo(() => generateChartData(faturamentoInfo.value, investimentoInfo.value, viewMode), [faturamentoInfo.value, investimentoInfo.value, viewMode]);
 
   return (
-    <div className="w-full h-full flex flex-col p-6 sm:p-10 justify-center bg-zinc-950/50 backdrop-blur-3xl overflow-hidden relative">
+    <div className="w-full h-full flex flex-col p-6 sm:p-10 justify-center bg-zinc-950 overflow-hidden relative">
+      {/* Animated Grid */}
+      <div 
+        className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)`,
+          backgroundSize: '40px 40px',
+        }}
+      />
+
       <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent z-0 pointer-events-none" 
-        animate={{ opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-[#14A3E5] z-0 pointer-events-none opacity-20" 
+        animate={{ 
+          backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
+          opacity: [0.1, 0.3, 0.1]
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+        style={{ backgroundSize: '200% 200%' }}
       />
       <motion.div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/10 blur-[120px] rounded-full pointer-events-none z-0" 
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] blur-[150px] rounded-full pointer-events-none z-0" 
+        style={{ backgroundColor: accentColor }}
+        animate={{ 
+          scale: [0.8, 1.2, 0.8], 
+          opacity: [0.1, 0.25, 0.1],
+          rotate: [0, 90, 0]
+        }}
+        transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
       />
       
       <motion.div 
@@ -160,9 +178,9 @@ export const CaseCharts: React.FC<CaseChartsProps> = ({ faturamentoInfo, investi
           </div>
         </div>
         
-        <div className="h-[250px] sm:h-[300px] w-full bg-[#111827]/40 rounded-2xl border border-white/5 p-4 sm:p-6 backdrop-blur-sm">
+        <div className="h-[250px] sm:h-[300px] w-full bg-[#111827]/40 rounded-2xl border border-white/5 p-4 sm:p-6 backdrop-blur-sm pr-6 sm:pr-8">
            <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={data} margin={{ top: 10, right: 40, left: 20, bottom: 0 }}>
+            <AreaChart data={data} margin={{ top: 10, right: 60, left: 10, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorFat" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor={accentColor} stopOpacity={0.6}/>

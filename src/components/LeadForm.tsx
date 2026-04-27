@@ -63,7 +63,7 @@ Aguardo o retorno para validarmos um horário! 💥`;
                className="w-16 h-16 md:w-20 md:h-20 bg-white/5 rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.05)] relative border border-white/10 backdrop-blur-xl"
              >
                <img 
-                 src="https://www.gstatic.com/meet/icons/meet_icon_2020q4_512dp_2x_a9a5840d02462e07172fe4c3d22b647f.png" 
+                 src="https://i.imgur.com/DoP8lpt.png" 
                  alt="Google Meet"
                  className="w-10 h-10 md:w-12 md:h-12 object-contain"
                  referrerPolicy="no-referrer"

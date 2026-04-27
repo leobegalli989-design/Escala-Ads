@@ -273,18 +273,34 @@ export const Cases = () => {
                   y: -5,
                   boxShadow: `0px 20px 40px -10px ${item.accentColor}40`,
                 }}
-                className="group relative rounded-[2rem] overflow-hidden p-[1px] transform-gpu cursor-pointer bg-zinc-900/40 border border-white/5 flex flex-col min-h-[450px] snap-center shrink-0 w-[85vw] sm:w-[360px] md:w-[calc(50%-12px)] lg:min-w-[calc(33.333%-16px)] lg:w-[calc(33.333%-16px)] max-w-full"
+                className="group relative rounded-[2rem] overflow-hidden p-[1px] transform-gpu cursor-pointer bg-zinc-900/40 border border-white/5 flex flex-col min-h-[450px] snap-center shrink-0 w-[85vw] sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] max-w-full"
                 onClick={() => setSelectedCase(item)}
               >
                 {/* Continuous Animated Gradient Border */}
                 <div 
-                  className="absolute inset-0 z-0 animate-[spin_6s_linear_infinite] blur-md opacity-30 group-hover:opacity-100 transition-opacity duration-700"
+                  className="absolute inset-0 z-0 animate-[spin_4s_linear_infinite] blur-md opacity-50 group-hover:opacity-100 transition-opacity duration-700"
                   style={{
-                    background: `conic-gradient(from 0deg, transparent 0 300deg, ${item.accentColor} 360deg)`
+                    background: `conic-gradient(from 0deg, transparent 0 200deg, ${item.accentColor} 300deg, transparent 360deg)`
                   }}
                 />
+
+                {/* Shimmer Effect */}
+                <div 
+                  className="absolute inset-0 z-10 pointer-events-none opacity-20"
+                  style={{
+                    background: `linear-gradient(90deg, transparent, ${item.accentColor}, transparent)`,
+                    transform: 'translateZ(0) skewX(-20deg)',
+                    animation: 'shimmer 3s infinite'
+                  }}
+                />
+                <style>{`
+                  @keyframes shimmer {
+                    0% { transform: translateX(-150%) skewX(-20deg); }
+                    100% { transform: translateX(150%) skewX(-20deg); }
+                  }
+                `}</style>
                 
-                <div className="relative z-10 w-full h-full rounded-[2rem] overflow-hidden bg-black/90 flex flex-col group-hover:bg-black/80 transition-colors duration-500">
+                <div className="relative z-20 w-full h-full rounded-[2rem] overflow-hidden bg-black/90 flex flex-col group-hover:bg-black/80 transition-colors duration-500">
                   <div className="h-48 sm:h-56 relative overflow-hidden shrink-0">
                     <img
                       src={getOptimizedImageUrl(item.image, 400)}
@@ -354,27 +370,40 @@ export const Cases = () => {
           </div>
 
           {/* New Animated Controls at Bottom */}
-          <div className="flex justify-center md:justify-end gap-4 mt-6">
-            <button 
+          <div className="flex justify-center md:justify-end gap-6 mt-8">
+            <motion.button 
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
               onClick={() => {
                 const el = document.getElementById('cases-scroll');
                 if (el) el.scrollBy({ left: -(el.offsetWidth), behavior: 'smooth' });
               }}
-              className="group relative w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center overflow-hidden bg-[#0A0D15]/80 border border-white/20 hover:border-primary transition-all duration-500 shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:shadow-[0_0_40px_rgba(20,163,229,0.3)] backdrop-blur-md"
+              className="group relative w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center overflow-hidden bg-zinc-900 border border-white/10 hover:border-primary/50 transition-colors shadow-[0_0_20px_rgba(0,0,0,0.5)]"
             >
-              <div className="absolute inset-0 bg-primary/20 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
-              <ChevronLeft size={28} className="relative z-10 text-white/70 group-hover:text-primary transition-all group-hover:-translate-x-1 duration-500" />
-            </button>
-            <button 
+              {/* Spinning border effect */}
+              <div className="absolute inset-[-50%] bg-gradient-to-r from-transparent via-primary/30 to-transparent group-hover:via-primary/50 opacity-0 group-hover:opacity-100 animate-[spin_4s_linear_infinite]" />
+              
+              <div className="absolute inset-[2px] bg-zinc-950 rounded-full z-10 flex items-center justify-center">
+                <ChevronLeft size={32} className="text-white/50 group-hover:text-primary transition-all duration-300 group-hover:-translate-x-1" />
+              </div>
+            </motion.button>
+
+            <motion.button 
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
               onClick={() => {
                 const el = document.getElementById('cases-scroll');
                 if (el) el.scrollBy({ left: el.offsetWidth, behavior: 'smooth' });
               }}
-              className="group relative w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center overflow-hidden bg-[#0A0D15]/80 border border-white/20 hover:border-primary transition-all duration-500 shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:shadow-[0_0_40px_rgba(20,163,229,0.3)] backdrop-blur-md"
+              className="group relative w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center overflow-hidden bg-zinc-900 border border-white/10 hover:border-primary/50 transition-colors shadow-[0_0_20px_rgba(0,0,0,0.5)]"
             >
-              <div className="absolute inset-0 bg-primary/20 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
-              <ChevronRight size={28} className="relative z-10 text-white/70 group-hover:text-primary transition-all group-hover:translate-x-1 duration-500" />
-            </button>
+              {/* Spinning border effect */}
+              <div className="absolute inset-[-50%] bg-gradient-to-r from-transparent via-primary/30 to-transparent group-hover:via-primary/50 opacity-0 group-hover:opacity-100 animate-[spin_4s_linear_infinite]" />
+              
+              <div className="absolute inset-[2px] bg-zinc-950 rounded-full z-10 flex items-center justify-center">
+                <ChevronRight size={32} className="text-white/50 group-hover:text-primary transition-all duration-300 group-hover:translate-x-1" />
+              </div>
+            </motion.button>
           </div>
         </div>
       </div>

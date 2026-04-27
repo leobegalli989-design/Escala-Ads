@@ -4,34 +4,36 @@ import { ExternalLink, TrendingUp, X, CheckCircle2, Eye, ChevronLeft, ChevronRig
 import { AnimatedCounter } from './AnimatedCounter';
 import { cn } from '../lib/utils';
 
+import { CaseCharts } from './CaseCharts';
+
 const cases = [
   {
     client: 'New York Chicken Crispy',
-    result: '8.88x ROAS',
+    result: '8.33x ROAS',
     accentColor: '#FFCC00',
-    description: 'Faturamento de R$ 78.923,75 com apenas R$ 8.886,88 de investimento em anúncios.',
+    description: 'Faturamento de R$ 97.796,10 com R$ 11.738,29 de investimento em anúncios.',
     image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&q=80&w=800&fm=webp',
     fullDetails: {
       challenge: 'Lançamento de marca do zero em um mercado extremamente competitivo de delivery gastronômico.',
       strategy: 'Implementação de funil de vendas direto para WhatsApp e iFood, com foco em criativos cinematográficos de alto desejo e segmentação local ultra-precisa.',
       testimonial: {
-        text: 'A Nathan Filmes transformou nosso lançamento. O ROAS de 8.88x superou todas as nossas expectativas para uma marca nova em um mercado tão saturado.',
+        text: 'A Escala Ads transformou nosso lançamento. O ROAS superou todas as nossas expectativas para uma marca nova em um mercado tão saturado.',
         author: 'Allan',
-        role: 'CEO New York Chicken'
+        role: 'CEO Nyc Chicken Crispy'
       },
       metrics: [
-        { label: 'Faturamento Período', value: 78923.75, prefix: 'R$ ', decimals: 2 },
-        { label: 'Investimento Ads', value: 8886.88, prefix: 'R$ ', decimals: 2 },
-        { label: 'ROAS', value: 8.88, suffix: 'x', decimals: 2 },
-        { label: 'Ticket Médio', value: 89.38, prefix: 'R$ ', decimals: 2 },
-        { label: 'CPA Médio', value: 10.06, prefix: 'R$ ', decimals: 2 },
-        { label: 'Conversões', value: 883, decimals: 0 },
-        { label: 'Taxa de Conv.', value: 14.64, suffix: '%', decimals: 2 },
-        { label: 'Cliques', value: 6000, suffix: '', decimals: 0 },
-        { label: 'CTR Médio', value: 0.41, suffix: '%', decimals: 2 },
-        { label: 'CPC Médio', value: 1.47, prefix: 'R$ ', decimals: 2 },
-        { label: 'Impressões', value: 1500000, suffix: '', decimals: 0 },
-        { label: 'Alcance', value: 892200, suffix: '', decimals: 0 }
+        { label: 'Faturamento', value: 97796.10, prefix: 'R$ ', decimals: 2 },
+        { label: 'Gasto Ads', value: 11738.29, prefix: 'R$ ', decimals: 2 },
+        { label: 'ROAS', value: 8.33, suffix: 'x', decimals: 2 },
+        { label: 'Ticket Médio', value: 90.80, prefix: 'R$ ', decimals: 2 },
+        { label: 'CPA Médio', value: 10.90, prefix: 'R$ ', decimals: 2 },
+        { label: 'Conversões', value: 1.1, suffix: 'k', decimals: 1 },
+        { label: 'Taxa Conv.', value: 15.46, suffix: '%', decimals: 2 },
+        { label: 'Cliques', value: 7.0, suffix: 'k', decimals: 1 },
+        { label: 'CTR Médio', value: 0.37, suffix: '%', decimals: 2 },
+        { label: 'CPC Médio', value: 1.69, prefix: 'R$ ', decimals: 2 },
+        { label: 'Impressões', value: 1.9, suffix: 'M', decimals: 1 },
+        { label: 'Alcance', value: 1.1, suffix: 'M', decimals: 1 },
       ]
     }
   },
@@ -215,15 +217,6 @@ const getOptimizedImageUrl = (url: string, width: number) => {
 
 export const Cases = () => {
   const [selectedCase, setSelectedCase] = useState<typeof cases[0] | null>(null);
-  const [currentIdx, setCurrentIdx] = useState(0);
-
-  const handleNext = () => {
-    setCurrentIdx((prev) => (prev + 1) % cases.length);
-  };
-
-  const handlePrev = () => {
-    setCurrentIdx((prev) => (prev - 1 + cases.length) % cases.length);
-  };
 
   const modalContentRef = React.useRef<HTMLDivElement>(null);
 
@@ -255,148 +248,101 @@ export const Cases = () => {
           </p>
         </div>
 
-        <div className="w-full relative max-w-4xl mx-auto px-6 md:px-0">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIdx}
-              initial={{ opacity: 0, x: 50, filter: "blur(10px)" }}
-              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, x: -50, filter: "blur(10px)" }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="group relative rounded-[2rem] overflow-hidden p-[1px] will-change-transform transform-gpu w-full h-auto min-h-[500px] sm:h-[550px] cursor-pointer shadow-2xl bg-zinc-900/40 border border-white/5"
-              onClick={() => setSelectedCase(cases[currentIdx])}
-            >
-              {/* Animated Gradient Border */}
-              <div 
-                className="absolute inset-0 z-0 animate-spin-slow opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-md hidden md:block"
-                style={{
-                  background: `conic-gradient(from 0deg, transparent 0 340deg, ${cases[currentIdx].accentColor} 360deg)`
+        <div className="w-full relative mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {cases.map((item, index) => (
+              <motion.div
+                key={item.client}
+                initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: index * 0.1,
+                  ease: "easeOut"
                 }}
-              />
-              
-              <div className="relative z-10 w-full h-full rounded-[2rem] overflow-hidden bg-black flex flex-col group-hover:bg-black/80 transition-colors duration-700">
-                <div className="absolute inset-0 overflow-hidden rounded-[2rem]">
-                  {/* Blur-up Placeholder */}
-                  <img
-                    src={getOptimizedImageUrl(cases[currentIdx].image, 40)}
-                    alt=""
-                    className="absolute inset-0 w-full h-full object-cover blur-3xl scale-125 opacity-40 group-hover:opacity-60 transition-opacity duration-700 -z-10"
-                    aria-hidden="true"
-                  />
-                  
-                  <img
-                    src={getOptimizedImageUrl(cases[currentIdx].image, 800)}
-                    srcSet={`${getOptimizedImageUrl(cases[currentIdx].image, 400)} 400w, ${getOptimizedImageUrl(cases[currentIdx].image, 800)} 800w, ${getOptimizedImageUrl(cases[currentIdx].image, 1200)} 1200w`}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    alt={cases[currentIdx].client}
-                    className="w-full h-full object-cover sm:object-contain bg-transparent sm:bg-zinc-950 group-hover:scale-105 transition-transform duration-1000 opacity-0 transition-opacity duration-700"
-                    referrerPolicy="no-referrer"
-                    loading="eager"
-                    decoding="async"
-                    onLoad={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.classList.remove('opacity-0');
-                      target.classList.add('opacity-80', 'group-hover:opacity-50');
-                    }}
-                  />
-                  
-                  {/* Gradient Overlay for Text Readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent md:opacity-90 opacity-100 transition-opacity duration-500 z-10" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-60" />
-                </div>
-
-                {/* Content Container */}
-                <div className="relative h-full p-6 sm:p-10 flex flex-col justify-end z-20">
-                  {/* Metric Floating Badge */}
-                  <motion.div 
-                    initial={{ y: -10, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.6 }}
-                    className="absolute top-6 right-6 px-4 py-2 rounded-full backdrop-blur-xl flex items-center gap-2 shadow-[0_8px_30px_rgb(0,0,0,0.5)] border border-white/10"
-                    style={{ 
-                      backgroundColor: `${cases[currentIdx].accentColor}10`,
-                      color: cases[currentIdx].accentColor,
-                    }}
-                  >
-                    <TrendingUp size={16} />
-                    <span className="text-base sm:text-xl font-black tracking-tight">{cases[currentIdx].result}</span>
-                  </motion.div>
-
-                  <div className="transform translate-y-0 sm:translate-y-8 sm:group-hover:translate-y-0 transition-all duration-500 ease-out">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-8 h-px bg-white/20" />
-                      <div className="text-xs font-bold tracking-widest uppercase text-white/50">Case Study</div>
-                    </div>
-
-                    <h3 className="text-3xl sm:text-4xl font-black mb-3 text-white tracking-tight drop-shadow-lg leading-tight">
-                      {cases[currentIdx].client}
-                    </h3>
+                whileHover={{ 
+                  y: -5,
+                  boxShadow: `0px 20px 40px -10px ${item.accentColor}40`,
+                }}
+                className="group relative rounded-[2rem] overflow-hidden p-[1px] transform-gpu cursor-pointer bg-zinc-900/40 border border-white/5 flex flex-col min-h-[450px]"
+                onClick={() => setSelectedCase(item)}
+              >
+                {/* Animated Gradient Border on Hover */}
+                <div 
+                  className="absolute inset-0 z-0 animate-spin-slow opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-md hidden md:block"
+                  style={{
+                    background: `conic-gradient(from 0deg, transparent 0 340deg, ${item.accentColor} 360deg)`
+                  }}
+                />
+                
+                <div className="relative z-10 w-full h-full rounded-[2rem] overflow-hidden bg-black flex flex-col group-hover:bg-black/90 transition-colors duration-500">
+                  <div className="h-48 sm:h-56 relative overflow-hidden shrink-0">
+                    <img
+                      src={getOptimizedImageUrl(item.image, 400)}
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover blur-2xl scale-125 opacity-40 group-hover:opacity-60 transition-opacity duration-700 -z-10"
+                      aria-hidden="true"
+                    />
+                    <img
+                      src={getOptimizedImageUrl(item.image, 600)}
+                      alt={item.client}
+                      className="w-full h-full object-cover sm:object-contain bg-transparent sm:bg-zinc-950 group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
                     
-                    <p className="text-white/70 text-base mb-6 line-clamp-3 sm:line-clamp-none font-medium leading-relaxed max-w-[95%] sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                      {cases[currentIdx].description}
-                    </p>
-                    
-                    <motion.button 
-                      onClick={(e) => { e.stopPropagation(); setSelectedCase(cases[currentIdx]); }}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      animate={{ boxShadow: ["0px 0px 0px rgba(255,255,255,0)", `0px 0px 15px ${cases[currentIdx].accentColor}40`, "0px 0px 0px rgba(255,255,255,0)"] }}
-                      transition={{ boxShadow: { repeat: Infinity, duration: 2, delay: 0.2 } }}
-                      className="w-full sm:w-auto px-8 py-4 border border-white/10 transition-all duration-500 rounded-xl flex items-center justify-center gap-3 text-sm font-black uppercase overflow-hidden relative group/btn tracking-widest bg-white/5 hover:border-transparent sm:opacity-0 sm:group-hover:opacity-100 shadow-xl"
+                    {/* Floating Metric Badge */}
+                    <div 
+                      className="absolute top-4 right-4 px-3 py-1.5 rounded-full backdrop-blur-md flex items-center gap-1.5 shadow-xl border border-white/10 z-20"
                       style={{ 
-                        borderColor: `${cases[currentIdx].accentColor}30`
+                        backgroundColor: `${item.accentColor}20`,
+                        color: item.accentColor,
                       }}
                     >
-                      <div 
-                        className="absolute inset-0 translate-y-full sm:group-hover/btn:translate-y-0 transition-transform duration-500 ease-out"
-                        style={{ backgroundColor: cases[currentIdx].accentColor }}
-                      />
-                      <span className="relative z-10 flex items-center gap-2 group-hover/btn:text-black transition-colors duration-300">
-                        Ver Case Completo <ExternalLink size={16} />
-                      </span>
-                    </motion.button>
+                      <TrendingUp size={14} />
+                      <span className="text-xs font-black tracking-tight">{item.result}</span>
+                    </div>
                   </div>
-                </div>
-                
-                {/* Glow Effect behind text container */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0">
+
+                  <div className="flex-1 p-6 flex flex-col justify-between relative z-20">
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-4 h-px bg-white/20" />
+                        <div className="text-[10px] font-bold tracking-widest uppercase text-white/50">Case Study</div>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-black mb-3 text-white tracking-tight leading-tight line-clamp-2">
+                        {item.client}
+                      </h3>
+                      <p className="text-white/60 text-sm font-medium leading-relaxed line-clamp-3">
+                        {item.description}
+                      </p>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between group-hover:border-white/10 transition-colors">
+                      <span className="text-xs font-bold uppercase tracking-widest text-white/40 group-hover:text-white transition-colors">
+                        Ver Detalhes
+                      </span>
+                      <div 
+                        className="w-8 h-8 rounded-full flex items-center justify-center bg-white/5 group-hover:scale-110 transition-transform"
+                        style={{ color: item.accentColor }}
+                      >
+                        <ExternalLink size={14} />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Subtle Glow inside card */}
                   <div 
-                    className="absolute inset-0" 
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0"
                     style={{ 
-                      background: `radial-gradient(circle at bottom left, ${cases[currentIdx].accentColor}15, transparent 70%)`
+                      background: `radial-gradient(circle at bottom center, ${item.accentColor}10, transparent 70%)`
                     }}
                   />
                 </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-          
-          {/* Navigation Controls */}
-          <div className="flex items-center justify-between gap-4 mt-8 px-2 md:px-0">
-            <button 
-              onClick={handlePrev}
-              className="p-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-white active:scale-95"
-            >
-              <ChevronLeft size={24} />
-            </button>
-            <div className="flex gap-2">
-              {cases.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setCurrentIdx(idx)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    idx === currentIdx ? 'w-8 bg-primary' : 'w-2 bg-white/20 hover:bg-white/40'
-                  }`}
-                  aria-label={`Go to case ${idx + 1}`}
-                />
-              ))}
-            </div>
-            <button 
-              onClick={handleNext}
-              className="p-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-white active:scale-95"
-            >
-              <ChevronRight size={24} />
-            </button>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
@@ -427,11 +373,16 @@ export const Cases = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 40, filter: 'blur(10px)' }}
               animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, scale: 0.95, y: 40, filter: 'blur(10px)' }}
+              exit={{ 
+                opacity: 0, 
+                y: 100, 
+                filter: 'blur(10px)',
+                transition: { duration: 0.3, ease: 'easeIn' }
+              }}
               transition={{ 
                 type: "spring",
-                damping: 25,
-                stiffness: 200,
+                damping: 15,
+                stiffness: 300,
                 mass: 0.8
               }}
               className="relative w-full h-[100dvh] md:max-w-5xl md:h-auto md:max-h-[90vh] bg-zinc-950 border-x md:border border-white/10 md:rounded-2xl shadow-2xl z-10 overflow-y-auto flex flex-col md:flex-row custom-scrollbar"
@@ -449,47 +400,23 @@ export const Cases = () => {
                 {/* Swipe Hint for Mobile */}
                 <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-white/20 rounded-full md:hidden z-50" />
 
-                {/* Fixed Image Section */}
-                <div className="w-full md:w-1/2 md:sticky md:top-0 h-64 sm:h-80 md:h-[90vh] relative shrink-0 overflow-hidden bg-zinc-900">
-                  {/* Blur-up Placeholder */}
-                  <img
-                    src={getOptimizedImageUrl(selectedCase.image, 40)}
-                    alt=""
-                    className="absolute inset-0 w-full h-full object-cover blur-3xl scale-110 opacity-50 -z-10"
-                    aria-hidden="true"
+                {/* Chart Section substituting Image */}
+                <div className="w-full md:w-1/2 md:sticky md:top-0 h-[450px] sm:h-[500px] md:h-[100dvh] relative shrink-0 overflow-hidden bg-[#050505] flex flex-col md:border-r border-white/5">
+                  <CaseCharts 
+                    faturamentoInfo={selectedCase.fullDetails.metrics.find(m => m.label.toLowerCase().includes('faturamento') && !m.label.toLowerCase().includes('inicial')) || { value: selectedCase.fullDetails.metrics[0]?.value || 0, label: 'Faturamento' }}
+                    investimentoInfo={selectedCase.fullDetails.metrics.find(m => m.label.toLowerCase().includes('gasto') || m.label.toLowerCase().includes('investimento')) || { value: selectedCase.fullDetails.metrics[1]?.value || 0, label: 'Investimento' }}
+                    accentColor={selectedCase.accentColor}
                   />
                   
-                  <img 
-                    src={getOptimizedImageUrl(selectedCase.image, 1200)}
-                    srcSet={`${getOptimizedImageUrl(selectedCase.image, 600)} 600w, ${getOptimizedImageUrl(selectedCase.image, 1200)} 1200w`}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    alt={selectedCase.client}
-                    className="w-full h-full object-contain bg-zinc-900 opacity-0 transition-opacity duration-500"
-                    referrerPolicy="no-referrer"
-                    loading="eager"
-                    decoding="async"
-                    fetchPriority="high"
-                    onLoad={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.classList.remove('opacity-0');
-                      target.classList.add('opacity-100');
-                    }}
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = `https://picsum.photos/seed/${selectedCase.client}/1200/800`;
-                      target.classList.remove('opacity-0');
-                      target.classList.add('opacity-100');
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-zinc-900 animate-pulse -z-20" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent md:hidden" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-zinc-950/20 to-zinc-950 hidden md:block" />
+                  {/* Decorative Elements */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent md:hidden pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-zinc-950/20 to-zinc-950 hidden md:block pointer-events-none" />
                   
-                  {/* ROAS Badge on Image */}
+                  {/* ROAS Badge floating */}
                   <div 
-                    className="absolute bottom-4 left-4 z-20 px-4 py-2 rounded-full backdrop-blur-xl border flex items-center gap-2 shadow-2xl"
+                    className="absolute top-4 left-4 md:bottom-8 md:top-auto md:left-8 z-20 px-4 py-2 rounded-full backdrop-blur-xl border flex items-center gap-2 shadow-2xl"
                     style={{ 
-                      backgroundColor: `${selectedCase.accentColor}20`,
+                      backgroundColor: `${selectedCase.accentColor}10`,
                       borderColor: `${selectedCase.accentColor}40`,
                       color: selectedCase.accentColor
                     }}
@@ -561,66 +488,84 @@ export const Cases = () => {
                       </div>
                     )}
 
-                    <div>
-                      <h4 
-                        className="text-xs uppercase tracking-widest mb-4 flex items-center gap-2"
-                        style={{ color: selectedCase.accentColor }}
-                      >
-                        <CheckCircle2 size={14} /> Métricas de Escala
-                      </h4>
-                      <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                        {selectedCase.fullDetails.metrics.map((metric, i) => {
-                          const getMetricColor = (label: string) => {
-                            const l = label.toLowerCase();
-                            if (l.includes('faturamento')) return 'text-emerald-400';
-                            if (l.includes('investimento') || l.includes('gasto')) return 'text-rose-400';
-                            if (l.includes('roas')) return 'text-amber-400';
-                            if (l.includes('leads')) return 'text-blue-400';
-                            if (l.includes('conversão') || l.includes('conv.')) return 'text-fuchsia-400';
-                            if (l.includes('cliques')) return 'text-orange-400';
-                            if (l.includes('cpa')) return 'text-sky-400';
-                            if (l.includes('ticket')) return 'text-cyan-400';
-                            if (l.includes('ctr')) return 'text-violet-400';
-                            if (l.includes('cpc')) return 'text-indigo-400';
-                            if (l.includes('impressões')) return 'text-pink-400';
-                            if (l.includes('alcance')) return 'text-purple-400';
-                            return 'text-white';
-                          };
-                          const metricColor = getMetricColor(metric.label);
-                          
-                          return (
-                            <motion.div 
-                              key={i} 
-                              initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-                              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                              transition={{ 
-                                duration: 0.8, 
-                                delay: 0.2 + (i * 0.04),
-                                ease: [0.22, 1, 0.36, 1]
-                              }}
-                              className="bg-white/10 border border-white/10 p-2.5 sm:p-4 rounded-xl group/metric transition-all hover:bg-white/20 hover:border-primary/30"
-                              style={{ 
-                                borderColor: i % 2 === 0 ? `${selectedCase.accentColor}20` : 'rgba(255,255,255,0.1)'
-                              }}
-                            >
-                              <div 
-                                className="text-[9px] text-gray-neutral uppercase tracking-wider mb-1 group-hover/metric:text-primary transition-colors"
-                                style={{ color: 'rgba(255,255,255,0.4)' }}
+                    <div className="mt-8 relative w-full overflow-hidden sm:overflow-visible">
+                      <div className="bg-[#0A0D15]/90 backdrop-blur-2xl p-4 sm:p-8 rounded-3xl border border-[#1A233A]/80 shadow-[0_0_50px_-12px_rgba(37,99,235,0.15)] relative w-full overflow-hidden mx-auto transform-gpu">
+                        {/* Glows at the top */}
+                        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary/80 to-transparent"></div>
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-8 bg-primary/20 blur-2xl rounded-full"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 blur-[100px] pointer-events-none"></div>
+                        
+                        <div className="text-center mb-8 pt-2 relative z-10">
+                          <h2 className="text-[#3B82F6] text-2xl sm:text-3xl font-black uppercase tracking-[0.25em] font-montserrat drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]">
+                            RELATÓRIO ESCALA<br/>ADS
+                          </h2>
+                          <div className="w-16 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent mx-auto mt-4 rounded-full"></div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3 sm:gap-6 mb-6 relative z-10">
+                          <div className="bg-[#111827]/80 backdrop-blur-md rounded-2xl border border-white/5 p-4 text-center group hover:bg-[#111827] hover:border-white/10 transition-colors flex flex-col justify-center h-full">
+                            <div className="text-[10px] sm:text-[11px] font-montserrat uppercase tracking-[0.2em] text-[#60A5FA] mb-1.5 opacity-70 group-hover:opacity-100 transition-opacity">Cliente</div>
+                            <div className="text-sm sm:text-lg font-bold font-tech text-white leading-tight break-words" style={{ wordBreak: 'break-word' }}>{selectedCase.client}</div>
+                          </div>
+                          <div className="bg-[#111827]/80 backdrop-blur-md rounded-2xl border border-white/5 p-4 text-center group hover:bg-[#111827] hover:border-white/10 transition-colors flex flex-col justify-center h-full">
+                            <div className="text-[10px] sm:text-[11px] font-montserrat uppercase tracking-[0.2em] text-[#60A5FA] mb-1.5 opacity-70 group-hover:opacity-100 transition-opacity">Período</div>
+                            <div className="text-sm sm:text-lg font-bold font-tech text-white leading-tight break-words" style={{ wordBreak: 'break-word' }}>Período Completo</div>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3 sm:gap-6 relative z-10">
+                          {selectedCase.fullDetails.metrics.map((metric, i) => {
+                            const getMetricColor = (label: string) => {
+                              const l = label.toLowerCase();
+                              if (l.includes('faturamento')) return { border: 'group-hover:border-[#34D399]/40', bg: 'hover:bg-[#34D399]/5', text: 'text-[#34D399]', dropShadow: 'drop-shadow-[0_0_20px_rgba(52,211,153,0.4)]' };
+                              if (l.includes('investimento') || l.includes('gasto')) return { border: 'group-hover:border-[#F87171]/40', bg: 'hover:bg-[#F87171]/5', text: 'text-[#F87171]', dropShadow: 'drop-shadow-[0_0_20px_rgba(248,113,113,0.4)]' };
+                              if (l.includes('roas')) return { border: 'group-hover:border-[#FBBF24]/40', bg: 'hover:bg-[#FBBF24]/5', text: 'text-[#FBBF24]', dropShadow: 'drop-shadow-[0_0_20px_rgba(251,191,36,0.4)]' };
+                              if (l.includes('conversão') || l.includes('conv.')) return { border: 'group-hover:border-[#E879F9]/40', bg: 'hover:bg-[#E879F9]/5', text: 'text-[#E879F9]', dropShadow: 'drop-shadow-[0_0_20px_rgba(232,121,249,0.4)]' };
+                              if (l.includes('cliques')) return { border: 'group-hover:border-[#FDBA74]/40', bg: 'hover:bg-[#FDBA74]/5', text: 'text-[#FDBA74]', dropShadow: 'drop-shadow-[0_0_20px_rgba(253,186,116,0.4)]' };
+                              if (l.includes('cpa')) return { border: 'group-hover:border-[#818CF8]/40', bg: 'hover:bg-[#818CF8]/5', text: 'text-[#818CF8]', dropShadow: 'drop-shadow-[0_0_20px_rgba(129,140,248,0.4)]' };
+                              if (l.includes('ticket')) return { border: 'group-hover:border-[#34D399]/40', bg: 'hover:bg-[#34D399]/5', text: 'text-[#34D399]', dropShadow: 'drop-shadow-[0_0_20px_rgba(52,211,153,0.4)]' };
+                              if (l.includes('ctr')) return { border: 'group-hover:border-[#D8B4FE]/40', bg: 'hover:bg-[#D8B4FE]/5', text: 'text-[#D8B4FE]', dropShadow: 'drop-shadow-[0_0_20px_rgba(216,180,254,0.4)]' };
+                              if (l.includes('cpc') || l.includes('conversões')) return { border: 'group-hover:border-[#2DD4BF]/40', bg: 'hover:bg-[#2DD4BF]/5', text: 'text-[#2DD4BF]', dropShadow: 'drop-shadow-[0_0_20px_rgba(45,212,191,0.4)]' };
+                              if (l.includes('impressões')) return { border: 'group-hover:border-[#93C5FD]/40', bg: 'hover:bg-[#93C5FD]/5', text: 'text-[#93C5FD]', dropShadow: 'drop-shadow-[0_0_20px_rgba(147,197,253,0.4)]' };
+                              if (l.includes('alcance')) return { border: 'group-hover:border-[#60A5FA]/40', bg: 'hover:bg-[#60A5FA]/5', text: 'text-[#60A5FA]', dropShadow: 'drop-shadow-[0_0_20px_rgba(96,165,250,0.4)]' };
+                              return { border: 'group-hover:border-white/20', bg: 'hover:bg-white/5', text: 'text-white', dropShadow: '' };
+                            };
+                            const styles = getMetricColor(metric.label);
+                            const isFullWidth = metric.label.toLowerCase() === 'faturamento' || metric.label.toLowerCase() === 'alcance';
+                            
+                            return (
+                              <motion.div 
+                                key={i} 
+                                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                transition={{ 
+                                  duration: 0.6, 
+                                  delay: 0.3 + (i * 0.05),
+                                  ease: [0.22, 1, 0.36, 1]
+                                }}
+                                className={`group bg-[#111827]/60 backdrop-blur-md border border-white/5 p-3 sm:p-5 rounded-2xl flex flex-col items-center justify-center text-center transition-all duration-500 ${styles.bg} ${styles.border} ${isFullWidth ? 'col-span-2 py-6 sm:py-8' : ''}`}
                               >
-                                {metric.label}
-                              </div>
-                              <div className={cn("text-base sm:text-lg font-black tracking-tight", metricColor)}>
-                                <AnimatedCounter 
-                                  value={metric.value} 
-                                  prefix={metric.prefix} 
-                                  suffix={metric.suffix} 
-                                  decimals={metric.decimals} 
-                                  delay={0.4 + (i * 0.08)} 
-                                />
-                              </div>
-                            </motion.div>
-                          );
-                        })}
+                                <div 
+                                  className={`text-[10px] sm:text-xs font-montserrat font-bold uppercase tracking-[0.2em] mb-3 ${styles.text} opacity-60 group-hover:opacity-100 transition-opacity duration-300`}
+                                >
+                                  {metric.label}
+                                </div>
+                                <div className={cn("font-tech font-bold tracking-tighter w-full transition-transform duration-500 group-hover:scale-105 whitespace-nowrap", styles.text, styles.dropShadow, isFullWidth ? 'text-3xl sm:text-4xl md:text-5xl font-black' : 'text-lg sm:text-xl md:text-2xl')}>
+                                  {metric.prefix || ''}{new Intl.NumberFormat('pt-BR', { minimumFractionDigits: metric.decimals || 0, maximumFractionDigits: metric.decimals || 0 }).format(metric.value)}{metric.suffix || ''}
+                                </div>
+                              </motion.div>
+                            );
+                          })}
+                        </div>
+                        
+                        <div className="flex justify-center mt-8 opacity-70 relative z-10 filter drop-shadow-md">
+                           <div className="flex items-center gap-1 group cursor-default">
+                             <div className="text-white font-montserrat font-black tracking-tighter text-xl group-hover:text-primary transition-colors">ESCALA<span className="text-[#3B82F6]">ADS</span></div>
+                           </div>
+                        </div>
+                        <div className="text-[7px] sm:text-[9px] text-center text-white/40 uppercase tracking-[0.4em] font-montserrat font-bold mt-3 relative z-10">
+                          Performance Digital de Elite
+                        </div>
                       </div>
                     </div>
                   </div>

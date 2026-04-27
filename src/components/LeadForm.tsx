@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Send, Building2, User, Phone, Target, TrendingUp } from 'lucide-react';
+import { Send, Building2, User, Phone, Target, TrendingUp, Video } from 'lucide-react';
 
 export const LeadForm = () => {
   const [formData, setFormData] = useState({
@@ -15,17 +15,17 @@ export const LeadForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const text = `Olá! Meu nome é *${formData.name}*.
-Gostaria de agendar um diagnóstico estratégico para minha empresa *${formData.company}*.
+    const text = `Ol\u00E1! Meu nome \u00E9 *${formData.name}* \ud83d\udc4b
+Gostaria de agendar uma reuni\u00E3o de diagn\u00F3stico via Google Meet para minha empresa *${formData.company}* \ud83d\ude80
 
-*Faturamento Atual:* ${formData.revenue}
-*Disposto a investir R$ 1.000+ em tráfego?* ${formData.willingToInvest}
-*Meu principal desafio hoje é:* ${formData.challenge}
+\ud83d\udcb0 *Faturamento Atual:* ${formData.revenue}
+\ud83d\udcba *Disposto a investir R$ 1.000+ em tr\u00E1fego?* ${formData.willingToInvest}
+\ud83c\udfaf *Meu principal desafio hoje \u00E9:* ${formData.challenge}
 
-Aguardo o retorno para darmos o próximo passo!`;
+Aguardo o retorno para validarmos um hor\u00E1rio! \ud83d\udca5`;
 
     const encodedText = encodeURIComponent(text);
-    const whatsappUrl = `https://wa.me/5535998208622?text=${encodedText}`;
+    const whatsappUrl = `https://wa.me/5535984081705?text=${encodedText}`;
     
     window.open(whatsappUrl, '_blank');
   };
@@ -48,9 +48,9 @@ Aguardo o retorno para darmos o próximo passo!`;
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-black tracking-tighter mb-4"
+            className="text-3xl md:text-5xl font-black tracking-tighter mb-4 flex items-center justify-center gap-3 flex-wrap"
           >
-            FICHA DE <span className="text-primary">APLICAÇÃO</span>
+            AGENDAR <span className="text-primary">REUNIÃO (GOOGLE MEET)</span> <Video className="w-8 h-8 md:w-12 md:h-12 text-primary" />
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -59,7 +59,7 @@ Aguardo o retorno para darmos o próximo passo!`;
             transition={{ delay: 0.1 }}
             className="text-gray-neutral max-w-2xl mx-auto"
           >
-            Preencha os dados abaixo para enviar suas informações diretamente para o nosso WhatsApp e agendar seu diagnóstico estratégico.
+            Preencha os dados abaixo para enviar suas informações e agendar nosso bate-papo de diagnóstico estratégico no Google Meet.
           </motion.p>
         </div>
 
@@ -177,7 +177,7 @@ Aguardo o retorno para darmos o próximo passo!`;
             transition={{ boxShadow: { repeat: Infinity, duration: 2 } }}
             className="w-full py-4 bg-primary text-black font-black uppercase tracking-widest rounded-xl hover:shadow-[0_0_30px_rgba(20,163,229,0.3)] transition-all flex items-center justify-center gap-2"
           >
-            Enviar para o WhatsApp <Send size={18} />
+            Agendar Reunião no WhatsApp <Send size={18} />
           </motion.button>
         </motion.form>
       </div>

@@ -21,7 +21,7 @@ const StatItem = ({ numericValue, label, prefix = '', suffix = '', icon: Icon }:
         viewport={{ once: true, margin: "-50px" }}
         className="text-2xl sm:text-3xl md:text-4xl font-montserrat text-white font-black tracking-tighter group-hover:text-primary transition-colors"
       >
-        <AnimatedCounter value={numericValue} prefix={prefix} suffix={suffix} decimals={numericValue % 1 !== 0 ? 1 : 0} />
+        <AnimatedCounter value={numericValue} prefix={prefix} suffix={suffix} decimals={numericValue.toString().includes('.') ? 1 : 0} />
       </motion.div>
       {/* Glow effect on hover - Only on desktop */}
       <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 -z-10" />
@@ -133,7 +133,7 @@ export const Hero = () => {
               </a>
             </Magnetic>
             <motion.a 
-              href="https://wa.me/5535998208622?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Escala%20Ads."
+              href="https://wa.me/5535984081705?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20diagn%C3%B3stico%20para%20o%20meu%20neg%C3%B3cio!%20%F0%9F%9A%80%F0%9F%93%88"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
@@ -148,7 +148,7 @@ export const Hero = () => {
               </span>
             </motion.a>
             <motion.a 
-              href="https://instagram.com"
+              href="https://www.instagram.com/escalads.oficial/"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
@@ -178,9 +178,9 @@ export const Hero = () => {
             </motion.a>
           </motion.div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-8 border-t border-white/10 pt-8 px-2 sm:px-0">
-            <StatItem numericValue={322} prefix="+R$ " suffix="k" label="Gerados" icon={TrendingUp} />
-            <StatItem numericValue={20} prefix="+R$ " suffix="k" label="Investidos" icon={DollarSign} />
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-8 border-t border-white/10 pt-8 px-2 sm:px-0 mt-8">
+            <StatItem numericValue={478.0} prefix="+R$ " suffix="k" label="Faturamento" icon={TrendingUp} />
+            <StatItem numericValue={46.9} prefix="+R$ " suffix="k" label="Em Ads" icon={DollarSign} />
             <StatItem numericValue={15} prefix="+" label="Clientes" icon={Users} />
             <StatItem numericValue={1.2} prefix="+" suffix="k" label="Campanhas" icon={Target} />
           </div>

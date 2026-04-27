@@ -297,7 +297,7 @@ export const ROIProjector = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="mt-6 sm:mt-8 p-6 sm:p-8 rounded-3xl bg-primary text-black flex flex-col md:flex-row items-center justify-between gap-6 group cursor-pointer hover:shadow-[0_0_40px_rgba(20,163,229,0.4)] transition-all"
-              onClick={() => window.open('https://wa.me/5535998208622', '_blank')}
+              onClick={() => window.open('https://wa.me/5535984081705?text=Ol%C3%A1!%20Vi%20a%20proje%C3%A7%C3%A3o%20e%20gostaria%20de%20agendar%20um%20diagn%C3%B3stico!%20%F0%9F%9A%80%F0%9F%93%88', '_blank')}
             >
               <div className="text-center md:text-left">
                 <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tighter mb-1">Quer alcançar esses números?</h3>

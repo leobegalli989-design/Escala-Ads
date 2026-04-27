@@ -43,7 +43,7 @@ export const FinalCTA = () => {
               <ArrowRight size={20} />
             </a>
             <a 
-              href="https://wa.me/5535998208622?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Escala%20Ads."
+              href="https://wa.me/5535984081705?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20diagn%C3%B3stico%20para%20o%20meu%20neg%C3%B3cio!%20%F0%9F%9A%80%F0%9F%93%88"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-5 sm:px-10 sm:py-5 border border-white/20 hover:border-primary/50 hover:bg-primary/5 transition-all text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-3 text-sm sm:text-base group/ws"

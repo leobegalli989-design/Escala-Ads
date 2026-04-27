@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -8,6 +9,7 @@
 
   --font-montserrat: "Montserrat", sans-serif;
   --font-tech: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 
   --animate-glow: glow 2s ease-in-out infinite alternate;
   --animate-shimmer-slide: shimmer-slide 2s infinite;

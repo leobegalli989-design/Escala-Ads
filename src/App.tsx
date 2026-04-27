@@ -26,8 +26,8 @@ export default function App() {
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: isMobile ? 1.5 : 2,
+      wheelMultiplier: 0.8,
+      touchMultiplier: isMobile ? 1.2 : 2,
       infinite: false,
     });
 

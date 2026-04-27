@@ -143,7 +143,7 @@ export const Hero = () => {
               className="px-6 py-5 sm:px-8 sm:py-4 border border-[#25D366]/30 hover:border-[#25D366]/80 hover:bg-[#25D366]/10 transition-colors text-white font-bold uppercase tracking-tighter rounded-xl flex items-center justify-center gap-2 relative overflow-hidden group text-sm sm:text-base w-full sm:w-auto shadow-[0_0_15px_rgba(37,211,102,0.15)]"
             >
               <span className="relative z-10 flex items-center gap-2">
-                <MessageCircle size={20} className="text-[#25D366]" />
+                <img src="https://i.imgur.com/yRjn3DP.jpeg" className="w-5 h-5 rounded-full object-cover" alt="WhatsApp" />
                 WhatsApp
               </span>
             </motion.a>

@@ -425,7 +425,7 @@ export const Cases = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               onClick={() => setSelectedCase(null)}
-              className="fixed top-4 right-4 md:top-8 md:right-8 z-[110] p-3 bg-black/60 backdrop-blur-md rounded-full text-white hover:text-primary transition-all border border-white/10 shadow-2xl active:scale-90 hidden md:block"
+              className="fixed top-4 right-4 md:top-8 md:right-8 z-[110] p-3 bg-black/60 backdrop-blur-md rounded-full text-white hover:text-primary transition-all border border-white/10 shadow-2xl active:scale-90"
               aria-label="Fechar case"
             >
               <X size={20} />
@@ -446,18 +446,10 @@ export const Cases = () => {
                 stiffness: 300,
                 mass: 0.8
               }}
-              className="relative w-full h-[100dvh] md:max-w-5xl md:h-auto md:max-h-[90vh] bg-zinc-950 border-x md:border border-white/10 md:rounded-2xl shadow-2xl z-10 overflow-y-auto flex flex-col md:flex-row custom-scrollbar"
+              className="relative w-full h-full md:max-w-5xl md:h-auto max-h-screen md:max-h-[90vh] bg-zinc-950 border-x md:border border-white/10 md:rounded-2xl shadow-2xl z-10 overflow-y-auto flex flex-col md:flex-row custom-scrollbar"
               ref={modalContentRef}
               data-lenis-prevent
             >
-                {/* Mobile Close Button inside the scrollable content */}
-                <button 
-                  onClick={() => setSelectedCase(null)}
-                  className="absolute top-4 right-4 z-[60] p-2 bg-black/60 backdrop-blur-md rounded-full text-white border border-white/10 md:hidden shadow-lg"
-                >
-                  <X size={20} />
-                </button>
-
                 {/* Swipe Hint for Mobile */}
                 <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-white/20 rounded-full md:hidden z-50" />
 
@@ -495,7 +487,7 @@ export const Cases = () => {
 
                 {/* Scrollable Content Section */}
                 <div 
-                  className="w-full md:w-1/2 p-6 sm:p-10 md:p-12 bg-zinc-950 pb-32 sm:pb-10"
+                  className="w-full md:w-1/2 p-6 sm:p-10 md:p-12 bg-zinc-950 pb-40 sm:pb-10"
                 >
                   <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 sm:gap-6 mb-8 sm:mb-10 text-center sm:text-left pt-4 sm:pt-0">
                     <div className="flex flex-col items-center sm:items-start">

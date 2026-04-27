@@ -258,9 +258,11 @@ Aguardo o retorno para validarmos um horário! 💥`;
             <div className="absolute inset-0 z-0 border border-white/40 rounded-2xl" />
 
             <span className="relative z-10 flex items-center justify-center gap-3 text-white font-black text-lg md:text-xl uppercase tracking-wider drop-shadow-md">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 drop-shadow-sm group-hover:scale-110 transition-transform duration-300">
-                 <path d="M12.031 21.085c-1.636-.005-3.238-.426-4.664-1.22l-.335-.187-3.468.91 1.054-3.324-.228-.358a9.49 9.49 0 0 1-1.464-5.06c0-5.26 4.281-9.544 9.542-9.544 2.551 0 4.949.992 6.752 2.793a9.489 9.489 0 0 1 2.785 6.758c0 5.258-4.28 9.54-9.54 9.542h-.002zM7.051 18.256c1.472.87 3.162 1.33 4.908 1.33h.001c4.426-.002 8.03-3.606 8.03-8.034a8.006 8.006 0 0 0-2.348-5.696A8.003 8.003 0 0 0 11.97 3.513c-4.429 0-8.034 3.606-8.034 8.035 0 1.558.411 3.084 1.192 4.428l.21.36-1.127 3.551 3.633-.951.378.216zm10.02-6.536c-.161-.24-1.071-.322-1.928-.75-1.018-.508-1.552-.508-1.928-.24-.375.268-.96 1.072-1.233 1.233-.268.161-1.072.054-2.143-.482-1.286-.643-2.358-1.607-3.001-2.679-.643-1.072-.268-1.607.054-2.143.161-.268.536-.75.75-1.072.107-.161.428-.428.536-1.286.107-.857 0-1.286 0-1.607-.107-.643-.536-1.928-.964-2.143-.428-.428-1.072-.428-1.608-.428s-1.071.107-1.607.536c-.536.428-1.608 1.607-1.608 3.858 0 2.25 1.714 4.5 2.143 5.036.428.536 3.642 5.679 8.784 7.608.857.322 2.036.75 3.001.75 1.072 0 1.821-.643 2.143-1.393.322-.75.322-1.714.214-1.928z"/>
-              </svg>
+              <img 
+                src="https://i.imgur.com/yRjn3DP.jpeg" 
+                alt="WhatsApp" 
+                className="w-8 h-8 rounded-full object-cover drop-shadow-sm group-hover:scale-110 transition-transform duration-300" 
+              />
               Agendar Reunião
             </span>
           </motion.button>
